@@ -1,0 +1,19 @@
+{
+  "base_commit": "ce6406d8c2eaf46d543c8a2606de0c3cb1951982",
+  "current_rom_sha1": "b9f6a5f93f524a6d36543d1020fdf3125b08b29e",
+  "source_patch_apply_check": "PASS with --ignore-space-change on clean base archive",
+  "first_stone_route_with_capybara": "PASS",
+  "normal_menu_save_then_new_process_continue": "PASS",
+  "other_starter_mission_branches": "NOT RUN on current final build",
+  "defeat_recovery": "NOT RUN",
+  "capture": "NOT RUN on final build",
+  "independent_final_IPS_application": "NOT RUN",
+  "experimental_flushsave_command": "FAIL returns 0 bytes; native backing-file save loaded successfully",
+  "normal_save_progress_after_restart": {
+    "result": "PASS",
+    "flags": "0F",
+    "key_item_id": 361,
+    "party_count": 1,
+    "note": "Read after leaving quest-log replay in a fresh process."
+  }
+}

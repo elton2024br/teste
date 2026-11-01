@@ -1,0 +1,32 @@
+[
+  {
+    "slot": "squirtle",
+    "icon_palette": 0,
+    "battle_palette_colors": 16,
+    "front_back_size": [
+      64,
+      64
+    ],
+    "shiny": "same art palette for current milestone"
+  },
+  {
+    "slot": "charmander",
+    "icon_palette": 0,
+    "battle_palette_colors": 16,
+    "front_back_size": [
+      64,
+      64
+    ],
+    "shiny": "same art palette for current milestone"
+  },
+  {
+    "slot": "bulbasaur",
+    "icon_palette": 2,
+    "battle_palette_colors": 16,
+    "front_back_size": [
+      64,
+      64
+    ],
+    "shiny": "same art palette for current milestone"
+  }
+]

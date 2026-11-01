@@ -1,0 +1,19 @@
+# Local builds and user ROM/save files
+*.gba
+!pokefirered/data/mb_berry_fix.gba
+!pokefirered/data/mb_colosseum.gba
+!pokefirered/data/mb_ereader.gba
+*.sav
+*.state
+*.ss0
+*.ss1
+*.deb
+*.zip
+*.elf
+*.o
+*.a
+__pycache__/
+logs/
+releases/
+**/build/
+tests/emulator/runner
