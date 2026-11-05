@@ -1,0 +1,113 @@
+{
+  "source_commit_under_test": "b2d4e035219607bacba5132763d0676f5fc3b651",
+  "rom_sha1": "b9f6a5f93f524a6d36543d1020fdf3125b08b29e",
+  "reproduced_recorded_rom": true,
+  "runner_compile": "PASS (-Wall -Wextra -Werror)",
+  "tests": [
+    {
+      "starter": "capivagua",
+      "result": "PASS",
+      "states": [
+        {
+          "partner": 0,
+          "flags": 0,
+          "keyitem": 0,
+          "party": 0,
+          "starter": 0
+        },
+        {
+          "partner": 0,
+          "flags": 0,
+          "keyitem": 0,
+          "party": 0,
+          "starter": 0
+        },
+        {
+          "partner": 1,
+          "flags": 0,
+          "keyitem": 0,
+          "party": 1,
+          "starter": 1
+        },
+        {
+          "partner": 1,
+          "flags": 1,
+          "keyitem": 0,
+          "party": 1,
+          "starter": 1
+        }
+      ]
+    },
+    {
+      "starter": "ararafogo",
+      "result": "PASS",
+      "states": [
+        {
+          "partner": 0,
+          "flags": 0,
+          "keyitem": 0,
+          "party": 0,
+          "starter": 0
+        },
+        {
+          "partner": 0,
+          "flags": 0,
+          "keyitem": 0,
+          "party": 0,
+          "starter": 0
+        },
+        {
+          "partner": 1,
+          "flags": 1,
+          "keyitem": 0,
+          "party": 1,
+          "starter": 2
+        },
+        {
+          "partner": 1,
+          "flags": 1,
+          "keyitem": 0,
+          "party": 1,
+          "starter": 2
+        }
+      ]
+    },
+    {
+      "starter": "tatupedra",
+      "result": "PASS",
+      "states": [
+        {
+          "partner": 0,
+          "flags": 0,
+          "keyitem": 0,
+          "party": 0,
+          "starter": 0
+        },
+        {
+          "partner": 0,
+          "flags": 0,
+          "keyitem": 0,
+          "party": 0,
+          "starter": 0
+        },
+        {
+          "partner": 1,
+          "flags": 1,
+          "keyitem": 0,
+          "party": 1,
+          "starter": 0
+        },
+        {
+          "partner": 1,
+          "flags": 1,
+          "keyitem": 0,
+          "party": 1,
+          "starter": 0
+        }
+      ]
+    }
+  ],
+  "scope": "fresh-game choice, cancel, grant, saved starter index, supply flag, repeated interaction",
+  "full_mission_for_each_starter": "NOT RUN in this verification",
+  "normal_save_restart": "NOT RUN in this verification; earlier mission-validation.json is historical evidence"
+}

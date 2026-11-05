@@ -17,3 +17,6 @@ logs/
 releases/
 **/build/
 tests/emulator/runner
+# Generated emulator verification outputs
+tests/emulator/current-symbols.txt
+tests/emulator/results/
