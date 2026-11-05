@@ -1,0 +1,63 @@
+{
+  "rom_sha1": "8c41ff7ada0ebf8b5791d1871eee3569cec8fcf9",
+  "cases": [
+    {
+      "case": "male-custom",
+      "result": "PASS",
+      "name": "A",
+      "gender": 0,
+      "sam": "SAM",
+      "progress": "PROGRESS base=0202559C partner=0 flags=00 keyitem=0 party=0 starter=0 map=4/0"
+    },
+    {
+      "case": "female-custom",
+      "result": "PASS",
+      "name": "A",
+      "gender": 1,
+      "sam": "SAM",
+      "progress": "PROGRESS base=02025590 partner=0 flags=00 keyitem=0 party=0 starter=0 map=4/0"
+    },
+    {
+      "case": "rename-after-no",
+      "result": "PASS",
+      "name": "B",
+      "gender": 0,
+      "sam": "SAM",
+      "progress": "PROGRESS base=02025584 partner=0 flags=00 keyitem=0 party=0 starter=0 map=4/0"
+    },
+    {
+      "case": "male-empty-default",
+      "result": "PASS",
+      "name": "CAIO",
+      "gender": 0,
+      "sam": "SAM",
+      "progress": "PROGRESS base=02025568 partner=0 flags=00 keyitem=0 party=0 starter=0 map=4/0"
+    },
+    {
+      "case": "female-empty-default",
+      "result": "PASS",
+      "name": "BIA",
+      "gender": 1,
+      "sam": "SAM",
+      "progress": "PROGRESS base=02025598 partner=0 flags=00 keyitem=0 party=0 starter=0 map=4/0"
+    },
+    {
+      "case": "ordinary-save-new-process",
+      "result": "PASS",
+      "name": "A",
+      "gender": 0,
+      "sam": "SAM",
+      "progress": "PROGRESS base=0202555C partner=0 flags=00 keyitem=0 party=0 starter=0 map=4/0"
+    }
+  ],
+  "scope": "Intro and a house save/restart; not the full stone mission.",
+  "asset_reconversion": "PASS: byte-identical",
+  "visual_inspection": [
+    "title",
+    "Bia",
+    "Capivagua",
+    "Tio Sam",
+    "Continue menu",
+    "initial house"
+  ]
+}

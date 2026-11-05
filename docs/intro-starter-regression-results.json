@@ -1,0 +1,108 @@
+{
+  "rom_sha1": "8c41ff7ada0ebf8b5791d1871eee3569cec8fcf9",
+  "cases": [
+    {
+      "starter": "capivagua",
+      "result": "PASS",
+      "states": [
+        {
+          "partner": 0,
+          "flags": 0,
+          "keyitem": 0,
+          "party": 0,
+          "starter": 0
+        },
+        {
+          "partner": 0,
+          "flags": 0,
+          "keyitem": 0,
+          "party": 0,
+          "starter": 0
+        },
+        {
+          "partner": 1,
+          "flags": 0,
+          "keyitem": 0,
+          "party": 1,
+          "starter": 1
+        },
+        {
+          "partner": 1,
+          "flags": 1,
+          "keyitem": 0,
+          "party": 1,
+          "starter": 1
+        }
+      ]
+    },
+    {
+      "starter": "ararafogo",
+      "result": "PASS",
+      "states": [
+        {
+          "partner": 0,
+          "flags": 0,
+          "keyitem": 0,
+          "party": 0,
+          "starter": 0
+        },
+        {
+          "partner": 0,
+          "flags": 0,
+          "keyitem": 0,
+          "party": 0,
+          "starter": 0
+        },
+        {
+          "partner": 1,
+          "flags": 1,
+          "keyitem": 0,
+          "party": 1,
+          "starter": 2
+        },
+        {
+          "partner": 1,
+          "flags": 1,
+          "keyitem": 0,
+          "party": 1,
+          "starter": 2
+        }
+      ]
+    },
+    {
+      "starter": "tatupedra",
+      "result": "PASS",
+      "states": [
+        {
+          "partner": 0,
+          "flags": 0,
+          "keyitem": 0,
+          "party": 0,
+          "starter": 0
+        },
+        {
+          "partner": 0,
+          "flags": 0,
+          "keyitem": 0,
+          "party": 0,
+          "starter": 0
+        },
+        {
+          "partner": 1,
+          "flags": 1,
+          "keyitem": 0,
+          "party": 1,
+          "starter": 0
+        },
+        {
+          "partner": 1,
+          "flags": 1,
+          "keyitem": 0,
+          "party": 1,
+          "starter": 0
+        }
+      ]
+    }
+  ],
+  "scope": "Fresh intro, choice, cancel, unique grant, starter index and supplies. Full mission not rerun."
+}

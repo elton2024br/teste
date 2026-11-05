@@ -36,6 +36,8 @@ Os caminhos `project/docs`, `project/tools` ou `project/assets` nos documentos d
 
 ## Estado real
 
+A intro tem capa amazônica própria, Bia e Tio Sam com novos retratos, apresentação de Capivágua e história das cinco pedras. Escolha de aparência/nome e save/Continue foram testados no mGBA. Veja os [prints da intro](docs/screenshots/intro/preview.png) e o [relatório de validação](docs/intro-validation.json). Parte da interface, personagens e música ainda usa a base original.
+
 O primeiro percurso com Capivágua foi testado até vencer o agente, liberar a passagem, receber a Pedra das Águas e retornar à vila. O save normal foi reaberto em outro processo, preservando o item e o progresso. Ainda faltam testes equivalentes com os outros parceiros, derrota, captura, casos de inventário e o acabamento visual amazônico. A campanha dos cinco habitats não está concluída.
 
 Não há ROM comercial completa nem saves neste repositório. Os pequenos binários multiboot em `pokefirered/data/` pertencem à estrutura da base e são necessários à compilação. Consulte os avisos e licenças dos projetos de origem; os direitos dos componentes de terceiros permanecem com seus titulares.

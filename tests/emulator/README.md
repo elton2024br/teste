@@ -20,6 +20,20 @@ Use os símbolos do mesmo build da ROM. O teste começa um jogo novo em cada ram
 
 A sequência de entradas da introdução foi gravada para a versão atual. Mudanças na introdução podem exigir atualização da sequência; as asserções devem continuar verificando o comportamento real.
 
+## Intro amazônica
+
+`check_intro.py` testa as duas aparências, nome personalizado, recusa do nome seguida de um nome diferente, nomes padrão quando o teclado fica em branco, Sam com identidade fixa e chegada à casa sem parceiro. Também salva pelo menu do jogo, fecha o processo e confere Continue/identidade em outro processo. Execute com uma pasta de saída nova para evitar reaproveitar saves:
+
+```bash
+python3 tests/emulator/check_intro.py \
+  --runner "$(pwd)/tests/emulator/runner" \
+  --rom "$(pwd)/pokefirered/pokefirered_rev1.gba" \
+  --symbols "$(pwd)/tests/emulator/current-symbols.txt" \
+  --output "$(pwd)/tests/emulator/results/intro-nova-execucao"
+```
+
+Esse ciclo de save acontece na casa, antes da escolha do parceiro. Não substitui um teste integral da missão. Os relatórios atuais estão em `docs/intro-validation.json` e `docs/intro-starter-regression-results.json`; o relatório anterior de parceiros foi preservado como histórico.
+
 ## Save normal
 
 ```bash

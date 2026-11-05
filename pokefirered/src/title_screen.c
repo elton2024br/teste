@@ -36,6 +36,7 @@ enum TitleScreenScene
 static EWRAM_DATA u8 sTitleScreenTimerTaskId = 0;
 
 static void ResetGpuRegs(void);
+static void InitAmazonTitle(void);
 static void CB2_TitleScreenRun(void);
 static void VBlankCB(void);
 static void Task_TitleScreenTimer(u8 taskId);
@@ -341,6 +342,10 @@ static const u32 *const sUnused_Tilemaps[] = {
 
 void CB2_InitTitleScreen(void)
 {
+#ifdef FIRERED
+    InitAmazonTitle();
+    return;
+#endif
     switch (gMain.state)
     {
     default:
@@ -1313,3 +1318,56 @@ static void SpriteCallback_Slash(struct Sprite *sprite)
 #undef sState
 #undef sTimer
 #undef sDeactivate
+
+// Original Bichos do Brasil cover. Mode 3 provides a static 240x160 RGB555 scene.
+static const u16 sAmazonTitleBitmap[] = INCBIN_U16("graphics/amazon_intro/title.rgb555");
+
+static void CB2_AmazonTitleRun(void)
+{
+    if (JOY_NEW(A_BUTTON | START_BUTTON))
+    {
+        PlaySE(SE_SELECT);
+        FadeOutBGM(4);
+        SetGpuReg(REG_OFFSET_DISPCNT, 0);
+        SeedRngAndSetTrainerId();
+        SetSaveBlocksPointers();
+        ResetMenuAndMonGlobals();
+        Save_ResetSaveCounters();
+        LoadGameSave(SAVE_NORMAL);
+        if (gSaveFileStatus == SAVE_STATUS_EMPTY || gSaveFileStatus == SAVE_STATUS_INVALID)
+            Sav2_ClearSetDefault();
+        SetPokemonCryStereo(gSaveBlock2Ptr->optionsSound);
+        InitHeap(gHeap, HEAP_SIZE);
+        SetMainCallback2(CB2_InitMainMenu);
+    }
+}
+
+static void InitAmazonTitle(void)
+{
+    SetVBlankCallback(NULL);
+    SetHBlankCallback(NULL);
+    ScanlineEffect_Stop();
+    SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_FORCED_BLANK);
+    StartTimer1();
+    InitHeap(gHeap, HEAP_SIZE);
+    ResetTasks();
+    ResetSpriteData();
+    FreeAllSpritePalettes();
+    ResetPaletteFade();
+    ResetGpuRegs();
+    SetGpuReg(REG_OFFSET_WININ, 0);
+    SetGpuReg(REG_OFFSET_WINOUT, 0);
+    DmaFill32(3, 0, (void *)OAM, OAM_SIZE);
+    DmaCopy16(3, sAmazonTitleBitmap, (void *)VRAM, sizeof(sAmazonTitleBitmap));
+    SetGpuReg(REG_OFFSET_BG2PA, 0x100);
+    SetGpuReg(REG_OFFSET_BG2PB, 0);
+    SetGpuReg(REG_OFFSET_BG2PC, 0);
+    SetGpuReg(REG_OFFSET_BG2PD, 0x100);
+    SetGpuReg(REG_OFFSET_BG2X_L, 0);
+    SetGpuReg(REG_OFFSET_BG2X_H, 0);
+    SetGpuReg(REG_OFFSET_BG2Y_L, 0);
+    SetGpuReg(REG_OFFSET_BG2Y_H, 0);
+    SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_3 | DISPCNT_BG2_ON);
+    PlayBGM(MUS_ROUTE24);
+    SetMainCallback2(CB2_AmazonTitleRun);
+}

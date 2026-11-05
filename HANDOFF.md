@@ -8,6 +8,14 @@ A restauracao ja foi feita na nuvem. O conteudo abaixo conserva o historico e as
 
 # Bichos do Brasil — ponto de retomada
 
+## Intro amazônica — atualização atual
+
+A abertura agora usa uma capa própria em 240×160, com rio, palafita, capivara e arara, e o título Bichos do Brasil: As Cinco Pedras. A sequência original Game Freak/Nidorino é pulada depois da tela legal. Bia tem retrato próprio e apresenta Capivágua, os cinco habitats, as pedras e as Terras Raras. Tio Sam tem retrato próprio, identidade fixa e explicação da ameaça; não há mais pedido para escolher o nome do rival. Aparência e nome do jogador continuam selecionáveis. Os retratos e sprites do jogador ainda são provisórios da base, assim como parte da interface e a música.
+
+Build Linux/mGBA atual: SHA-1 `8c41ff7ada0ebf8b5791d1871eee3569cec8fcf9`. Passaram as duas aparências, nome personalizado, recusa/correção do nome, nomes padrão em branco, entrada no térreo da casa e salvamento pelo menu seguido de Continue em outro processo. Os três parceiros passaram novamente escolha, cancelamento, concessão única e suprimentos. Consulte `docs/intro-validation.json`, `docs/intro-starter-regression-results.json` e `docs/screenshots/intro/`. O teste atual de save é na casa, antes do parceiro; a missão completa registrada abaixo pertence ao build anterior e não foi repetida neste build.
+
+As fontes de arte estão em `assets/amazon/intro/`. Para reconverter, instale Pillow 12.1 ou posterior e execute `python3 tools/build_intro_assets.py`; depois compile normalmente. Os arquivos convertidos já estão versionados, então Pillow não é exigido para simplesmente compilar. O novo fluxo automatizado está em `tests/emulator/intro_flow.py` e é compartilhado pelos testes da intro e dos parceiros.
+
 ## Objetivo e decisões aprovadas
 
 ROM hack de FireRed Rev1 com identidade brasileira. Cinco habitats, uma pedra rara em cada, abrindo o caminho para Terras Raras com animais pré-históricos e seres fantásticos. Tio Sam é um magnata fictício que quer explorar os habitats e controlar essas criaturas. Começar um jogo novo é obrigatório. O jogador escolhe Capivágua (água), Ararafogo (fogo) ou Tatupedra (terra). Os animais substituem espécies originais; não são adicionados ao elenco Pokémon. Pedras são itens especiais na mochila.
@@ -34,7 +42,7 @@ Os três menus/prévias e as escolhas de parceiros foram conferidos em versões 
 ## Pendências reais
 
 1. Repetir a missão atual com Ararafogo e Tatupedra; testar derrota/recuperação, captura, tentativas de duplicar a pedra e falta de espaço.
-2. Ampliar os testes de save normal. O comando experimental flushsave do runner retorna zero bytes com esta biblioteca mGBA e encerrou com código 11; o save nativo via VFile foi gravado e carregou. Não confundir esse problema do helper com o teste de Continue. Corrigir/remover esse comando, usar a persistência nativa e confirmar o ciclo completo.
+2. Ampliar os testes de save normal após a missão e com os demais parceiros no build atual. O antigo comando experimental flushsave foi removido; usar o menu SALVAR e a persistência nativa via VFile. O ciclo na casa foi confirmado no build da nova intro.
 3. Adaptar caminhos absolutos /workspace dos auxiliares para o disco G/WSL; documentar um build limpo reprodutível.
 4. Completar a identidade amazônica: árvores, água, palafitas/doca, personagem, NPCs, interiores e cenário de batalha. Ainda há bastante arte/interface/áudio do FireRed.
 5. A grade de água usa um tile provisório; criar arte de rio/ponte/controle/objeto da pedra. O ícone da mochila da pedra já é próprio.

@@ -17,7 +17,7 @@
 #include "data.h"
 #include "constants/songs.h"
 
-#define INTRO_SPECIES SPECIES_NIDORAN_F
+#define INTRO_SPECIES SPECIES_SQUIRTLE // Capivágua occupies the former water starter slot.
 
 enum
 {
@@ -618,30 +618,10 @@ static const u8 *const sMaleNameChoices[] =
 
 static const u8 *const sFemaleNameChoices[] =
 {
-#if defined(FIRERED)
-    gNameChoice_Red,
-    gNameChoice_Fire,
-#elif defined(LEAFGREEN)
-    gNameChoice_Green,
-    gNameChoice_Leaf,
-#endif
     gNameChoice_Omi,
     gNameChoice_Jodi,
     gNameChoice_Amanda,
-    gNameChoice_Hillary,
-    gNameChoice_Makey,
-    gNameChoice_Michi,
-    gNameChoice_Paula,
-    gNameChoice_June,
-    gNameChoice_Cassie,
-    gNameChoice_Rey,
-    gNameChoice_Seda,
-    gNameChoice_Kiko,
-    gNameChoice_Mina,
-    gNameChoice_Norie,
-    gNameChoice_Sai,
-    gNameChoice_Momo,
-    gNameChoice_Suzi
+    gNameChoice_Paula
 };
 
 static const u8 *const sRivalNameChoices[] =
@@ -923,7 +903,11 @@ static void Task_ControlsGuide_Clear(u8 taskId)
         sOakSpeechResources->windowIds[0] = RGB_BLACK;
         LoadPalette(sOakSpeechResources->windowIds, BG_PLTT_ID(0), PLTT_SIZEOF(1));
         gTasks[taskId].tTimer = 32;
-        gTasks[taskId].func = Task_PikachuIntro_LoadPage1;
+        DestroyTopBarWindow();
+        ClearGpuRegBits(REG_OFFSET_DISPCNT, DISPCNT_WIN0_ON);
+        SetGpuReg(REG_OFFSET_BLDCNT, 0);
+        sOakSpeechResources->currentPage = 0;
+        gTasks[taskId].func = Task_OakSpeech_Init;
     }
 }
 
@@ -1555,13 +1539,14 @@ static void Task_OakSpeech_FadeInRivalPic(u8 taskId)
 
 static void Task_OakSpeech_AskRivalsName(u8 taskId)
 {
+    static const u8 samName[] = _("SAM");
     s16 *data = gTasks[taskId].data;
-
     if (tTrainerPicFadeState != 0)
     {
-        OakSpeechPrintMessage(gOakSpeech_Text_WhatWasHisName, sOakSpeechResources->textSpeed);
+        StringCopy(gSaveBlock1Ptr->rivalName, samName);
         sOakSpeechResources->hasPlayerBeenNamed = TRUE;
-        gTasks[taskId].func = Task_OakSpeech_MoveRivalDisplayNameOptions;
+        OakSpeechPrintMessage(gOakSpeech_Text_WhatWasHisName, sOakSpeechResources->textSpeed);
+        gTasks[taskId].func = Task_OakSpeech_FadeOutRivalPic;
     }
 }
 
@@ -2143,9 +2128,9 @@ static void GetDefaultName(u8 hasPlayerBeenNamed, u8 rivalNameChoice)
     if (hasPlayerBeenNamed == FALSE)
     {
         if (gSaveBlock2Ptr->playerGender == MALE)
-            src = sMaleNameChoices[Random() % ARRAY_COUNT(sMaleNameChoices)];
+            src = sMaleNameChoices[rivalNameChoice % ARRAY_COUNT(sMaleNameChoices)];
         else
-            src = sFemaleNameChoices[Random() % ARRAY_COUNT(sFemaleNameChoices)];
+            src = sFemaleNameChoices[rivalNameChoice % ARRAY_COUNT(sFemaleNameChoices)];
         dest = gSaveBlock2Ptr->playerName;
     }
     else

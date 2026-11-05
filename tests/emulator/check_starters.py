@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import re
 import subprocess
+from intro_flow import new_game
 
 
 def press_a(count, wait=180):
@@ -11,19 +12,12 @@ def press_a(count, wait=180):
 
 
 def bootstrap():
-    # Recorded introductory inputs for this source revision; assertions detect drift.
+    # Amazon intro, house exit and approach to the guide at (8, 8).
     return (
-        "run 0 1502\nrun 8 20\nrun 0 280\n"
-        + "run 1 12\nrun 0 45\n" * 12
-        + "run 1 12\nrun 0 60\n" * 18
-        + "run 1 12\nrun 0 90\n" * 25
-        + "run 128 12\nrun 0 15\nrun 1 12\nrun 0 90\n"
-        + "run 1 12\nrun 0 100\n" * 12
-        + "run 1 12\nrun 0 45\n" * 7
-        + "run 16 64\nrun 64 64\nrun 0 90\nrun 32 16\nrun 0 90\nrun 128 64\nrun 0 30\n"
-        + press_a(30, 90)
-        + "run 128 32\nrun 0 30\nrun 32 16\nrun 0 30\nrun 128 64\nrun 0 180\n"
-        + "run 16 32\nrun 0 30\n" + press_a(3)
+        new_game()
+        + "run 128 48\nrun 0 90\nrun 32 16\nrun 0 20\nrun 128 48\nrun 0 180\n"
+        + "run 128 16\nrun 0 20\nrun 16 32\nrun 0 20\nrun 64 4\nrun 0 30\n"
+        + press_a(3)
     )
 
 
