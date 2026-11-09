@@ -36,6 +36,20 @@ Esse ciclo de save acontece na casa, antes da escolha do parceiro. Não substitu
 
 ## Save normal
 
+Para verificar save/Continue na vila após receber cada um dos três parceiros e os suprimentos:
+
+```bash
+python3 tests/emulator/check_partner_saves.py \
+  --runner "$(pwd)/tests/emulator/runner" \
+  --rom "$(pwd)/pokefirered/pokefirered_rev1.gba" \
+  --symbols "$(pwd)/tests/emulator/current-symbols.txt" \
+  --output "$(pwd)/tests/emulator/results/partner-saves-nova-execucao"
+```
+
+Use uma pasta de saída nova. Cada caso salva pelo menu SALVAR, encerra o processo e abre outro com o mesmo arquivo nativo. O teste compara parceiro, índice escolhido, equipe, flags e localização na vila, e repete a interação com o guia após Continue para conferir que não há duplicação. Os arquivos `.sav`, logs e capturas ficam na pasta de resultados ignorada pelo Git. Isso não valida captura, derrota, inventário cheio nem save depois de obter a pedra.
+
+Para uma sessão manual:
+
 ```bash
 tests/emulator/runner pokefirered/pokefirered_rev1.gba \
   --save /tmp/bichos-teste.sav \

@@ -1,0 +1,84 @@
+{
+  "rom_sha1": "8c41ff7ada0ebf8b5791d1871eee3569cec8fcf9",
+  "cases": [
+    {
+      "partner": "capivagua",
+      "result": "PASS",
+      "before": {
+        "partner": 1,
+        "flags": 1,
+        "keyitem": 0,
+        "party": 1,
+        "starter": 1
+      },
+      "restored": {
+        "partner": 1,
+        "flags": 1,
+        "keyitem": 0,
+        "party": 1,
+        "starter": 1
+      },
+      "repeated": {
+        "partner": 1,
+        "flags": 1,
+        "keyitem": 0,
+        "party": 1,
+        "starter": 1
+      },
+      "save_bytes": 131088
+    },
+    {
+      "partner": "ararafogo",
+      "result": "PASS",
+      "before": {
+        "partner": 1,
+        "flags": 1,
+        "keyitem": 0,
+        "party": 1,
+        "starter": 2
+      },
+      "restored": {
+        "partner": 1,
+        "flags": 1,
+        "keyitem": 0,
+        "party": 1,
+        "starter": 2
+      },
+      "repeated": {
+        "partner": 1,
+        "flags": 1,
+        "keyitem": 0,
+        "party": 1,
+        "starter": 2
+      },
+      "save_bytes": 131088
+    },
+    {
+      "partner": "tatupedra",
+      "result": "PASS",
+      "before": {
+        "partner": 1,
+        "flags": 1,
+        "keyitem": 0,
+        "party": 1,
+        "starter": 0
+      },
+      "restored": {
+        "partner": 1,
+        "flags": 1,
+        "keyitem": 0,
+        "party": 1,
+        "starter": 0
+      },
+      "repeated": {
+        "partner": 1,
+        "flags": 1,
+        "keyitem": 0,
+        "party": 1,
+        "starter": 0
+      },
+      "save_bytes": 131088
+    }
+  ],
+  "scope": "Village saves after partner/supplies and repeated guide interaction; not full mission, capture, defeat, inventory-full or post-stone saves."
+}

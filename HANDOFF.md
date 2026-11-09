@@ -8,6 +8,23 @@ A restauracao ja foi feita na nuvem. O conteudo abaixo conserva o historico e as
 
 # Bichos do Brasil — ponto de retomada
 
+## Execução diária — 9 de novembro de 2026
+
+Avanço pequeno na pendência 2: `tests/emulator/check_partner_saves.py` agora valida save normal na vila depois de receber parceiro e suprimentos, nos três ramos (Capivágua, Ararafogo e Tatupedra). Cada caso começa sem save existente, salva pelo menu SALVAR, encerra o emulador e carrega Continue em outro processo. Parceiro escolhido, índice, tamanho da equipe, flags e localização persistiram; repetir a interação com o guia após Continue não concedeu outro parceiro. Relatório: `docs/partner-save-validation.json`. Instruções reproduzíveis em `tests/emulator/README.md`.
+
+Validações executadas nesta sessão Linux:
+
+- Compilador agbcc construído e instalado localmente; `make -j4 firered_rev1` passou a partir da cópia sem artefatos de build. ROM SHA-1 `8c41ff7ada0ebf8b5791d1871eee3569cec8fcf9`, igual ao registro anterior. Nenhum código ou asset do jogo foi alterado.
+- `check_starters.py`: três parceiros PASS (escolha/cancelamento, concessão única e suprimentos).
+- `check_partner_saves.py`: três parceiros PASS, seis processos, save nativo/Continue e nova interação com o guia. Os arquivos nativos tinham 131088 bytes: 128 KiB de flash mais o rodapé RTC de 16 bytes do mGBA. O teste aceita os formatos com/sem esse rodapé.
+- `python3 -m py_compile tests/emulator/check_partner_saves.py` e `git diff --check` passaram.
+
+Durante o desenvolvimento do teste, a primeira asserção de tamanho ignorava o rodapé RTC; outra tentativa revelou que o diálogo do guia ainda estava aberto quando se pressionava Start no ramo Ararafogo. O teste agora fecha esse diálogo com B antes de abrir o menu. A execução final usou uma pasta nova e passou integralmente. Isso não era falha de persistência do jogo.
+
+Ambiente desta execução: Debian 13, sem sudo e sem instalador de pacotes privilegiado. Binutils ARM, headers/libpng e mGBA foram extraídos de pacotes oficiais Debian para `/workspace/work/deps/root`, fora do Git; foram usados PATH, CPATH, LIBRARY_PATH e PKG_CONFIG_SYSROOT_DIR/PKG_CONFIG_LIBDIR apontando para essa árvore. O runner foi ligado ao mGBA 0.10.5 com rpath local. Essa preparação não valida o script Windows/WSL nem instala dependências em futuras máquinas. ROM, saves, logs e screenshots de teste permanecem ignorados pelo Git.
+
+Próximo passo concreto: executar a missão completa no build atual com Ararafogo e Tatupedra (agente, controle, pedra e retorno), incluindo save/Continue depois da pedra. Derrota/recuperação, captura, inventário cheio, duplicação da pedra e acabamento visual continuam pendentes; os testes novos cobrem somente a vila após escolher o parceiro.
+
 ## Intro amazônica — atualização atual
 
 A abertura agora usa uma capa própria em 240×160, com rio, palafita, capivara e arara, e o título Bichos do Brasil: As Cinco Pedras. A sequência original Game Freak/Nidorino é pulada depois da tela legal. Bia tem retrato próprio e apresenta Capivágua, os cinco habitats, as pedras e as Terras Raras. Tio Sam tem retrato próprio, identidade fixa e explicação da ameaça; não há mais pedido para escolher o nome do rival. Aparência e nome do jogador continuam selecionáveis. Os retratos e sprites do jogador ainda são provisórios da base, assim como parte da interface e a música.
@@ -42,7 +59,7 @@ Os três menus/prévias e as escolhas de parceiros foram conferidos em versões 
 ## Pendências reais
 
 1. Repetir a missão atual com Ararafogo e Tatupedra; testar derrota/recuperação, captura, tentativas de duplicar a pedra e falta de espaço.
-2. Ampliar os testes de save normal após a missão e com os demais parceiros no build atual. O antigo comando experimental flushsave foi removido; usar o menu SALVAR e a persistência nativa via VFile. O ciclo na casa foi confirmado no build da nova intro.
+2. Ampliar os testes de save normal após a missão no build atual. O antigo comando experimental flushsave foi removido; usar o menu SALVAR e a persistência nativa via VFile. Os ciclos na casa e na vila após escolher cada um dos três parceiros estão confirmados; ainda falta o ciclo após obter a pedra.
 3. Adaptar caminhos absolutos /workspace dos auxiliares para o disco G/WSL; documentar um build limpo reprodutível.
 4. Completar a identidade amazônica: árvores, água, palafitas/doca, personagem, NPCs, interiores e cenário de batalha. Ainda há bastante arte/interface/áudio do FireRed.
 5. A grade de água usa um tile provisório; criar arte de rio/ponte/controle/objeto da pedra. O ícone da mochila da pedra já é próprio.
