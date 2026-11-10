@@ -1,5 +1,6 @@
 ViridianForest_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, ViridianForest_AmazonTransition
+	map_script MAP_SCRIPT_ON_LOAD, ViridianForest_AmazonLoad
 	.byte 0
 
 ViridianForest_OnTransition::
@@ -66,6 +67,9 @@ ViridianForest_EventScript_Charlie::
 ViridianForest_AmazonTransition::
 	setflag FLAG_TEMP_1
 	setrespawn HEAL_LOCATION_PALLET_TOWN
+	end
+
+ViridianForest_AmazonLoad::
 	call_if_set FLAG_AMAZON_BLOCKADE_DISABLED, Amazon_EventScript_OpenBridge
 	end
 

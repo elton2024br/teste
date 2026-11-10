@@ -1,0 +1,110 @@
+{
+  "rom_sha1": "2cd252b4dbb1926e28e89944333d5c7b033fa304",
+  "cases": [
+    {
+      "partner": "ararafogo",
+      "result": "PASS",
+      "source_save_sha256": "4dae33c221dcfbfbf62a598bcd6f41302de0c9da3c7500c99ef782e2ca6fbeb7",
+      "initial": {
+        "partner": 1,
+        "flags": 15,
+        "keyitem": 361,
+        "party": 1,
+        "starter": 2,
+        "map": "3/0",
+        "position": [
+          8,
+          9
+        ]
+      },
+      "north": {
+        "partner": 1,
+        "flags": 15,
+        "keyitem": 361,
+        "party": 1,
+        "starter": 2,
+        "map": "1/0",
+        "position": [
+          11,
+          6
+        ]
+      },
+      "final": {
+        "partner": 1,
+        "flags": 15,
+        "keyitem": 361,
+        "party": 1,
+        "starter": 2,
+        "map": "3/0",
+        "position": [
+          11,
+          15
+        ]
+      },
+      "stone_quantities": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "stone_retries": 3,
+      "caregiver_interactions": 3
+    },
+    {
+      "partner": "tatupedra",
+      "result": "PASS",
+      "source_save_sha256": "1a265752ba2a971c6dc5ecd1cdb6c0c183f073f9d6b626ed8c4f249c3213749f",
+      "initial": {
+        "partner": 1,
+        "flags": 15,
+        "keyitem": 361,
+        "party": 1,
+        "starter": 0,
+        "map": "3/0",
+        "position": [
+          8,
+          9
+        ]
+      },
+      "north": {
+        "partner": 1,
+        "flags": 15,
+        "keyitem": 361,
+        "party": 1,
+        "starter": 0,
+        "map": "1/0",
+        "position": [
+          11,
+          6
+        ]
+      },
+      "final": {
+        "partner": 1,
+        "flags": 15,
+        "keyitem": 361,
+        "party": 1,
+        "starter": 0,
+        "map": "3/0",
+        "position": [
+          11,
+          15
+        ]
+      },
+      "stone_quantities": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "stone_retries": 3,
+      "caregiver_interactions": 3
+    }
+  ],
+  "scope": "Copies of ordinary saves from check_mission.py; bridge reconstructed after Continue/map entry, stone remains a single slot/quantity 1 after three old-location retries and three caregiver interactions. No full inventory, missing-stone repair, capture or new save cycle."
+}

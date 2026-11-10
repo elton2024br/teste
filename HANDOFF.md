@@ -8,6 +8,16 @@ A restauracao ja foi feita na nuvem. O conteudo abaixo conserva o historico e as
 
 # Bichos do Brasil — ponto de retomada
 
+## Correção — ponte persistente e revisitas à pedra
+
+O teste novo `check_stone_revisit.py` reproduziu um defeito no build `8c41ff7ada0ebf8b5791d1871eee3569cec8fcf9`: após Continue na vila e retorno ao bosque, flags `0F` e item 361 persistiam, mas o jogador parava em (11,11), diante da ponte fechada. A restauração dos tiles estava em `MAP_SCRIPT_ON_TRANSITION`, que roda antes de `InitMap` reinicializar o grid. Foi movida para `MAP_SCRIPT_ON_LOAD`, após a inicialização dos tiles, mantendo a condição da flag e o bloqueio antes da vitória.
+
+Build corrigido: SHA-1 `2cd252b4dbb1926e28e89944333d5c7b033fa304`. Os objetos `data/maps.o` e `data/map_events.o` foram regenerados explicitamente e `make -j4 firered_rev1` passou; símbolos atualizados pelo ELF. A missão completa e save/Continue foram repetidos com Ararafogo e Tatupedra no novo build, ambos PASS (`docs/mission-current-validation.json`). `check_stone_revisit.py` também passou nos dois ramos: usa cópias desses saves nativos, confirma a travessia da ponte ao reentrar no bosque e examina todos os 30 slots de itens especiais, decifrando a quantidade com a chave de SaveBlock2. A pedra permaneceu em um único slot, com quantidade 1, antes e depois de três tentativas de interação no antigo local e três interações com o cuidador. As flags continuaram `0F`, a equipe permaneceu com um parceiro e os arquivos de save originais não foram alterados.
+
+Relatório: `docs/stone-revisit-validation.json`. Instruções reproduzíveis em `tests/emulator/README.md`; a entrada `--mission-results` deve apontar para os resultados de `check_mission.py` do mesmo hash de ROM. `py_compile` e `git diff --check` passaram. Resultados locais: `tests/emulator/results/mission-bridge-fix-20261110/` e `stone-revisit-fixed-20261110/`, ignorados pelo Git. Somente fontes, testes, documentação e relatórios JSON são publicados; nenhuma ROM ou save.
+
+Próximo passo concreto: captura ou mochila cheia. Permanecem sem validação: reposição da pedra quando ausente, aquisição com bolsa cheia, missão atual de Capivágua, derrota dos demais parceiros e save/Continue feito diretamente dentro do bosque. A revisita atual comprova entrada no bosque após Continue salvo na vila; não é uma validação de todos os caminhos de carregamento. Os relatos abaixo são histórico dos respectivos builds.
+
 ## Missão vitoriosa — Ararafogo e Tatupedra
 
 `tests/emulator/check_mission.py` passou com os dois parceiros, desde jogos novos, usando somente entradas normais e leituras de memória. O controle recusou ativação antes da vitória; cada parceiro venceu o agente com o segundo ataque (`MOVE_EMBER`/`MOVE_MUD_SLAP`), liberou o controle, atravessou a ponte, recebeu a Pedra das Águas e voltou ao guia na vila. O save normal pelo menu SALVAR foi fechado e reaberto em outro processo para cada parceiro. Continue preservou parceiro, índice escolhido, equipe, flags `0F`, item 361 e posição (8,9) na vila. Relatório: `docs/mission-current-validation.json`.
@@ -86,8 +96,8 @@ Os três menus/prévias e as escolhas de parceiros foram conferidos em versões 
 
 ## Pendências reais
 
-1. Testar captura, quantidade/duplicação da pedra e falta de espaço. Missão vitoriosa validada no build atual com Ararafogo e Tatupedra; falta repetir Capivágua neste build. Derrota/recuperação e manutenção do bloqueio após perder estão validadas com Ararafogo; faltam os demais parceiros.
-2. Ampliar os testes de save normal após a missão com Capivágua no build atual e conferir a reconstrução da ponte após Continue. Os ciclos após a pedra com Ararafogo e Tatupedra passaram, além dos ciclos na casa, após derrota com Ararafogo e na vila após escolher cada um dos três parceiros. Usar SALVAR e persistência nativa via VFile; não usar o antigo flushsave removido.
+1. Testar captura, reposição da pedra ausente e falta de espaço. Quantidade unitária e ausência de duplicação após revisitar o local/curador foram conferidas com Ararafogo e Tatupedra. Missão vitoriosa validada no build atual com Ararafogo e Tatupedra; falta repetir Capivágua neste build. Derrota/recuperação e manutenção do bloqueio após perder estão validadas com Ararafogo; faltam os demais parceiros.
+2. Ampliar os testes de save normal após a missão com Capivágua no build atual. A reconstrução da ponte ao entrar novamente no bosque após Continue foi corrigida e validada com Ararafogo e Tatupedra. Os ciclos após a pedra com Ararafogo e Tatupedra passaram, além dos ciclos na casa, após derrota com Ararafogo e na vila após escolher cada um dos três parceiros. Usar SALVAR e persistência nativa via VFile; não usar o antigo flushsave removido.
 3. Adaptar caminhos absolutos /workspace dos auxiliares para o disco G/WSL; documentar um build limpo reprodutível.
 4. Completar a identidade amazônica: árvores, água, palafitas/doca, personagem, NPCs, interiores e cenário de batalha. Ainda há bastante arte/interface/áudio do FireRed.
 5. A grade de água usa um tile provisório; criar arte de rio/ponte/controle/objeto da pedra. O ícone da mochila da pedra já é próprio.

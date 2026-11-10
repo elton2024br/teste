@@ -46,6 +46,21 @@ python3 tests/emulator/check_mission.py \
 
 Use uma pasta vazia. O teste começa jogos novos com Ararafogo e Tatupedra, confirma o controle bloqueado, vence o agente, ativa o controle, atravessa a ponte, recebe a pedra e retorna ao guia na vila. Salva pelo menu e confere parceiro, equipe, flags, item e posição por Continue em outro processo. A estratégia seleciona o segundo ataque no menu de batalha, consultando o handler e o cursor pelos símbolos do ELF; não escreve na memória nem usa savestates. Uma derrota ou limite de espera excedido falha o teste. Isso não valida captura, inventário cheio ou quantidade/duplicação da pedra.
 
+## Revisita à pedra e ao cuidador
+
+Depois de executar `check_mission.py` no build atual, use a pasta de resultados dele como entrada:
+
+```bash
+python3 tests/emulator/check_stone_revisit.py \
+  --runner "$(pwd)/tests/emulator/runner" \
+  --rom "$(pwd)/pokefirered/pokefirered_rev1.gba" \
+  --symbols "$(pwd)/tests/emulator/current-symbols.txt" \
+  --mission-results "$(pwd)/tests/emulator/results/mission-nova-execucao" \
+  --output "$(pwd)/tests/emulator/results/stone-revisit-nova-execucao"
+```
+
+O teste exige uma saída vazia e fixtures do mesmo hash de ROM. Copia os saves nativos de Ararafogo e Tatupedra para preservar os originais, carrega Continue e caminha de volta pela ponte. Confere todos os 30 slots de itens especiais, decifrando as quantidades pela chave do save. A pedra deve ocupar um único slot, com quantidade 1, antes e depois de três tentativas de interação no antigo local e três interações com o cuidador. Não usa escrita de memória ou estados do emulador. Não cobre mochila cheia, reposição de pedra ausente, captura nem um novo ciclo de save após as revisitas.
+
 ## Derrota e recuperação
 
 ```bash
