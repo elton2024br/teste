@@ -1,6 +1,6 @@
 # Testes no emulador
 
-O runner usa a biblioteca nativa do mGBA. Os testes abaixo cobrem introdução, escolha/save dos parceiros e um cenário de derrota/recuperação; não equivalem a completar a missão da pedra com cada um.
+O runner usa a biblioteca nativa do mGBA. Os testes abaixo cobrem introdução, escolha/save dos parceiros, derrota/recuperação com Ararafogo e a missão da pedra com Ararafogo e Tatupedra. Não validam a campanha dos cinco habitats.
 
 ## Compilar e executar
 
@@ -33,6 +33,18 @@ python3 tests/emulator/check_intro.py \
 ```
 
 Esse ciclo de save acontece na casa, antes da escolha do parceiro. Não substitui um teste integral da missão. Os relatórios atuais estão em `docs/intro-validation.json` e `docs/intro-starter-regression-results.json`; o relatório anterior de parceiros foi preservado como histórico.
+
+## Missão da Pedra das Águas
+
+```bash
+python3 tests/emulator/check_mission.py \
+  --runner "$(pwd)/tests/emulator/runner" \
+  --rom "$(pwd)/pokefirered/pokefirered_rev1.gba" \
+  --symbols "$(pwd)/tests/emulator/current-symbols.txt" \
+  --output "$(pwd)/tests/emulator/results/mission-nova-execucao"
+```
+
+Use uma pasta vazia. O teste começa jogos novos com Ararafogo e Tatupedra, confirma o controle bloqueado, vence o agente, ativa o controle, atravessa a ponte, recebe a pedra e retorna ao guia na vila. Salva pelo menu e confere parceiro, equipe, flags, item e posição por Continue em outro processo. A estratégia seleciona o segundo ataque no menu de batalha, consultando o handler e o cursor pelos símbolos do ELF; não escreve na memória nem usa savestates. Uma derrota ou limite de espera excedido falha o teste. Isso não valida captura, inventário cheio ou quantidade/duplicação da pedra.
 
 ## Derrota e recuperação
 

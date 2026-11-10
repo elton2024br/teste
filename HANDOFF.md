@@ -8,6 +8,14 @@ A restauracao ja foi feita na nuvem. O conteudo abaixo conserva o historico e as
 
 # Bichos do Brasil — ponto de retomada
 
+## Missão vitoriosa — Ararafogo e Tatupedra
+
+`tests/emulator/check_mission.py` passou com os dois parceiros, desde jogos novos, usando somente entradas normais e leituras de memória. O controle recusou ativação antes da vitória; cada parceiro venceu o agente com o segundo ataque (`MOVE_EMBER`/`MOVE_MUD_SLAP`), liberou o controle, atravessou a ponte, recebeu a Pedra das Águas e voltou ao guia na vila. O save normal pelo menu SALVAR foi fechado e reaberto em outro processo para cada parceiro. Continue preservou parceiro, índice escolhido, equipe, flags `0F`, item 361 e posição (8,9) na vila. Relatório: `docs/mission-current-validation.json`.
+
+Validações desta execução: `make -j4 firered_rev1` incremental PASS e símbolos regenerados do ELF; ROM SHA-1 `8c41ff7ada0ebf8b5791d1871eee3569cec8fcf9`, sem alteração do jogo; `py_compile` do novo teste e `git diff --check` PASS. O cenário tem limite de 300 ciclos de entrada na batalha e exige `B_OUTCOME_WON = 1`; uma derrota falha o teste. A escolha do ataque usa o handler único `HandleInputChooseMove` e o cursor resolvidos pelo ELF, evitando nomes de funções estáticas duplicados. Instruções em `tests/emulator/README.md`; resultados completos em `tests/emulator/results/mission-20261110/`, ignorados pelo Git. Estados do emulador foram usados somente na exploração local; os dois casos finais passaram integralmente sem savestates, injeção de atributos, HP ou flags. Nenhuma ROM ou save é publicado.
+
+Próximo passo concreto: validar captura e casos de inventário (mochila cheia e quantidade/duplicação da pedra). Esses casos não foram cobertos pelo teste atual: `keyitem` confere o ID do primeiro slot de itens especiais, não sua quantidade. A missão completa e o save após a pedra com Capivágua ainda têm evidência apenas do build anterior; repetir esse ramo no build atual é outra pendência. Derrota com os demais parceiros, reconstrução da ponte após Continue, arte amazônica e expansão dos habitats seguem pendentes.
+
 ## Retomada — save normal após derrota
 
 O teste de derrota/recuperação que estava pronto localmente foi preservado e ampliado antes da publicação. `tests/emulator/check_defeat_recovery.py` agora salva pelo menu SALVAR depois da recuperação com Ararafogo, encerra o processo e usa Continue em outro processo. A execução final passou desde um jogo novo, sem savestates ou escrita de memória: derrota `B_OUTCOME_LOST = 2`, casa em (8,5), HP cheio, parceiro e equipe preservados, flags `01` e nenhum item da pedra. Continue preservou esses dados e o HP; caminhar novamente até o controle confirmou o bloqueio e a liberação de movimento após fechar o diálogo.
@@ -78,8 +86,8 @@ Os três menus/prévias e as escolhas de parceiros foram conferidos em versões 
 
 ## Pendências reais
 
-1. Repetir a missão atual com Ararafogo e Tatupedra; testar captura, tentativas de duplicar a pedra e falta de espaço. Derrota/recuperação e manutenção do bloqueio após perder estão validadas com Ararafogo; faltam os demais parceiros.
-2. Ampliar os testes de save normal após a missão no build atual. O antigo comando experimental flushsave foi removido; usar o menu SALVAR e a persistência nativa via VFile. Os ciclos na casa e na vila após escolher cada um dos três parceiros estão confirmados; ainda falta o ciclo após obter a pedra.
+1. Testar captura, quantidade/duplicação da pedra e falta de espaço. Missão vitoriosa validada no build atual com Ararafogo e Tatupedra; falta repetir Capivágua neste build. Derrota/recuperação e manutenção do bloqueio após perder estão validadas com Ararafogo; faltam os demais parceiros.
+2. Ampliar os testes de save normal após a missão com Capivágua no build atual e conferir a reconstrução da ponte após Continue. Os ciclos após a pedra com Ararafogo e Tatupedra passaram, além dos ciclos na casa, após derrota com Ararafogo e na vila após escolher cada um dos três parceiros. Usar SALVAR e persistência nativa via VFile; não usar o antigo flushsave removido.
 3. Adaptar caminhos absolutos /workspace dos auxiliares para o disco G/WSL; documentar um build limpo reprodutível.
 4. Completar a identidade amazônica: árvores, água, palafitas/doca, personagem, NPCs, interiores e cenário de batalha. Ainda há bastante arte/interface/áudio do FireRed.
 5. A grade de água usa um tile provisório; criar arte de rio/ponte/controle/objeto da pedra. O ícone da mochila da pedra já é próprio.

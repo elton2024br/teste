@@ -1,0 +1,162 @@
+{
+  "rom_sha1": "8c41ff7ada0ebf8b5791d1871eee3569cec8fcf9",
+  "cases": [
+    {
+      "partner": "ararafogo",
+      "result": "PASS",
+      "battle_input_cycles": 65,
+      "initial": {
+        "partner": 1,
+        "flags": 1,
+        "keyitem": 0,
+        "party": 1,
+        "starter": 2,
+        "map": "1/0",
+        "position": [
+          12,
+          14
+        ]
+      },
+      "victory": {
+        "partner": 1,
+        "flags": 3,
+        "keyitem": 0,
+        "party": 1,
+        "starter": 2,
+        "map": "1/0",
+        "position": [
+          11,
+          14
+        ]
+      },
+      "opened": {
+        "partner": 1,
+        "flags": 7,
+        "keyitem": 0,
+        "party": 1,
+        "starter": 2,
+        "map": "1/0",
+        "position": [
+          12,
+          14
+        ]
+      },
+      "stone": {
+        "partner": 1,
+        "flags": 15,
+        "keyitem": 361,
+        "party": 1,
+        "starter": 2,
+        "map": "1/0",
+        "position": [
+          11,
+          6
+        ]
+      },
+      "before_save": {
+        "partner": 1,
+        "flags": 15,
+        "keyitem": 361,
+        "party": 1,
+        "starter": 2,
+        "map": "3/0",
+        "position": [
+          8,
+          9
+        ]
+      },
+      "continued": {
+        "partner": 1,
+        "flags": 15,
+        "keyitem": 361,
+        "party": 1,
+        "starter": 2,
+        "map": "3/0",
+        "position": [
+          8,
+          9
+        ]
+      },
+      "save_bytes": 131088
+    },
+    {
+      "partner": "tatupedra",
+      "result": "PASS",
+      "battle_input_cycles": 91,
+      "initial": {
+        "partner": 1,
+        "flags": 1,
+        "keyitem": 0,
+        "party": 1,
+        "starter": 0,
+        "map": "1/0",
+        "position": [
+          12,
+          14
+        ]
+      },
+      "victory": {
+        "partner": 1,
+        "flags": 3,
+        "keyitem": 0,
+        "party": 1,
+        "starter": 0,
+        "map": "1/0",
+        "position": [
+          11,
+          14
+        ]
+      },
+      "opened": {
+        "partner": 1,
+        "flags": 7,
+        "keyitem": 0,
+        "party": 1,
+        "starter": 0,
+        "map": "1/0",
+        "position": [
+          12,
+          14
+        ]
+      },
+      "stone": {
+        "partner": 1,
+        "flags": 15,
+        "keyitem": 361,
+        "party": 1,
+        "starter": 0,
+        "map": "1/0",
+        "position": [
+          11,
+          6
+        ]
+      },
+      "before_save": {
+        "partner": 1,
+        "flags": 15,
+        "keyitem": 361,
+        "party": 1,
+        "starter": 0,
+        "map": "3/0",
+        "position": [
+          8,
+          9
+        ]
+      },
+      "continued": {
+        "partner": 1,
+        "flags": 15,
+        "keyitem": 361,
+        "party": 1,
+        "starter": 0,
+        "map": "3/0",
+        "position": [
+          8,
+          9
+        ]
+      },
+      "save_bytes": 131088
+    }
+  ],
+  "scope": "Fresh games, locked control, agent victory, bridge crossing, stone, village guide and ordinary save/Continue in new processes. No capture, full inventory or stone quantity/duplication checks."
+}
