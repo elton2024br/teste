@@ -8,6 +8,26 @@ A restauracao ja foi feita na nuvem. O conteudo abaixo conserva o historico e as
 
 # Bichos do Brasil — ponto de retomada
 
+## Retomada — save normal após derrota
+
+O teste de derrota/recuperação que estava pronto localmente foi preservado e ampliado antes da publicação. `tests/emulator/check_defeat_recovery.py` agora salva pelo menu SALVAR depois da recuperação com Ararafogo, encerra o processo e usa Continue em outro processo. A execução final passou desde um jogo novo, sem savestates ou escrita de memória: derrota `B_OUTCOME_LOST = 2`, casa em (8,5), HP cheio, parceiro e equipe preservados, flags `01` e nenhum item da pedra. Continue preservou esses dados e o HP; caminhar novamente até o controle confirmou o bloqueio e a liberação de movimento após fechar o diálogo.
+
+Validação desta retomada: `make -j4 firered_rev1` incremental PASS, SHA-1 `8c41ff7ada0ebf8b5791d1871eee3569cec8fcf9`; runner recompilado com `-Wall -Wextra -Werror` e símbolos regenerados do ELF; teste completo PASS em `tests/emulator/results/defeat-save-20261110/`; `py_compile` e `git diff --check` PASS. Relatório atualizado em `docs/defeat-recovery-validation.json` e instruções em `tests/emulator/README.md`. Nenhum código ou asset do jogo foi alterado. Saves, ROM, logs e capturas continuam ignorados; somente teste, documentação e relatório JSON são publicados.
+
+Próximo passo concreto: missão vitoriosa com Ararafogo e Tatupedra, incluindo save/Continue após a pedra. O percurso `reach_control` já está documentado no teste de derrota; o uso repetido do primeiro ataque é proposital para perder e não certifica uma estratégia de vitória. Captura, inventário cheio, duplicação da pedra, derrota com os outros parceiros e textos herdados em inglês continuam pendentes. Os relatos de execuções anteriores abaixo são histórico; a limitação antiga de não testar save após derrota foi resolvida apenas para Ararafogo.
+
+## Segunda execução diária — 9 de novembro de 2026
+
+Avanço na pendência 1: novo teste `tests/emulator/check_defeat_recovery.py`, executado desde um jogo novo com Ararafogo. O percurso exploratório perdeu usando o primeiro ataque; esse cenário virou uma regressão de derrota/recuperação, sem alterar atributos, HP ou flags por injeção. A missão vitoriosa com os demais parceiros não foi concluída nesta execução.
+
+Resultado final PASS (`docs/defeat-recovery-validation.json`): o rio e o controle estavam bloqueados antes da batalha; a derrota teve `B_OUTCOME_LOST = 2`; o jogador retornou à casa em (8,5), com HP completo, parceiro/equipe preservados, flags `01` e nenhum item da pedra. Após concluir as telas e o diálogo automático de recuperação, foi possível sair da casa, caminhar de volta ao rio, confirmar que a barreira/controle continuavam bloqueados e mover-se depois de fechar o diálogo. Isso cobre somente derrota com Ararafogo, sem save/Continue após a derrota.
+
+Compilação incremental `make -j4 firered_rev1` PASS; SHA-1 da ROM permaneceu `8c41ff7ada0ebf8b5791d1871eee3569cec8fcf9`. Runner recompilado com `-Wall -Wextra -Werror`, símbolos regenerados do ELF atual; `py_compile` do teste e `git diff --check` passaram. Não houve mudança no código ou na arte do jogo. Logs e capturas ficaram em `tests/emulator/results/defeat-recovery-20261109-v6/`, ignorados pelo Git; somente o relatório JSON é versionado.
+
+As tentativas iniciais ajustaram o teste, não o jogo: o mapa da casa já aparece na memória durante a tela preta de retorno; é necessário esperar também o fim da tarefa de retorno, do script e do bloqueio de controles. O teste verifica esses estados por símbolos do ELF, com limite de espera, em vez de contar páginas. O respawn (8,5) difere do início de jogo; a saída ativa é o tile de seta sul em (4,8), enquanto (5,8) é piso comum. A execução final, em pasta nova, percorreu tudo com entradas normais. A recuperação ainda exibe textos herdados em inglês, pendentes de adaptação de linguagem.
+
+Próximo passo: missão vitoriosa com Ararafogo e Tatupedra no build atual, incluindo save/Continue após a pedra. `reach_control` e `position` no teste novo documentam um percurso sem grama até o agente/controle e podem apoiar esse teste; a estratégia de primeiro ataque do cenário de derrota não deve ser confundida com uma estratégia de vitória. Captura, inventário cheio, duplicação da pedra e recuperação com os outros parceiros continuam pendentes.
+
 ## Execução diária — 9 de novembro de 2026
 
 Avanço pequeno na pendência 2: `tests/emulator/check_partner_saves.py` agora valida save normal na vila depois de receber parceiro e suprimentos, nos três ramos (Capivágua, Ararafogo e Tatupedra). Cada caso começa sem save existente, salva pelo menu SALVAR, encerra o emulador e carrega Continue em outro processo. Parceiro escolhido, índice, tamanho da equipe, flags e localização persistiram; repetir a interação com o guia após Continue não concedeu outro parceiro. Relatório: `docs/partner-save-validation.json`. Instruções reproduzíveis em `tests/emulator/README.md`.
@@ -58,7 +78,7 @@ Os três menus/prévias e as escolhas de parceiros foram conferidos em versões 
 
 ## Pendências reais
 
-1. Repetir a missão atual com Ararafogo e Tatupedra; testar derrota/recuperação, captura, tentativas de duplicar a pedra e falta de espaço.
+1. Repetir a missão atual com Ararafogo e Tatupedra; testar captura, tentativas de duplicar a pedra e falta de espaço. Derrota/recuperação e manutenção do bloqueio após perder estão validadas com Ararafogo; faltam os demais parceiros.
 2. Ampliar os testes de save normal após a missão no build atual. O antigo comando experimental flushsave foi removido; usar o menu SALVAR e a persistência nativa via VFile. Os ciclos na casa e na vila após escolher cada um dos três parceiros estão confirmados; ainda falta o ciclo após obter a pedra.
 3. Adaptar caminhos absolutos /workspace dos auxiliares para o disco G/WSL; documentar um build limpo reprodutível.
 4. Completar a identidade amazônica: árvores, água, palafitas/doca, personagem, NPCs, interiores e cenário de batalha. Ainda há bastante arte/interface/áudio do FireRed.

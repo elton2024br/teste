@@ -1,6 +1,6 @@
 # Testes no emulador
 
-O runner usa a biblioteca nativa do mGBA. Os testes abaixo validam a introdução e a escolha dos parceiros; não equivalem a completar a missão da pedra com cada um.
+O runner usa a biblioteca nativa do mGBA. Os testes abaixo cobrem introdução, escolha/save dos parceiros e um cenário de derrota/recuperação; não equivalem a completar a missão da pedra com cada um.
 
 ## Compilar e executar
 
@@ -33,6 +33,20 @@ python3 tests/emulator/check_intro.py \
 ```
 
 Esse ciclo de save acontece na casa, antes da escolha do parceiro. Não substitui um teste integral da missão. Os relatórios atuais estão em `docs/intro-validation.json` e `docs/intro-starter-regression-results.json`; o relatório anterior de parceiros foi preservado como histórico.
+
+## Derrota e recuperação
+
+```bash
+python3 tests/emulator/check_defeat_recovery.py \
+  --runner "$(pwd)/tests/emulator/runner" \
+  --rom "$(pwd)/pokefirered/pokefirered_rev1.gba" \
+  --symbols "$(pwd)/tests/emulator/current-symbols.txt" \
+  --output "$(pwd)/tests/emulator/results/defeat-recovery-nova-execucao"
+```
+
+Use uma pasta vazia. O teste começa um jogo novo com Ararafogo, confere o bloqueio do rio e do controle, enfrenta o agente usando o primeiro ataque até perder, e verifica retorno à casa, HP restaurado e flags sem liberação indevida. Salva pelo menu SALVAR, fecha o emulador e carrega Continue em outro processo, comparando posição, parceiro, equipe, flags, item da pedra e HP. Depois caminha novamente até o controle e confirma que continua bloqueado e que o jogador consegue se mover ao fechar o diálogo. Só usa entradas de controle e leituras de memória; não injeta derrota, HP ou flags. Asserções de posição e HP usam os layouts das estruturas do código FireRed fixado; os endereços vêm do ELF atual. O cenário de derrota depende da sequência e do balanceamento atuais: uma vitória inesperada é falha do teste, não é registrada como recuperação aprovada.
+
+O arquivo nativo de save e as capturas permanecem na pasta de resultados ignorada pelo Git. Esse caso não certifica vitória, captura, inventário cheio, save após obter a pedra nem recuperação com os outros parceiros.
 
 ## Save normal
 
