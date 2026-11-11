@@ -8,6 +8,16 @@ A restauracao ja foi feita na nuvem. O conteudo abaixo conserva o historico e as
 
 # Bichos do Brasil — ponto de retomada
 
+## Captura natural e persistência
+
+`tests/emulator/check_capture.py` passou desde um jogo novo: Capivágua recebeu as cinco cápsulas do guia, caminhou até a grama da Route1 e encontrou Tatupedra de nível 3. Usando Tackle, reduziu o HP selvagem a 4 sem derrotá-lo; uma cápsula capturou o animal (`B_OUTCOME_CAUGHT = 7`). A equipe passou de um para dois animais e a bolsa de cinco para quatro cápsulas. O teste salvou pelo menu SALVAR, fechou o processo e abriu Continue em outro, confirmando equipe, nome/nível da captura, cápsulas, flags `01`, ausência de pedra e posição (15,14) na Route1.
+
+Validação: build incremental `make -j4 firered_rev1` PASS, SHA-1 preservado `2cd252b4dbb1926e28e89944333d5c7b033fa304`, símbolos regenerados do ELF; teste completo PASS em `tests/emulator/results/capture-20261111/`; `py_compile` e `git diff --check` PASS. Relatório em `docs/capture-validation.json`, instruções em `tests/emulator/README.md`. Nenhum código ou asset do jogo foi alterado. Somente teste, documentação e relatório JSON são publicados; ROM, saves, logs e capturas permanecem ignorados pelo Git.
+
+O cenário usa somente entradas normais e leituras, sem injetar criaturas, itens, HP, resultado ou RNG e sem savestates no teste final. A sequência e suas pausas foram gravadas para este build; valida um encontro, não a taxa de captura. Tentativas exploratórias de lançamento podem falhar normalmente e não são tratadas como sucesso. Não foram validados outros animais selvagens, equipe cheia/envio ao PC ou todos os ramos de falha. A identidade persistida é conferida por nome/nível não cifrados, após verificar a espécie selvagem e o resultado da batalha.
+
+Próximo passo concreto: mochila cheia ou reposição da pedra ausente. Também seguem pendentes missão atual de Capivágua, derrota dos outros parceiros e save/Continue diretamente no bosque. Os relatos abaixo são histórico dos respectivos testes/builds.
+
 ## Correção — ponte persistente e revisitas à pedra
 
 O teste novo `check_stone_revisit.py` reproduziu um defeito no build `8c41ff7ada0ebf8b5791d1871eee3569cec8fcf9`: após Continue na vila e retorno ao bosque, flags `0F` e item 361 persistiam, mas o jogador parava em (11,11), diante da ponte fechada. A restauração dos tiles estava em `MAP_SCRIPT_ON_TRANSITION`, que roda antes de `InitMap` reinicializar o grid. Foi movida para `MAP_SCRIPT_ON_LOAD`, após a inicialização dos tiles, mantendo a condição da flag e o bloqueio antes da vitória.
@@ -96,7 +106,7 @@ Os três menus/prévias e as escolhas de parceiros foram conferidos em versões 
 
 ## Pendências reais
 
-1. Testar captura, reposição da pedra ausente e falta de espaço. Quantidade unitária e ausência de duplicação após revisitar o local/curador foram conferidas com Ararafogo e Tatupedra. Missão vitoriosa validada no build atual com Ararafogo e Tatupedra; falta repetir Capivágua neste build. Derrota/recuperação e manutenção do bloqueio após perder estão validadas com Ararafogo; faltam os demais parceiros.
+1. Testar reposição da pedra ausente, falta de espaço e outros cenários de captura (outras espécies/equipe cheia). Uma captura natural de Tatupedra com Capivágua e consumo de cápsula passou, incluindo save/Continue. Quantidade unitária e ausência de duplicação após revisitar o local/curador foram conferidas com Ararafogo e Tatupedra. Missão vitoriosa validada no build atual com Ararafogo e Tatupedra; falta repetir Capivágua neste build. Derrota/recuperação e manutenção do bloqueio após perder estão validadas com Ararafogo; faltam os demais parceiros.
 2. Ampliar os testes de save normal após a missão com Capivágua no build atual. A reconstrução da ponte ao entrar novamente no bosque após Continue foi corrigida e validada com Ararafogo e Tatupedra. Os ciclos após a pedra com Ararafogo e Tatupedra passaram, além dos ciclos na casa, após derrota com Ararafogo e na vila após escolher cada um dos três parceiros. Usar SALVAR e persistência nativa via VFile; não usar o antigo flushsave removido.
 3. Adaptar caminhos absolutos /workspace dos auxiliares para o disco G/WSL; documentar um build limpo reprodutível.
 4. Completar a identidade amazônica: árvores, água, palafitas/doca, personagem, NPCs, interiores e cenário de batalha. Ainda há bastante arte/interface/áudio do FireRed.

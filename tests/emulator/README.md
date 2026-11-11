@@ -34,6 +34,20 @@ python3 tests/emulator/check_intro.py \
 
 Esse ciclo de save acontece na casa, antes da escolha do parceiro. Não substitui um teste integral da missão. Os relatórios atuais estão em `docs/intro-validation.json` e `docs/intro-starter-regression-results.json`; o relatório anterior de parceiros foi preservado como histórico.
 
+## Captura e consumo de cápsulas
+
+```bash
+python3 tests/emulator/check_capture.py \
+  --runner "$(pwd)/tests/emulator/runner" \
+  --rom "$(pwd)/pokefirered/pokefirered_rev1.gba" \
+  --symbols "$(pwd)/tests/emulator/current-symbols.txt" \
+  --output "$(pwd)/tests/emulator/results/capture-nova-execucao"
+```
+
+Use uma pasta vazia. O cenário gravado começa um jogo novo com Capivágua, recebe as cinco cápsulas, encontra Tatupedra de nível 3 na grama da Route1, enfraquece com Tackle e tenta capturar pela bolsa. Exige `B_OUTCOME_CAUGHT`, equipe com dois animais e redução das cápsulas igual ao número de lançamentos. Salva pelo menu e reabre Continue em outro processo, conferindo equipe, nome/nível da captura, cápsulas, flags e posição. Nenhum item, criatura, HP, RNG ou resultado é injetado; estados do emulador não são usados no teste.
+
+Esse é um caso com entradas e pausas fixas, dependente do build e do ritmo atual do RNG. Mudanças no fluxo podem exigir nova gravação; falhas de captura não devem ser convertidas em PASS. Não mede taxa de captura nem valida outras espécies, equipe cheia/envio ao PC, inventário cheio ou todos os ramos de falha. Veja `docs/capture-validation.json`.
+
 ## Missão da Pedra das Águas
 
 ```bash

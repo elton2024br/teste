@@ -1,0 +1,42 @@
+{
+  "rom_sha1": "2cd252b4dbb1926e28e89944333d5c7b033fa304",
+  "result": "PASS",
+  "starter": "capivagua",
+  "encounter_cycles": 5,
+  "wild_species": 1,
+  "wild_hp_before_throw": 4,
+  "caught": {
+    "nickname": "TATUPEDRA",
+    "level": 3
+  },
+  "outcome": 7,
+  "throws": 1,
+  "capsules_before": 5,
+  "capsules_after": 4,
+  "before_save": {
+    "partner": 1,
+    "flags": 1,
+    "keyitem": 0,
+    "party": 2,
+    "starter": 1,
+    "map": "3/19",
+    "position": [
+      15,
+      14
+    ]
+  },
+  "continued": {
+    "partner": 1,
+    "flags": 1,
+    "keyitem": 0,
+    "party": 2,
+    "starter": 1,
+    "map": "3/19",
+    "position": [
+      15,
+      14
+    ]
+  },
+  "save_bytes": 131088,
+  "scope": "One recorded natural Tatupedra capture with normal inputs, capsule consumption and ordinary save/Continue. No catch-rate statistics, full party/PC, other wild species or inventory-full cases."
+}
