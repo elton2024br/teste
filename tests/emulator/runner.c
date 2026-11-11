@@ -38,11 +38,13 @@ static int load_symbols(const char *path)
 int main(int argc, char **argv)
 {
     const char *save_path = NULL, *symbols_path = NULL;
+    int test_writes = 0;
     if (argc < 2) return 2;
     for (int i = 2; i < argc; i += 2) {
         if (i + 1 >= argc) return 2;
         if (!strcmp(argv[i], "--save")) save_path = argv[i + 1];
         else if (!strcmp(argv[i], "--symbols")) symbols_path = argv[i + 1];
+        else if (!strcmp(argv[i], "--test-writes") && !strcmp(argv[i + 1], "enabled")) test_writes = 1;
         else return 2;
     }
     if (symbols_path && !load_symbols(symbols_path)) {
@@ -72,7 +74,7 @@ int main(int argc, char **argv)
     }
     core->reset(core);
     char line[1024];
-    unsigned keys, frames, address;
+    unsigned keys, frames, address, value;
     while (fgets(line, sizeof(line), stdin)) {
         line[strcspn(line, "\r\n")] = 0;
         if (sscanf(line, "run %u %u", &keys, &frames) == 2) {
@@ -106,6 +108,15 @@ int main(int argc, char **argv)
             free(data);
             if (!ok) { result = writing ? 6 : 7; break; }
             puts(writing ? "STATE_SAVED" : "STATE_LOADED");
+        } else if (sscanf(line, "write32 %x %x", &address, &value) == 2) {
+            /* Opt-in fixture setup only; never permit ROM or unaligned writes. */
+            if (!test_writes || address < 0x02000000 || address > 0x0203FFFC || (address & 3)) {
+                fprintf(stderr, "write32 requires --test-writes enabled and an aligned EWRAM address\n");
+                result = 16;
+                break;
+            }
+            core->busWrite32(core, address, value);
+            printf("TEST_WRITE32 %08X %08X\n", address, value);
         } else if (sscanf(line, "read32 %x", &address) == 1) {
             printf("READ32 %08X %08X\n", address, core->busRead32(core, address));
         } else if (sscanf(line, "read8 %x", &address) == 1) {

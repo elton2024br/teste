@@ -9,13 +9,15 @@ from intro_flow import new_game
 
 
 class Emulator:
-    def __init__(self, args, label, save=None):
+    def __init__(self, args, label, save=None, test_writes=False):
         command = [str(args.runner), str(args.rom), '--symbols', str(args.symbols)]
         if save:
             command += ['--save', str(save)]
+        if test_writes:
+            command += ['--test-writes', 'enabled']
         self.proc = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                      stderr=subprocess.PIPE, text=True, bufsize=1)
-        self.log = []
+        self.log = ['TEST FIXTURE WRITES ENABLED'] if test_writes else []
         self.logfile = args.output / (label + '.log')
 
     def send(self, commands):

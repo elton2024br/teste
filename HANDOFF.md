@@ -8,6 +8,16 @@ A restauracao ja foi feita na nuvem. O conteudo abaixo conserva o historico e as
 
 # Bichos do Brasil — ponto de retomada
 
+## Reposição da pedra — fixtures artificiais de inventário
+
+`tests/emulator/check_stone_repair.py` passou em dois cenários preparados artificialmente a partir de uma cópia do save de Ararafogo pós-missão: flag da pedra já obtida com bolsa especial vazia; e a mesma flag com os 30 slots ocupados por itens especiais distintos, sem a pedra. No primeiro, o cuidador repôs uma unidade. No segundo, recusou sem modificar a bolsa; após liberar exatamente um slot na fixture, repôs uma unidade sem perder os outros 29 itens. Repetir a interação não duplicou a pedra. Save normal e Continue em outro processo preservaram bolsa completa e progresso nos dois casos; o save original foi preservado.
+
+Esses resultados **não são gameplay natural**: os cenários usam escrita de memória para preparar somente o bolso de itens especiais. O runner ganhou `write32` opt-in por `--test-writes enabled`, limitado a EWRAM alinhada, com resposta e logs explícitos de teste. Os guards sem opt-in, para endereço de ROM e para endereço desalinhado passaram. A preparação usa quantidades cifradas pela chave real do save; ações do cuidador e salvamento usam os controles normais. Os processos de Continue são abertos com escritas desabilitadas. Nenhuma flag, resultado do script ou concessão de item foi forçada após preparar os bolsos.
+
+Validações: `make -j4 firered_rev1` incremental PASS, SHA-1 inalterado `2cd252b4dbb1926e28e89944333d5c7b033fa304`, símbolos regenerados; runner recompilado com `-Wall -Wextra -Werror`; teste completo PASS em `tests/emulator/results/stone-repair-20261111-v2/`; `py_compile` e `git diff --check` PASS. Relatório: `docs/stone-repair-validation.json`. Instruções em `tests/emulator/README.md`. A primeira tentativa do teste não confirmou a sobrescrita do save existente e Continue retornou à posição antiga; foi corrigida a sequência de entradas, sem alteração no jogo. Nenhuma ROM ou save é publicada.
+
+Próximo passo concreto: testar a aquisição no objeto da pedra com a bolsa cheia, ainda não coberta. Também seguem pendentes missão atual de Capivágua, equipe cheia/envio de captura ao PC, derrota dos outros parceiros e save/Continue diretamente no bosque. A validação atual cobre o cuidador em estados artificiais, não a possibilidade de alcançar naturalmente uma bolsa cheia ou perder a pedra.
+
 ## Captura natural e persistência
 
 `tests/emulator/check_capture.py` passou desde um jogo novo: Capivágua recebeu as cinco cápsulas do guia, caminhou até a grama da Route1 e encontrou Tatupedra de nível 3. Usando Tackle, reduziu o HP selvagem a 4 sem derrotá-lo; uma cápsula capturou o animal (`B_OUTCOME_CAUGHT = 7`). A equipe passou de um para dois animais e a bolsa de cinco para quatro cápsulas. O teste salvou pelo menu SALVAR, fechou o processo e abriu Continue em outro, confirmando equipe, nome/nível da captura, cápsulas, flags `01`, ausência de pedra e posição (15,14) na Route1.
@@ -106,7 +116,7 @@ Os três menus/prévias e as escolhas de parceiros foram conferidos em versões 
 
 ## Pendências reais
 
-1. Testar reposição da pedra ausente, falta de espaço e outros cenários de captura (outras espécies/equipe cheia). Uma captura natural de Tatupedra com Capivágua e consumo de cápsula passou, incluindo save/Continue. Quantidade unitária e ausência de duplicação após revisitar o local/curador foram conferidas com Ararafogo e Tatupedra. Missão vitoriosa validada no build atual com Ararafogo e Tatupedra; falta repetir Capivágua neste build. Derrota/recuperação e manutenção do bloqueio após perder estão validadas com Ararafogo; faltam os demais parceiros.
+1. Testar aquisição pelo objeto da pedra com bolsa cheia e outros cenários de captura (outras espécies/equipe cheia). Reposição pelo cuidador, recusa com bolso cheio e retomada após liberar um slot passaram em fixtures artificiais, não em gameplay natural. Uma captura natural de Tatupedra com Capivágua e consumo de cápsula passou, incluindo save/Continue. Quantidade unitária e ausência de duplicação após revisitar o local/curador foram conferidas com Ararafogo e Tatupedra. Missão vitoriosa validada no build atual com Ararafogo e Tatupedra; falta repetir Capivágua neste build. Derrota/recuperação e manutenção do bloqueio após perder estão validadas com Ararafogo; faltam os demais parceiros.
 2. Ampliar os testes de save normal após a missão com Capivágua no build atual. A reconstrução da ponte ao entrar novamente no bosque após Continue foi corrigida e validada com Ararafogo e Tatupedra. Os ciclos após a pedra com Ararafogo e Tatupedra passaram, além dos ciclos na casa, após derrota com Ararafogo e na vila após escolher cada um dos três parceiros. Usar SALVAR e persistência nativa via VFile; não usar o antigo flushsave removido.
 3. Adaptar caminhos absolutos /workspace dos auxiliares para o disco G/WSL; documentar um build limpo reprodutível.
 4. Completar a identidade amazônica: árvores, água, palafitas/doca, personagem, NPCs, interiores e cenário de batalha. Ainda há bastante arte/interface/áudio do FireRed.

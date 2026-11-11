@@ -1,0 +1,63 @@
+{
+  "rom_sha1": "2cd252b4dbb1926e28e89944333d5c7b033fa304",
+  "source_save_sha256": "4dae33c221dcfbfbf62a598bcd6f41302de0c9da3c7500c99ef782e2ca6fbeb7",
+  "fixture_writes": true,
+  "write_guards": "PASS",
+  "filler_ids": [
+    259,
+    260,
+    261,
+    262,
+    263,
+    264,
+    265,
+    266,
+    268,
+    269,
+    270,
+    271,
+    272,
+    273,
+    274,
+    275,
+    276,
+    277,
+    278,
+    279,
+    280,
+    281,
+    282,
+    283,
+    284,
+    285,
+    286,
+    287,
+    288,
+    349
+  ],
+  "cases": [
+    {
+      "case": "missing",
+      "result": "PASS",
+      "synthetic_fixture": true,
+      "prepared_occupied": 0,
+      "repaired_occupied": 1,
+      "stone_quantity": 1,
+      "other_items_preserved": true,
+      "full_refusal_checked": false,
+      "normal_save_continue": true
+    },
+    {
+      "case": "full",
+      "result": "PASS",
+      "synthetic_fixture": true,
+      "prepared_occupied": 30,
+      "repaired_occupied": 30,
+      "stone_quantity": 1,
+      "other_items_preserved": true,
+      "full_refusal_checked": true,
+      "normal_save_continue": true
+    }
+  ],
+  "scope": "Artificial key-pocket fixtures after a completed Ararafogo mission; caregiver missing-stone repair, full-pocket refusal, retry after freeing one slot, no duplication and ordinary save/Continue. Not natural acquisition/fullness, stone-object collection or other pockets."
+}

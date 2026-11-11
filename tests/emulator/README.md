@@ -75,6 +75,23 @@ python3 tests/emulator/check_stone_revisit.py \
 
 O teste exige uma saída vazia e fixtures do mesmo hash de ROM. Copia os saves nativos de Ararafogo e Tatupedra para preservar os originais, carrega Continue e caminha de volta pela ponte. Confere todos os 30 slots de itens especiais, decifrando as quantidades pela chave do save. A pedra deve ocupar um único slot, com quantidade 1, antes e depois de três tentativas de interação no antigo local e três interações com o cuidador. Não usa escrita de memória ou estados do emulador. Não cobre mochila cheia, reposição de pedra ausente, captura nem um novo ciclo de save após as revisitas.
 
+## Fixtures artificiais: reposição da pedra e bolsa cheia
+
+```bash
+python3 tests/emulator/check_stone_repair.py \
+  --runner "$(pwd)/tests/emulator/runner" \
+  --rom "$(pwd)/pokefirered/pokefirered_rev1.gba" \
+  --symbols "$(pwd)/tests/emulator/current-symbols.txt" \
+  --mission-results "$(pwd)/tests/emulator/results/mission-nova-execucao" \
+  --output "$(pwd)/tests/emulator/results/stone-repair-nova-execucao"
+```
+
+**Este teste prepara estados artificiais por escrita de memória.** Não é evidência de uma mochila enchida ou de uma pedra perdida em gameplay natural. Exige fixtures de `check_mission.py` do mesmo build, copia o save de Ararafogo e preserva o original. Com a flag da pedra já obtida, prepara dois cenários: bolsa especial vazia e 30 itens especiais distintos sem a pedra. O cuidador deve repor uma pedra no primeiro, recusar sem alterar os itens no segundo e repor após liberar exatamente um slot. Uma nova interação não pode duplicar a pedra. Salva pelo menu (incluindo confirmação de sobrescrita), fecha e reabre Continue para conferir toda a bolsa e o progresso.
+
+O runner só aceita `write32 ENDERECO VALOR` com `--test-writes enabled`, em EWRAM alinhada; o comando responde `TEST_WRITE32`. Os logs das sessões artificiais têm um cabeçalho explícito. O teste confere a recusa sem opt-in, para endereço de ROM e para endereço desalinhado. Reabre Continue sem habilitar escritas. Os testes anteriores continuam com esse modo desabilitado por padrão.
+
+Relatório: `docs/stone-repair-validation.json`. Não cobre a aquisição pelo objeto da pedra com a bolsa cheia, outros bolsos nem acesso natural aos estados preparados.
+
 ## Derrota e recuperação
 
 ```bash
