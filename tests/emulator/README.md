@@ -92,6 +92,21 @@ O runner só aceita `write32 ENDERECO VALOR` com `--test-writes enabled`, em EWR
 
 Relatório: `docs/stone-repair-validation.json`. Não cobre a aquisição pelo objeto da pedra com a bolsa cheia, outros bolsos nem acesso natural aos estados preparados.
 
+## Fixture artificial: coleta da pedra com bolsa cheia
+
+```bash
+python3 tests/emulator/check_stone_collection_full.py \
+  --runner "$(pwd)/tests/emulator/runner" \
+  --rom "$(pwd)/pokefirered/pokefirered_rev1.gba" \
+  --symbols "$(pwd)/tests/emulator/current-symbols.txt" \
+  --mission-results "$(pwd)/tests/emulator/results/mission-nova-execucao" \
+  --output "$(pwd)/tests/emulator/results/stone-collection-full-nova-execucao"
+```
+
+**Prepara um estado artificial**, copiando o save pós-missão de Ararafogo, preenchendo o bolso especial com 30 itens distintos e limpando somente a flag de obtenção da pedra antes de entrar no bosque. Vitória e controle liberado são preservados. Três tentativas normais de coleta devem manter a bolsa intacta, o objeto ativo e a flag não marcada. Depois de liberar artificialmente um slot, a interação deve conceder uma pedra, remover o objeto e preservar os outros 29 itens. Repetir a interação não pode duplicar o item.
+
+O teste também salva pelo menu diretamente no bosque e abre Continue em outro processo com escritas desabilitadas: compara bolsa/progresso, confirma a ausência do objeto e atravessa a ponte. Usa uma saída vazia e resultados de missão do mesmo hash de ROM; preserva o save de origem. Não comprova acesso natural à bolsa cheia, outros parceiros/bolsos nem todos os caminhos de save. Relatório: `docs/stone-collection-full-validation.json`.
+
 ## Derrota e recuperação
 
 ```bash

@@ -1,0 +1,68 @@
+{
+  "rom_sha1": "2cd252b4dbb1926e28e89944333d5c7b033fa304",
+  "result": "PASS",
+  "synthetic_fixture": true,
+  "fixture_writes": [
+    "key-item pocket",
+    "clear water-stone flag before map entry"
+  ],
+  "source_save_sha256": "4dae33c221dcfbfbf62a598bcd6f41302de0c9da3c7500c99ef782e2ca6fbeb7",
+  "filler_ids": [
+    259,
+    260,
+    261,
+    262,
+    263,
+    264,
+    265,
+    266,
+    268,
+    269,
+    270,
+    271,
+    272,
+    273,
+    274,
+    275,
+    276,
+    277,
+    278,
+    279,
+    280,
+    281,
+    282,
+    283,
+    284,
+    285,
+    286,
+    287,
+    288,
+    349
+  ],
+  "full_refusal_flags": [
+    7,
+    7,
+    7
+  ],
+  "object_preserved_on_refusal": true,
+  "collection_flags": 15,
+  "object_removed_on_success": true,
+  "stone_quantity": 1,
+  "other_items_preserved": 29,
+  "repeated_collection_unchanged": true,
+  "forest_save_continue": true,
+  "continued": {
+    "partner": 1,
+    "flags": 15,
+    "keyitem": 259,
+    "party": 1,
+    "starter": 2,
+    "map": "1/0",
+    "position": [
+      11,
+      6
+    ]
+  },
+  "crossed_bridge_after_continue": true,
+  "scope": "Artificial pre-collection/full-key-pocket state with Ararafogo; normal collection script, refusal/retry, no duplication, native forest save/Continue and bridge crossing. Not naturally reachable fullness, other partners/pockets or every save path."
+}
