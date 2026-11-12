@@ -8,9 +8,11 @@ from check_intro import Emulator
 from check_starters import bootstrap, press_a
 from check_defeat_recovery import dismiss, reach_control, snapshot
 
+PARTNERS = {'capivagua': (0, 1), 'ararafogo': (1, 2), 'tatupedra': (2, 0)}
+
 
 def fight(emu, symbols):
-    # Both partners start with their elemental attack in slot 1. Resolve the
+    # All starters begin with their elemental attack in slot 1. Resolve the
     # unique move-input handler, avoiding duplicate static action-handler names.
     for cycle in range(300):
         handler = emu.read(symbols['gBattlerControllerFuncs'], 32) & ~1
@@ -35,7 +37,9 @@ def check(args):
     symbols = {p[2]: int(p[0], 16) for line in args.symbols.read_text().splitlines()
                if len(p := line.split()) == 3}
     cases = []
-    for name, down, starter in [('ararafogo', 1, 2), ('tatupedra', 2, 0)]:
+    assert len(args.partners) == len(set(args.partners)), 'Do not repeat a partner.'
+    for name in args.partners:
+        down, starter = PARTNERS[name]
         save = args.output / (name + '.sav')
         emu = Emulator(args, name + '-mission', save)
         try:
@@ -102,4 +106,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     for name in ['runner', 'rom', 'symbols', 'output']:
         parser.add_argument('--' + name, type=Path, required=True)
+    parser.add_argument('--partners', nargs='+', choices=PARTNERS,
+                        default=['ararafogo', 'tatupedra'])
     check(parser.parse_args())

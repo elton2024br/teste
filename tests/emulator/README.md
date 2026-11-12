@@ -1,6 +1,6 @@
 # Testes no emulador
 
-O runner usa a biblioteca nativa do mGBA. Os testes abaixo cobrem introdução, escolha/save dos parceiros, derrota/recuperação com Ararafogo e a missão da pedra com Ararafogo e Tatupedra. Não validam a campanha dos cinco habitats.
+O runner usa a biblioteca nativa do mGBA. Os testes abaixo cobrem introdução, escolha/save dos parceiros, derrota/recuperação com Ararafogo e a missão da pedra com os três parceiros. Não validam a campanha dos cinco habitats.
 
 ## Compilar e executar
 
@@ -59,6 +59,8 @@ python3 tests/emulator/check_mission.py \
 ```
 
 Use uma pasta vazia. O teste começa jogos novos com Ararafogo e Tatupedra, confirma o controle bloqueado, vence o agente, ativa o controle, atravessa a ponte, recebe a pedra e retorna ao guia na vila. Salva pelo menu e confere parceiro, equipe, flags, item e posição por Continue em outro processo. A estratégia seleciona o segundo ataque no menu de batalha, consultando o handler e o cursor pelos símbolos do ELF; não escreve na memória nem usa savestates. Uma derrota ou limite de espera excedido falha o teste. Isso não valida captura, inventário cheio ou quantidade/duplicação da pedra.
+
+Para rodar somente Capivágua, acrescente `--partners capivagua` e use uma pasta de saída nova. Também é possível selecionar parceiros por nome com `--partners`; o padrão continua Ararafogo e Tatupedra para preservar os consumidores de fixtures existentes, que exigem essa dupla. A validação isolada de Capivágua está em `docs/capivagua-mission-validation.json`; os dois outros ramos estão em `docs/mission-current-validation.json`.
 
 ## Revisita à pedra e ao cuidador
 
