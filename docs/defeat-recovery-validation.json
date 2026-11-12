@@ -1,9 +1,11 @@
 {
-  "rom_sha1": "8c41ff7ada0ebf8b5791d1871eee3569cec8fcf9",
+  "rom_sha1": "b89c8c560eae9d999b68fd22b6ace17409b2f913",
   "result": "PASS",
   "partner": "ararafogo",
+  "strategy": "first-attack",
+  "trainer_ball_attempts": 0,
   "battle_outcome": 2,
-  "input_cycles": 37,
+  "input_cycles": 36,
   "locked_before": {
     "partner": 1,
     "flags": 1,
@@ -57,5 +59,5 @@
       14
     ]
   },
-  "scope": "Fresh game, agent loss, house respawn/healing, flags unchanged and normal save/Continue in a new process; control still locked after walking back. No full victory mission, post-stone save or other partners."
+  "scope": "Fresh game, agent loss, house respawn/healing, flags unchanged and normal save/Continue in a new process; control still locked after walking back. No full victory mission or post-stone save; one selected partner."
 }

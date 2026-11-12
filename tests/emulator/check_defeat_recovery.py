@@ -90,6 +90,8 @@ def check(args):
         for turns in range(80):
             emu.send(press_a(1, 300))
             current = snapshot(emu, symbols)
+            if emu.read(symbols['gBattleOutcome']) == 2:
+                emu.send(f'shot {args.output / ("defeat-" + str(turns) + ".ppm")}')
             assert not current['flags'] & 2, ('unexpected victory in loss scenario', current)
             if current['map'] == '4/0':
                 break
@@ -99,7 +101,8 @@ def check(args):
         emu.send('run 0 300')
         # The rush-home screen is a task, followed by Mom's script. Both must
         # finish before movement is possible. Stop before A talks to Mom again.
-        for _ in range(40):
+        for page in range(40):
+            emu.send(f'shot {args.output / ("recovery-" + str(page) + ".ppm")}')
             if (emu.read(symbols['sGlobalScriptContextStatus']) == 2
                     and emu.read(symbols['sLockFieldControls']) == 0
                     and emu.read(symbols['gMain'] + 4, 32) & ~1 == symbols['CB2_Overworld']):

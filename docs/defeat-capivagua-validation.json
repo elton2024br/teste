@@ -1,11 +1,11 @@
 {
-  "rom_sha1": "2cd252b4dbb1926e28e89944333d5c7b033fa304",
+  "rom_sha1": "b89c8c560eae9d999b68fd22b6ace17409b2f913",
   "result": "PASS",
   "partner": "capivagua",
   "strategy": "trainer-balls",
   "trainer_ball_attempts": 5,
   "battle_outcome": 2,
-  "input_cycles": 21,
+  "input_cycles": 20,
   "locked_before": {
     "partner": 1,
     "flags": 1,
