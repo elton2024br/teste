@@ -1,6 +1,6 @@
 # Testes no emulador
 
-O runner usa a biblioteca nativa do mGBA. Os testes abaixo cobrem introdução, escolha/save dos parceiros, derrota/recuperação com Ararafogo e a missão da pedra com os três parceiros. Não validam a campanha dos cinco habitats.
+O runner usa a biblioteca nativa do mGBA. Os testes abaixo cobrem introdução, escolha/save dos parceiros, derrota/recuperação dos três parceiros e a missão da pedra com os três parceiros. Não validam a campanha dos cinco habitats.
 
 ## Compilar e executar
 
@@ -121,7 +121,9 @@ python3 tests/emulator/check_defeat_recovery.py \
 
 Use uma pasta vazia. O teste começa um jogo novo com Ararafogo, confere o bloqueio do rio e do controle, enfrenta o agente usando o primeiro ataque até perder, e verifica retorno à casa, HP restaurado e flags sem liberação indevida. Salva pelo menu SALVAR, fecha o emulador e carrega Continue em outro processo, comparando posição, parceiro, equipe, flags, item da pedra e HP. Depois caminha novamente até o controle e confirma que continua bloqueado e que o jogador consegue se mover ao fechar o diálogo. Só usa entradas de controle e leituras de memória; não injeta derrota, HP ou flags. Asserções de posição e HP usam os layouts das estruturas do código FireRed fixado; os endereços vêm do ELF atual. O cenário de derrota depende da sequência e do balanceamento atuais: uma vitória inesperada é falha do teste, não é registrada como recuperação aprovada.
 
-O arquivo nativo de save e as capturas permanecem na pasta de resultados ignorada pelo Git. Esse caso não certifica vitória, captura, inventário cheio, save após obter a pedra nem recuperação com os outros parceiros.
+Para os ramos restantes, acrescente `--partner capivagua --strategy trainer-balls` ou `--partner tatupedra --strategy trainer-balls`, sempre com uma pasta de saída nova. Essa estratégia tenta usar as cinco cápsulas contra o treinador e depois usa o primeiro ataque se necessário, até a derrota. Não força HP ou resultado; uma vitória inesperada falha o teste. O padrão permanece Ararafogo com o primeiro ataque. Relatórios dos novos ramos: `docs/defeat-capivagua-validation.json` e `docs/defeat-tatupedra-validation.json`; o relatório histórico de Ararafogo está em `docs/defeat-recovery-validation.json` e pertence a outro build.
+
+O arquivo nativo de save e as capturas permanecem na pasta de resultados ignorada pelo Git. Cada execução cobre somente o parceiro/estratégia selecionados; não certifica vitória, captura, inventário cheio ou save após obter a pedra.
 
 ## Save normal
 

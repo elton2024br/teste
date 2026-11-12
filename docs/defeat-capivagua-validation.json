@@ -1,0 +1,63 @@
+{
+  "rom_sha1": "2cd252b4dbb1926e28e89944333d5c7b033fa304",
+  "result": "PASS",
+  "partner": "capivagua",
+  "strategy": "trainer-balls",
+  "trainer_ball_attempts": 5,
+  "battle_outcome": 2,
+  "input_cycles": 21,
+  "locked_before": {
+    "partner": 1,
+    "flags": 1,
+    "keyitem": 0,
+    "party": 1,
+    "starter": 1,
+    "map": "1/0",
+    "position": [
+      12,
+      14
+    ]
+  },
+  "recovered": {
+    "partner": 1,
+    "flags": 1,
+    "keyitem": 0,
+    "party": 1,
+    "starter": 1,
+    "map": "4/0",
+    "position": [
+      8,
+      5
+    ]
+  },
+  "hp": 21,
+  "max_hp": 21,
+  "continued": {
+    "partner": 1,
+    "flags": 1,
+    "keyitem": 0,
+    "party": 1,
+    "starter": 1,
+    "map": "4/0",
+    "position": [
+      8,
+      5
+    ]
+  },
+  "continued_hp": 21,
+  "continued_max_hp": 21,
+  "save_bytes": 131088,
+  "locked_after": {
+    "partner": 1,
+    "flags": 1,
+    "keyitem": 0,
+    "party": 1,
+    "starter": 1,
+    "map": "1/0",
+    "position": [
+      12,
+      14
+    ]
+  },
+  "scope": "Fresh game, agent loss, house respawn/healing, flags unchanged and normal save/Continue in a new process; control still locked after walking back. No full victory mission or post-stone save; one selected partner."
+}

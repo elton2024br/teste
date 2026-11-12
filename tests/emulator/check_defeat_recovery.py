@@ -7,6 +7,34 @@ from pathlib import Path
 from check_intro import Emulator
 from check_starters import bootstrap, press_a, progress
 
+PARTNERS = {'capivagua': (0, 1), 'ararafogo': (1, 2), 'tatupedra': (2, 0)}
+
+
+def attempt_trainer_balls(emu, symbols, actions):
+    """Attempt throws against the trainer through ordinary bag input."""
+    throws = 0
+    for _ in range(200):
+        current = snapshot(emu, symbols)
+        if current['map'] == '4/0':
+            return throws
+        handler = emu.read(symbols['gBattlerControllerFuncs'], 32) & ~1
+        if handler in actions:
+            if throws == 5:
+                # Return to FIGHT for the existing first-attack loss loop.
+                emu.send('run 32 12\nrun 0 30')
+                return throws
+            assert emu.read(symbols['gActionSelectionCursor']) in (0, 1)
+            if emu.read(symbols['gActionSelectionCursor']) == 0:
+                emu.send('run 16 12\nrun 0 30')
+            emu.send(press_a(1, 180))
+            if throws == 0:
+                emu.send('run 16 12\nrun 0 90\nrun 16 12\nrun 0 90')
+            emu.send(press_a(2, 180))
+            throws += 1
+        else:
+            emu.send('run 2 12\nrun 0 120')
+    raise AssertionError('trainer-ball strategy did not finish')
+
 
 def position(emu, symbols):
     # Offsets match ObjectEvent/PlayerAvatar in the pinned FireRed source.
@@ -39,17 +67,18 @@ def check(args):
     args.output.mkdir(parents=True, exist_ok=True)
     # A reused output directory can conceal logs from an earlier run.
     assert not any(args.output.iterdir()), 'Use a fresh output directory.'
-    symbols = {p[2]: int(p[0], 16) for line in args.symbols.read_text().splitlines()
-               if len(p := line.split()) == 3}
+    lines = [p for line in args.symbols.read_text().splitlines() if len(p := line.split()) == 3]
+    symbols = {p[2]: int(p[0], 16) for p in lines}
+    actions = {int(p[0], 16) for p in lines if p[2] == 'HandleInputChooseAction'}
+    down, starter = PARTNERS[args.partner]
     save = args.output / 'recovered.sav'
     emu = Emulator(args, 'defeat-recovery', save)
     try:
-        # Fresh Ararafogo; use the first attack throughout this loss scenario.
-        emu.send(bootstrap() + 'run 128 12\nrun 0 30\n' + press_a(12))
+        emu.send(bootstrap() + 'run 128 12\nrun 0 30\n' * down + press_a(12))
         dismiss(emu)
         initial = reach_control(emu, symbols)
         assert initial['partner'] == initial['party'] == initial['flags'] == 1, initial
-        assert initial['starter'] == 2 and initial['keyitem'] == 0, initial
+        assert initial['starter'] == starter and initial['keyitem'] == 0, initial
         emu.send(press_a(4))
         locked_before = snapshot(emu, symbols)
         assert locked_before == initial, (initial, locked_before)
@@ -57,6 +86,7 @@ def check(args):
         dismiss(emu)
         emu.send('run 32 16\nrun 0 30\nrun 32 4\nrun 0 30\n')
         emu.send(press_a(4, 300))
+        throws = attempt_trainer_balls(emu, symbols, actions) if args.strategy == 'trainer-balls' else 0
         for turns in range(80):
             emu.send(press_a(1, 300))
             current = snapshot(emu, symbols)
@@ -78,7 +108,7 @@ def check(args):
         else:
             raise AssertionError('recovery dialogue did not finish')
         recovered = snapshot(emu, symbols)
-        assert recovered == dict(partner=1, party=1, flags=1, starter=2, keyitem=0,
+        assert recovered == dict(partner=1, party=1, flags=1, starter=starter, keyitem=0,
                                  map='4/0', position=[8, 5]), recovered
         assert emu.read(symbols['gBattleOutcome']) == 2, 'expected B_OUTCOME_LOST'
         # Current HP/max HP are unencrypted fields in struct Pokemon.
@@ -128,19 +158,22 @@ def check(args):
     finally:
         emu.close()
     report = dict(rom_sha1=hashlib.sha1(args.rom.read_bytes()).hexdigest(), result='PASS',
-                  partner='ararafogo', battle_outcome=2, input_cycles=turns + 1,
+                  partner=args.partner, strategy=args.strategy, trainer_ball_attempts=throws,
+                  battle_outcome=2, input_cycles=turns + 1,
                   locked_before=locked_before, recovered=recovered, hp=hp, max_hp=max_hp,
                   continued=continued, continued_hp=continued_hp, continued_max_hp=continued_max_hp,
                   save_bytes=save.stat().st_size, locked_after=locked_after,
                   scope='Fresh game, agent loss, house respawn/healing, flags unchanged and '
                         'normal save/Continue in a new process; control still locked after walking back. '
-                        'No full victory mission, post-stone save or other partners.')
+                        'No full victory mission or post-stone save; one selected partner.')
     (args.output / 'results.json').write_text(json.dumps(report, indent=2) + '\n')
-    print('ararafogo defeat/recovery/save/Continue: PASS', flush=True)
+    print(args.partner + ' defeat/recovery/save/Continue: PASS', flush=True)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     for name in ['runner', 'rom', 'symbols', 'output']:
         parser.add_argument('--' + name, type=Path, required=True)
+    parser.add_argument('--partner', choices=PARTNERS, default='ararafogo')
+    parser.add_argument('--strategy', choices=['first-attack', 'trainer-balls'], default='first-attack')
     check(parser.parse_args())
