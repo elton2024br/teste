@@ -8,6 +8,16 @@ A restauracao ja foi feita na nuvem. O conteudo abaixo conserva o historico e as
 
 # Bichos do Brasil — ponto de retomada
 
+## Diálogo normal da mãe alinhado à guia
+
+As duas variantes de aparência agora recebem a orientação de procurar a guia na vila para escolher o parceiro, substituindo a referência ao professor/laboratório herdada da base. A condição de descanso foi corrigida de `FLAG_BEAT_RIVAL_IN_OAKS_LAB` para `FLAG_AMAZON_PARTNER_CHOSEN`: depois da escolha real do parceiro, a mãe usa o diálogo e a rotina de cura já existentes. Antes da escolha, continua apenas orientando, sem conceder criaturas ou itens.
+
+Build PASS: SHA-1 `d99fc62a68c07488568c23e5c560d4774762572f`, registrado em `SOURCE_STATE.json`, com símbolos regenerados. `check_mom_dialogue.py` passou nas duas aparências desde jogos novos: conversa inicial sem alterar progresso, saída da casa, concessão real de Capivágua e cinco cápsulas pela guia, retorno normal e descanso com HP restaurado para 21/21 e 22/22, cápsulas preservadas e movimento liberado. A cura foi testada com **HP=1 preparado artificialmente** depois da escolha; nenhuma flag, criatura ou item foi injetado. Isso não comprova dano natural de batalha, status/PP ou todos os tamanhos de equipe, e não inclui novo ciclo de save.
+
+Relatório: `docs/mom-dialogue-validation.json`. Capturas das duas aparências revisadas manualmente, sem corte observado nas páginas conferidas: `docs/screenshots/mom-dialogue/preview.png`. A primeira rota de teste precisou considerar que a entrada deixa o jogador em (5,8); a sequência final também para assim que o diálogo libera o controle, evitando iniciar outra conversa por A extra. Execução final PASS em `tests/emulator/results/mom-dialogue-20261113-v3/`; `py_compile` e `git diff --check` PASS. Logs e PPM completos ficam ignorados. Nenhuma ROM ou save é publicada.
+
+Os relatórios anteriores continuam identificados pelos hashes dos respectivos builds; fixtures que exigem o hash atual devem ser regeneradas antes do uso. Próximo passo concreto: validar captura com equipe cheia e envio ao PC. O acabamento visual amazônico e os demais habitats continuam pendentes.
+
 ## Retorno à casa em português
 
 Foram adaptadas as mensagens de esgotamento/derrota em `src/battle_message.c`, o retorno para casa em `src/strings.c` e os dois diálogos automáticos da mãe em `data/text/white_out.inc`. As orientações agora explicam energia/HP e indicam descanso em casa ou ajuda gratuita do cuidador da vila, em vez da referência herdada ao Professor Oak e ao Centro Pokémon. O rótulo MAMAE segue o diálogo já existente da casa. Placeholders, perda de dinheiro e demais mecânicas foram preservados.

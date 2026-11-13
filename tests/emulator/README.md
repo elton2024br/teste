@@ -34,6 +34,20 @@ python3 tests/emulator/check_intro.py \
 
 Esse ciclo de save acontece na casa, antes da escolha do parceiro. Não substitui um teste integral da missão. Os relatórios atuais estão em `docs/intro-validation.json` e `docs/intro-starter-regression-results.json`; o relatório anterior de parceiros foi preservado como histórico.
 
+## Diálogo normal da mãe e descanso
+
+```bash
+python3 tests/emulator/check_mom_dialogue.py \
+  --runner "$(pwd)/tests/emulator/runner" \
+  --rom "$(pwd)/pokefirered/pokefirered_rev1.gba" \
+  --symbols "$(pwd)/tests/emulator/current-symbols.txt" \
+  --output "$(pwd)/tests/emulator/results/mom-dialogue-nova-execucao"
+```
+
+Use uma pasta vazia. Nas duas aparências, o teste começa um jogo novo, conversa com a mãe antes da escolha, sai normalmente e recebe Capivágua e as cápsulas pela guia. Confere ausência de concessão prematura e volta para casa, onde o descanso deve estar disponível pela flag de parceiro escolhido. **Somente nessa etapa prepara HP=1 artificialmente**, usando escrita opt-in no campo não cifrado de HP; nenhuma flag, parceiro ou item é injetado. A conversa normal deve restaurar HP completo, preservar os cinco suprimentos e liberar movimento.
+
+As capturas conferidas estão em `docs/screenshots/mom-dialogue/preview.png`, e o relatório em `docs/mom-dialogue-validation.json`. Não comprova dano recebido em batalha natural, recuperação de status/PP, todos os tamanhos de equipe ou um novo ciclo de save.
+
 ## Captura e consumo de cápsulas
 
 ```bash

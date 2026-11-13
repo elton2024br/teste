@@ -1,14 +1,14 @@
 PalletTown_PlayersHouse_1F_Text_AllBoysLeaveOakLookingForYou::
     .string "MAMAE: Chegou sua hora!\p"
-    .string "O professor da vila está\n"
-    .string "procurando você.\p"
-    .string "Passe no laboratório!$"
+    .string "Procure a guia na vila.\p"
+    .string "Ela vai ajudar você a\n"
+    .string "escolher seu parceiro!$"
 
 PalletTown_PlayersHouse_1F_Text_AllGirlsLeaveOakLookingForYou::
     .string "MAMAE: Chegou sua hora!\p"
-    .string "O professor da vila está\n"
-    .string "procurando você.\p"
-    .string "Passe no laboratório!$"
+    .string "Procure a guia na vila.\p"
+    .string "Ela vai ajudar você a\n"
+    .string "escolher seu parceiro!$"
 
 PalletTown_PlayersHouse_1F_Text_YouShouldTakeQuickRest::
     .string "MAMAE: {PLAYER}!\n"

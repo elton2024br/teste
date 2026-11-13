@@ -1,0 +1,98 @@
+{
+  "rom_sha1": "d99fc62a68c07488568c23e5c560d4774762572f",
+  "cases": [
+    {
+      "appearance": 0,
+      "result": "PASS",
+      "before_partner": {
+        "partner": 0,
+        "flags": 0,
+        "keyitem": 0,
+        "party": 0,
+        "starter": 0,
+        "map": "4/0",
+        "position": [
+          8,
+          5
+        ]
+      },
+      "chosen": {
+        "partner": 1,
+        "flags": 1,
+        "keyitem": 0,
+        "party": 1,
+        "starter": 1,
+        "map": "3/0",
+        "position": [
+          8,
+          9
+        ]
+      },
+      "healed": {
+        "partner": 1,
+        "flags": 1,
+        "keyitem": 0,
+        "party": 1,
+        "starter": 1,
+        "map": "4/0",
+        "position": [
+          8,
+          5
+        ]
+      },
+      "hp_fixture": 1,
+      "hp_restored": 21,
+      "capsules_after": 5,
+      "fixture_writes": [
+        "party slot 0 HP only"
+      ]
+    },
+    {
+      "appearance": 1,
+      "result": "PASS",
+      "before_partner": {
+        "partner": 0,
+        "flags": 0,
+        "keyitem": 0,
+        "party": 0,
+        "starter": 0,
+        "map": "4/0",
+        "position": [
+          8,
+          5
+        ]
+      },
+      "chosen": {
+        "partner": 1,
+        "flags": 1,
+        "keyitem": 0,
+        "party": 1,
+        "starter": 1,
+        "map": "3/0",
+        "position": [
+          8,
+          9
+        ]
+      },
+      "healed": {
+        "partner": 1,
+        "flags": 1,
+        "keyitem": 0,
+        "party": 1,
+        "starter": 1,
+        "map": "4/0",
+        "position": [
+          8,
+          5
+        ]
+      },
+      "hp_fixture": 1,
+      "hp_restored": 22,
+      "capsules_after": 5,
+      "fixture_writes": [
+        "party slot 0 HP only"
+      ]
+    }
+  ],
+  "scope": "Both appearances, natural new game/guide partner acquisition and normal home interaction; HP=1 prepared artificially only after partner selection. No injected partner/progression. Not natural battle damage, status/PP recovery, every party size or a new save cycle."
+}

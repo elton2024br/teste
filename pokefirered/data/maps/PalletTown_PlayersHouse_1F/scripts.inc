@@ -5,7 +5,7 @@ PalletTown_PlayersHouse_1F_MapScripts::
 PalletTown_PlayersHouse_1F_EventScript_Mom::
 	lock
 	faceplayer
-	goto_if_set FLAG_BEAT_RIVAL_IN_OAKS_LAB, PalletTown_PlayersHouse_1F_EventScript_MomHeal
+	goto_if_set FLAG_AMAZON_PARTNER_CHOSEN, PalletTown_PlayersHouse_1F_EventScript_MomHeal
 	checkplayergender
 	call_if_eq VAR_RESULT, MALE, PalletTown_PlayersHouse_1F_EventScript_MomOakLookingForYouMale
 	call_if_eq VAR_RESULT, FEMALE, PalletTown_PlayersHouse_1F_EventScript_MomOakLookingForYouFemale

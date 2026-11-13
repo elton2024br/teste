@@ -40,4 +40,6 @@ A intro tem capa amazônica própria, Bia e Tio Sam com novos retratos, apresent
 
 Os três parceiros têm validações da missão completa e do save/Continue após a pedra, registradas em `docs/mission-current-validation.json` (Ararafogo/Tatupedra) e `docs/capivagua-mission-validation.json`. O build dos textos de recuperação em português passou derrota, cura e save/Continue com os três parceiros; veja as [capturas](docs/screenshots/recovery/preview.png). O HANDOFF identifica os builds e escopos. Uma captura natural de Tatupedra com Capivágua e save/Continue passou (`docs/capture-validation.json`), incluindo consumo da cápsula. Ainda faltam outros cenários de captura e acabamento visual amazônico. Casos artificiais de inventário estão detalhados no HANDOFF. A campanha dos cinco habitats não está concluída.
 
+A mãe agora orienta procurar a guia antes da escolha e oferece descanso depois de receber o parceiro. Veja as [capturas da conversa](docs/screenshots/mom-dialogue/preview.png) e os limites do teste em `docs/mom-dialogue-validation.json`.
+
 Não há ROM comercial completa nem saves neste repositório. Os pequenos binários multiboot em `pokefirered/data/` pertencem à estrutura da base e são necessários à compilação. Consulte os avisos e licenças dos projetos de origem; os direitos dos componentes de terceiros permanecem com seus titulares.
