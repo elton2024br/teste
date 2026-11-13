@@ -1,4 +1,4 @@
-"""One natural wild capture with starter supplies and native save/Continue."""
+"""Wild capture into party or a synthetic full-party PC case, with save/Continue."""
 import argparse
 import hashlib
 import json
@@ -8,6 +8,71 @@ from check_intro import Emulator
 from check_starters import bootstrap, press_a
 from check_defeat_recovery import dismiss, snapshot
 from check_stone_revisit import walk_to
+
+
+def read_bytes(emu, address, size):
+    assert address % 4 == size % 4 == 0
+    return b''.join(emu.read(address + i, 32).to_bytes(4, 'little') for i in range(0, size, 4))
+
+
+def full_party_fixture(emu, symbols):
+    """Clone the valid starter into the five spare slots, then set count=6."""
+    base = symbols['gPlayerParty']
+    original = read_bytes(emu, base, 100)
+    for slot in range(1, 6):
+        for offset in range(0, 100, 4):
+            word = int.from_bytes(original[offset:offset + 4], 'little')
+            emu.send(f'write32 {base + slot * 100 + offset:08x} {word:08x}')
+    address = symbols['gPlayerPartyCount']
+    shift = (address & 3) * 8
+    aligned = address & ~3
+    word = (emu.read(aligned, 32) & ~(255 << shift)) | (6 << shift)
+    emu.send(f'write32 {aligned:08x} {word:08x}')
+    assert emu.read(address) == 6
+    return original
+
+
+def assert_party_preserved(emu, symbols, original):
+    base = symbols['gPlayerParty']
+    assert emu.read(symbols['gPlayerPartyCount']) == 6
+    lead = read_bytes(emu, base, 100)
+    assert lead[:28] == original[:28], 'lead identity changed'
+    secure, growth = box_secure_data(lead[:80])
+    assert int.from_bytes(secure[growth:growth + 2], 'little') == 7, 'lead species changed'
+    for slot in range(1, 6):
+        assert read_bytes(emu, base + slot * 100, 100) == original, ('party slot changed', slot)
+
+
+def box_secure_data(raw):
+    assert len(raw) == 80
+    assert not raw[19] & 5, 'bad egg/egg flags'
+    personality = int.from_bytes(raw[:4], 'little')
+    key = personality ^ int.from_bytes(raw[4:8], 'little')
+    secure = b''.join((int.from_bytes(raw[i:i + 4], 'little') ^ key).to_bytes(4, 'little')
+                      for i in range(32, 80, 4))
+    checksum = sum(int.from_bytes(secure[i:i + 2], 'little') for i in range(0, 48, 2)) & 65535
+    assert checksum == int.from_bytes(raw[28:30], 'little'), 'PC checksum invalid'
+    # Growth-substructure positions from GetSubstruct in the pinned pokemon.c.
+    growth = [0,0,0,0,0,0,1,1,2,3,2,3,1,1,2,3,2,3,1,1,2,3,2,3][personality % 24] * 12
+    return secure, growth
+
+
+def pc_capture(emu, symbols, empty=False):
+    # Pinned PokemonStorage alignment: box array starts at +4, 14 x 30 x 80 bytes.
+    base = emu.read(symbols['gPokemonStoragePtr'], 32)
+    assert 0x02000000 <= base <= 0x02040000 - 0x83D0, base
+    occupied = [i for i in range(420) if emu.read(base + 4 + i * 80 + 19) & 2]
+    if empty:
+        assert occupied == [], occupied
+        return None
+    assert occupied == [0], ('expected exactly the first PC slot', occupied)
+    raw = read_bytes(emu, base + 4, 80)
+    secure, growth = box_secure_data(raw)
+    name = list(raw[8:18]); name = name[:name.index(255)]
+    assert all(0xBB <= c <= 0xD4 for c in name), name
+    return dict(box=0, slot=0, species=int.from_bytes(secure[growth:growth + 2], 'little'),
+                nickname=''.join(chr(c - 0xBB + ord('A')) for c in name),
+                experience=int.from_bytes(secure[growth + 4:growth + 8], 'little'), checksum_valid=True)
 
 
 def capsules(emu, symbols):
@@ -39,7 +104,7 @@ def check(args):
     actions = {int(p[0], 16) for p in lines if p[2] == 'HandleInputChooseAction'}
     assert actions
     save = args.output / 'captured.sav'
-    emu = Emulator(args, 'capture', save)
+    emu = Emulator(args, 'capture', save, test_writes=args.full_party_fixture)
     try:
         emu.send(bootstrap() + press_a(12))  # Capivagua, including five capsules.
         dismiss(emu)
@@ -48,6 +113,11 @@ def check(args):
                                map='3/0', position=[8, 9]), initial
         before_capsules = capsules(emu, symbols)
         assert before_capsules == 5, before_capsules
+        expected_party = 6 if args.full_party_fixture else 2
+        if args.full_party_fixture:
+            pc_capture(emu, symbols, empty=True)
+            original = full_party_fixture(emu, symbols)
+            assert_party_preserved(emu, symbols, original)
         emu.send('run 16 48\nrun 0 30')
         walk_to(emu, symbols, 64, '3/19', [11, 16])
         emu.send('run 16 64\nrun 0 60')  # Grass at x=15, y=13..16.
@@ -89,23 +159,30 @@ def check(args):
                 current = snapshot(emu, symbols)
                 handler = emu.read(symbols['gBattlerControllerFuncs'], 32) & ~1
                 field = emu.read(symbols['gMain'] + 4, 32) & ~1 == symbols['CB2_Overworld']
-                if current['party'] == 2 and field:
+                outcome = emu.read(symbols['gBattleOutcome'])
+                if current['party'] == expected_party and outcome == 7 and field:
                     break
-                if current['party'] == 1 and handler in actions:
+                if outcome != 7 and handler in actions:
                     break  # Escaped ball; retry without inventing a success.
             else:
                 raise AssertionError('throw did not return to a controllable state')
-            if current['party'] == 2:
+            if current['party'] == expected_party and outcome == 7 and field:
                 break
         else:
             raise AssertionError('no capture with the five granted capsules')
         assert emu.read(symbols['gBattleOutcome']) == 7, 'expected B_OUTCOME_CAUGHT'
         after_capsules = capsules(emu, symbols)
         assert after_capsules == before_capsules - (attempt + 1), after_capsules
-        caught = caught_identity(emu, symbols)
-        assert caught == dict(nickname='TATUPEDRA', level=3), caught
+        if args.full_party_fixture:
+            caught = pc_capture(emu, symbols)
+            assert caught == dict(box=0, slot=0, species=1, nickname='TATUPEDRA', experience=27,
+                                  checksum_valid=True), caught
+            assert_party_preserved(emu, symbols, original)
+        else:
+            caught = caught_identity(emu, symbols)
+            assert caught == dict(nickname='TATUPEDRA', level=3), caught
         before = snapshot(emu, symbols)
-        assert before == dict(partner=1, flags=1, keyitem=0, party=2, starter=1,
+        assert before == dict(partner=1, flags=1, keyitem=0, party=expected_party, starter=1,
                               map='3/19', position=[15, 14]), before
         emu.send(f'shot {args.output / "caught.ppm"}')
         emu.send('run 8 12\nrun 0 60\n' + 'run 128 12\nrun 0 20\n' * 3
@@ -119,7 +196,11 @@ def check(args):
                  'run 1 30\nrun 0 1200\nrun 2 30\nrun 0 1200')
         continued = snapshot(emu, symbols)
         assert continued == before, (before, continued)
-        assert caught_identity(emu, symbols) == caught
+        if args.full_party_fixture:
+            assert pc_capture(emu, symbols) == caught
+            assert_party_preserved(emu, symbols, original)
+        else:
+            assert caught_identity(emu, symbols) == caught
         assert capsules(emu, symbols) == after_capsules
         emu.send(f'shot {args.output / "continued.ppm"}')
     finally:
@@ -129,9 +210,14 @@ def check(args):
                   wild_hp_before_throw=hp, caught=caught, outcome=7, throws=attempt + 1,
                   capsules_before=before_capsules, capsules_after=after_capsules,
                   before_save=before, continued=continued, save_bytes=save.stat().st_size,
-                  scope='One recorded natural Tatupedra capture with normal inputs, capsule '
+                  synthetic_full_party=args.full_party_fixture,
+                  scope=('Artificial full party cloned from the valid starter before a natural encounter; '
+                         'normal capture into PC, checksum/identity, six party slots preserved and '
+                         'ordinary save/Continue. No natural acquisition of six creatures, PC UI '
+                         'retrieval, full PC or catch-rate statistics.' if args.full_party_fixture else
+                        'One recorded natural Tatupedra capture with normal inputs, capsule '
                         'consumption and ordinary save/Continue. No catch-rate statistics, '
-                        'full party/PC, other wild species or inventory-full cases.')
+                        'full party/PC, other wild species or inventory-full cases.'))
     (args.output / 'results.json').write_text(json.dumps(report, indent=2) + '\n')
     print('capture/capsule consumption/save/Continue: PASS', flush=True)
 
@@ -140,4 +226,5 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     for name in ['runner', 'rom', 'symbols', 'output']:
         parser.add_argument('--' + name, type=Path, required=True)
+    parser.add_argument('--full-party-fixture', action='store_true')
     check(parser.parse_args())

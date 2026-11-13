@@ -62,6 +62,10 @@ Use uma pasta vazia. O cenário gravado começa um jogo novo com Capivágua, rec
 
 Esse é um caso com entradas e pausas fixas, dependente do build e do ritmo atual do RNG. Mudanças no fluxo podem exigir nova gravação; falhas de captura não devem ser convertidas em PASS. Não mede taxa de captura nem valida outras espécies, equipe cheia/envio ao PC, inventário cheio ou todos os ramos de falha. Veja `docs/capture-validation.json`.
 
+Para o caso de equipe cheia, acrescente `--full-party-fixture` e use outra pasta vazia. **A equipe cheia é artificial**: o runner recebe opt-in de escrita para copiar o parceiro válido nos cinco slots restantes e ajustar a contagem para seis. Não injeta criaturas no PC, cápsulas, alvo selvagem, HP, RNG ou resultado da captura. O encontro/captura usa controles normais; deve deixar seis animais na equipe e exatamente um na primeira caixa, sem modificar os cinco slots de reserva. A criatura armazenada é conferida por espécie, nome, experiência e checksum dos dados cifrados. Save normal/Continue deve preservar tudo; o processo de Continue tem escritas desabilitadas. Relatório: `docs/full-party-capture-validation.json`.
+
+Esse caso confere envio ao PC por leitura de dados e persistência; não valida obtenção natural de seis animais, retirada pela interface do PC, caixa cheia ou todos os caminhos de armazenamento.
+
 ## Missão da Pedra das Águas
 
 ```bash

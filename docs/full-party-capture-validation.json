@@ -1,0 +1,47 @@
+{
+  "rom_sha1": "d99fc62a68c07488568c23e5c560d4774762572f",
+  "result": "PASS",
+  "starter": "capivagua",
+  "encounter_cycles": 5,
+  "wild_species": 1,
+  "wild_hp_before_throw": 4,
+  "caught": {
+    "box": 0,
+    "slot": 0,
+    "species": 1,
+    "nickname": "TATUPEDRA",
+    "experience": 27,
+    "checksum_valid": true
+  },
+  "outcome": 7,
+  "throws": 1,
+  "capsules_before": 5,
+  "capsules_after": 4,
+  "before_save": {
+    "partner": 1,
+    "flags": 1,
+    "keyitem": 0,
+    "party": 6,
+    "starter": 1,
+    "map": "3/19",
+    "position": [
+      15,
+      14
+    ]
+  },
+  "continued": {
+    "partner": 1,
+    "flags": 1,
+    "keyitem": 0,
+    "party": 6,
+    "starter": 1,
+    "map": "3/19",
+    "position": [
+      15,
+      14
+    ]
+  },
+  "save_bytes": 131088,
+  "synthetic_full_party": true,
+  "scope": "Artificial full party cloned from the valid starter before a natural encounter; normal capture into PC, checksum/identity, six party slots preserved and ordinary save/Continue. No natural acquisition of six creatures, PC UI retrieval, full PC or catch-rate statistics."
+}

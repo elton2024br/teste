@@ -1,5 +1,5 @@
 {
-  "rom_sha1": "2cd252b4dbb1926e28e89944333d5c7b033fa304",
+  "rom_sha1": "d99fc62a68c07488568c23e5c560d4774762572f",
   "result": "PASS",
   "starter": "capivagua",
   "encounter_cycles": 5,
@@ -38,5 +38,6 @@
     ]
   },
   "save_bytes": 131088,
+  "synthetic_full_party": false,
   "scope": "One recorded natural Tatupedra capture with normal inputs, capsule consumption and ordinary save/Continue. No catch-rate statistics, full party/PC, other wild species or inventory-full cases."
 }
