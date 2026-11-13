@@ -1,9 +1,9 @@
 {
   "base_commit": "ce6406d8c2eaf46d543c8a2606de0c3cb1951982",
   "compiler_commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
-  "cloud_built_rom_sha1": "d99fc62a68c07488568c23e5c560d4774762572f",
+  "cloud_built_rom_sha1": "c6fa4ebc601246fe80bdfc59757b0c0dd7f7f18c",
   "source_count": 9859,
   "rom_included": false,
   "windows_or_wsl_build_tested": false,
-  "stage": "amazon-home-guide-and-healing"
+  "stage": "amazon-village-pc-access"
 }

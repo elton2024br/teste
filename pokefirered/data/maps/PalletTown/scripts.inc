@@ -598,3 +598,27 @@ Amazon_Movement_StepBack::
 Amazon_Text_NeedPartner::
     .string "Escolha seu parceiro na vila\n"
     .string "antes de entrar na floresta.$"
+
+Amazon_EventScript_VillageStorage::
+    lockall
+    goto_if_unset FLAG_AMAZON_PARTNER_CHOSEN, Amazon_EventScript_StorageNeedsPartner
+    msgbox Amazon_Text_VillageStorage, MSGBOX_DEFAULT
+    special ShowPokemonStorageSystemPC
+    waitstate
+    special SetHelpContextForMap
+    releaseall
+    end
+
+Amazon_EventScript_StorageNeedsPartner::
+    msgbox Amazon_Text_StorageNeedsPartner, MSGBOX_DEFAULT
+    releaseall
+    end
+
+Amazon_Text_VillageStorage::
+    .string "Posto de parceiros\p"
+    .string "Guarde ou retire parceiros\n"
+    .string "pelo PC da vila.$"
+
+Amazon_Text_StorageNeedsPartner::
+    .string "Escolha seu parceiro com\n"
+    .string "a guia antes de usar o PC.$"

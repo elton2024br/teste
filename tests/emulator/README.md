@@ -66,6 +66,23 @@ Para o caso de equipe cheia, acrescente `--full-party-fixture` e use outra pasta
 
 Esse caso confere envio ao PC por leitura de dados e persistência; não valida obtenção natural de seis animais, retirada pela interface do PC, caixa cheia ou todos os caminhos de armazenamento.
 
+## Posto da vila: guardar e retirar pela interface
+
+O posto provisório fica em (13,16), perto do cuidador, e abre o armazenamento após a escolha do parceiro. Para testar, gere primeiro um save com `check_capture.py --full-party-fixture` no build atual, usando a saída `tests/emulator/results/capture-equipe-cheia`. Depois:
+
+```bash
+python3 tests/emulator/check_village_pc.py \
+  --runner "$(pwd)/tests/emulator/runner" \
+  --rom "$(pwd)/pokefirered/pokefirered_rev1.gba" \
+  --symbols "$(pwd)/tests/emulator/current-symbols.txt" \
+  --capture-results "$(pwd)/tests/emulator/results/capture-equipe-cheia" \
+  --output "$(pwd)/tests/emulator/results/village-pc-nova-execucao"
+```
+
+O teste exige saída vazia e fixture do mesmo hash de ROM. Confere o bloqueio antes de escolher parceiro, a recusa de retirada com seis membros, guarda um Capivágua por STORE e retira Tatupedra por WITHDRAW. Verifica contagens, espécie, experiência, identidade/checksum e preservação dos sete animais entre equipe/PC, além de save normal/Continue. O teste da interface não habilita escritas nem usa savestates; o save de origem é copiado e preservado. A equipe cheia de origem continua sendo artificial.
+
+Relatório: `docs/village-pc-validation.json`; capturas revisadas em `docs/screenshots/village-pc/preview.png`. Não cobre PC cheio, todas as opções/caixas ou obtenção natural dos seis membros. A placa e os menus internos ainda usam recursos provisórios/herdados; a interface interna não está totalmente traduzida.
+
 ## Missão da Pedra das Águas
 
 ```bash

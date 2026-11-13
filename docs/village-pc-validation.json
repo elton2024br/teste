@@ -1,0 +1,27 @@
+{
+  "rom_sha1": "c6fa4ebc601246fe80bdfc59757b0c0dd7f7f18c",
+  "result": "PASS",
+  "source_save_sha256": "272291fc7cbff220450c5528f0947ac713a49f8193742b4fe4fe6731230c6a37",
+  "source_full_party_is_synthetic": true,
+  "interface_test_writes": false,
+  "pre_partner_gate": "PASS",
+  "full_party_withdrawal_rejected": true,
+  "counts_initial": {
+    "party": 6,
+    "pc": 1
+  },
+  "counts_after_deposit": {
+    "party": 5,
+    "pc": 2
+  },
+  "counts_after_withdraw": {
+    "party": 6,
+    "pc": 1
+  },
+  "withdrawn_species": 1,
+  "withdrawn_level": 3,
+  "deposited_species": 7,
+  "species_exp_identity_checksum_preserved": true,
+  "normal_save_continue": true,
+  "scope": "Native village-PC menu, STORE and WITHDRAW, using a save sourced from synthetic full-party capture. No writes/savestates in the UI test. Does not validate natural acquisition of six members, full PC, every option/box or full interface translation."
+}
