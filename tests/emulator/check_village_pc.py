@@ -41,9 +41,18 @@ def menu(emu, symbols):
     return found[0] if found else None
 
 
-def leave_storage(emu, symbols):
+def task_active(emu, symbols, name):
+    return any(emu.read(symbols['gTasks'] + i * 40 + 4)
+               and emu.read(symbols['gTasks'] + i * 40, 32) & ~1 == symbols[name]
+               for i in range(16))
+
+
+def leave_storage(emu, symbols, screenshot=None):
     # B opens "Continue BOX operations?" with NO selected. A returns to menu.
-    emu.send('run 2 12\nrun 0 180\nrun 1 12\nrun 0 600')
+    emu.send('run 2 12\nrun 0 180')
+    if screenshot:
+        emu.send(f'shot {screenshot}')
+    emu.send('run 1 12\nrun 0 600')
     assert menu(emu, symbols) == 2, 'did not return to storage menu'
 
 
@@ -126,10 +135,12 @@ def check(args):
         emu.send('run 2 12\nrun 0 60\nrun 128 12\nrun 0 60\n' + press_a(1, 600))
         assert menu(emu, symbols) is None
         emu.send(press_a(1, 90))  # First party member; STORE context.
+        emu.send(f'shot {args.output / "deposit-context.ppm"}')
         emu.send(press_a(1, 180))  # Choose destination box.
+        emu.send(f'shot {args.output / "deposit-destination.ppm"}')
         emu.send(press_a(1, 600))  # Confirm BOX1.
         emu.send(f'shot {args.output / "deposited.ppm"}')
-        leave_storage(emu, symbols)
+        leave_storage(emu, symbols, args.output / 'exit-confirm.ppm')
         deposited_party, deposited_boxes = party(emu, symbols), boxes(emu, symbols)
         assert snapshot(emu, symbols)['party'] == len(deposited_party) == 5
         assert list(deposited_boxes) == [0, 1]
@@ -140,6 +151,21 @@ def check(args):
         emu.send('run 64 12\nrun 0 60\n' + press_a(1, 600))
         emu.send(press_a(1, 90))
         emu.send(f'shot {args.output / "withdraw-context.ppm"}')
+        # Open SUMMARY, then return without changing the stored creature.
+        emu.send('run 128 12\nrun 0 60\n' + press_a(1, 600))
+        assert emu.read(symbols['gMain'] + 4, 32) & ~1 == symbols['CB2_RunPokemonSummaryScreen']
+        emu.send(f'shot {args.output / "summary.ppm"}')
+        emu.send('run 2 12\nrun 0 600')
+        assert task_active(emu, symbols, 'Task_PokeStorageMain'), 'summary did not return to boxes'
+        assert party(emu, symbols) == deposited_party and boxes(emu, symbols) == deposited_boxes
+        # Open RELEASE confirmation, then explicitly cancel with B.
+        emu.send(press_a(1, 90) + 'run 128 12\nrun 0 60\n' * 3 + press_a(1, 180))
+        assert task_active(emu, symbols, 'Task_ReleaseMon'), 'release confirmation did not open'
+        emu.send(f'shot {args.output / "release-confirm.ppm"}')
+        emu.send('run 2 12\nrun 0 180')
+        assert task_active(emu, symbols, 'Task_PokeStorageMain'), 'release cancel did not return'
+        assert party(emu, symbols) == deposited_party and boxes(emu, symbols) == deposited_boxes
+        emu.send(press_a(1, 90))
         emu.send(press_a(1, 600))
         emu.send(f'shot {args.output / "withdrawn.ppm"}')
         leave_storage(emu, symbols)
@@ -176,6 +202,7 @@ def check(args):
                   source_full_party_is_synthetic=True, interface_test_writes=False,
                   pre_partner_gate='PASS', full_party_withdrawal_rejected=True,
                   last_partner_deposit_rejected=True, main_menu_options_captured=5,
+                  summary_open_close_preserved_creature=True, release_cancel_preserved_creature=True,
                   counts_initial=dict(party=6, pc=1), counts_after_deposit=dict(party=5, pc=2),
                   counts_after_withdraw=dict(party=6, pc=1), withdrawn_species=1, withdrawn_level=3,
                   deposited_species=7, species_exp_identity_checksum_preserved=True,

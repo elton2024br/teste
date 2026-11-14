@@ -8,6 +8,16 @@ A restauracao ja foi feita na nuvem. O conteudo abaixo conserva o historico e as
 
 # Bichos do Brasil — ponto de retomada
 
+## Ações das caixas em português
+
+Foram traduzidos em `src/strings.c` os rótulos Guardar, Retirar, Resumo, Marcar, Libertar e Cancelar, a indicação do parceiro escolhido, a pergunta de caixa de destino, a confirmação de saída e a pergunta de Libertar. Placeholders, ordem das opções e regras de armazenamento foram preservados. Não é uma tradução completa do PC: títulos gráficos, nomes das caixas, conteúdo do resumo e mensagens de libertação efetiva ainda contêm texto herdado.
+
+Build PASS: SHA-1 `cd757ce280f4f57251e25987bab5d7788b59994d`, registrado em `SOURCE_STATE.json`, com símbolos regenerados. A captura de origem foi regenerada neste build e passou. O teste de interface passou com abertura/retorno do Resumo e abertura/cancelamento de Libertar por B, preservando dados antes da retirada. Guardar, retirar e save normal/Continue mantiveram contagens 6/1 → 5/2 → 6/1, sete animais, espécie, experiência, identidade/checksum, cápsulas e flags. Nenhum animal foi libertado.
+
+Relatórios atualizados: `docs/full-party-capture-validation.json` e `docs/village-pc-validation.json`. Capturas revisadas manualmente em `docs/screenshots/box-actions/preview.png` e `docs/screenshots/village-pc/preview.png`, sem cortes observados nas páginas conferidas. Logs/PPM em `tests/emulator/results/box-actions-pt-capture-01/` e `village-pc-box-actions-01/`, ignorados. `py_compile` e `git diff --check` PASS. Nenhuma ROM ou save é publicada.
+
+Limites: a origem da equipe cheia segue artificial, sem escritas/savestates no teste de interface. A visita ao Resumo não traduz nem valida todas as suas páginas. O teste cancela Libertar; não cobre a confirmação positiva, PC cheio, operações de mover parceiros/itens, marcas ou todos os nomes possíveis. Próximo passo concreto: traduzir as mensagens de libertação efetiva e validar a confirmação em uma cópia isolada do save, preservando a origem. O acabamento amazônico e os demais habitats continuam pendentes; fixtures anteriores precisam ser regeneradas para o hash atual.
+
 ## Menu principal do PC em português
 
 Foram traduzidos em `src/strings.c` os cinco rótulos (Retirar parceiros, Guardar parceiros, Mover parceiros, Mover itens e Sair), suas descrições e os avisos de equipe cheia/último parceiro. As regras e a ordem das opções foram preservadas. A descrição de saída é genérica para não depender da vila em futuros pontos de acesso.

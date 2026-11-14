@@ -81,7 +81,9 @@ python3 tests/emulator/check_village_pc.py \
 
 O teste exige saída vazia e fixture do mesmo hash de ROM. Confere o bloqueio antes de escolher parceiro e, depois de obter um parceiro por controles normais, verifica a recusa de guardar o último membro e captura as cinco opções/descrições. No save de equipe cheia, confere a recusa de retirada com seis membros, guarda um Capivágua e retira Tatupedra. Verifica contagens, espécie, experiência, identidade/checksum e preservação dos sete animais entre equipe/PC, além de save normal/Continue. O teste da interface não habilita escritas nem usa savestates; o save de origem é copiado e preservado. A equipe cheia de origem continua sendo artificial.
 
-Relatório: `docs/village-pc-validation.json`; capturas revisadas em `docs/screenshots/village-pc/preview.png`. O menu principal, suas descrições e os dois avisos de limite estão em português; a revisão visual das capturas não é uma validação automática de todo o texto. Não cobre PC cheio, a execução das opções de mover parceiros/itens, todas as caixas ou obtenção natural dos seis membros. A placa e as ações internas das caixas ainda usam recursos provisórios/herdados; a interface interna não está totalmente traduzida.
+O fluxo também abre/fecha Resumo e cancela a confirmação de Libertar, comparando os dados antes de prosseguir com a retirada. Nenhum animal é libertado nesse teste. A pergunta de saída é capturada antes de escolher sair das caixas.
+
+Relatório: `docs/village-pc-validation.json`; capturas revisadas em `docs/screenshots/village-pc/preview.png` e `docs/screenshots/box-actions/preview.png`. Menu principal, rótulos do menu de ações e os avisos exercitados estão em português; a revisão visual não é uma validação automática de todo o texto ou de todos os nomes. Não cobre libertação efetiva, PC cheio, operações de mover parceiros/itens, todas as caixas ou obtenção natural dos seis membros. A placa, títulos gráficos, conteúdo do resumo e parte das mensagens ainda usam recursos provisórios/herdados; a interface interna não está totalmente traduzida.
 
 ## Missão da Pedra das Águas
 
