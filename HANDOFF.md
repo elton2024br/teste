@@ -8,6 +8,16 @@ A restauracao ja foi feita na nuvem. O conteudo abaixo conserva o historico e as
 
 # Bichos do Brasil — ponto de retomada
 
+## Libertação efetiva em cópia isolada
+
+Foram traduzidas somente as mensagens de sucesso e despedida da libertação em `src/strings.c`, preservando o placeholder do nome e as regras existentes. Build PASS: SHA-1 `a7583c0fdb6f030f180cd7057471848931b35f27`, registrado em `SOURCE_STATE.json`, com símbolos regenerados. A captura de origem foi regenerada neste build e passou (`docs/full-party-capture-validation.json`).
+
+`check_village_release.py` passou operando em uma cópia nativa do save: guardou um Capivágua, cancelou Libertar sem alterar os animais, reabriu e selecionou SIM explicitamente para libertar Tatupedra da caixa. O slot de 80 bytes foi zerado; os outros cinco animais da equipe e o Capivágua na caixa preservaram identidade, espécie, experiência/checksums válidos. As contagens passaram de 5/2 para 5/1 entre equipe/PC, remoção intencional de exatamente um animal. Quatro cápsulas, flags `01` e posição foram preservadas. Save normal/Continue na cópia manteve o resultado, e o hash do save de origem permaneceu igual.
+
+Relatório: `docs/village-release-validation.json`; capturas das confirmações, sucesso e despedida revisadas manualmente, sem corte observado para o nome testado, em `docs/screenshots/release/preview.png`. Logs/PPM em `tests/emulator/results/village-release-01/`, com origem `release-pt-capture-01/`, ignorados. `py_compile` e `git diff --check` PASS. Nenhuma ROM ou save é publicada.
+
+Limites: equipe cheia de origem artificial; sem escrita de memória ou savestates no teste da interface. Não cobre libertação da equipe, recusa por ovo/HM, todos os nomes ou todos os caminhos. Esses avisos, títulos gráficos e conteúdo do resumo ainda podem conter textos herdados. Os relatórios de interface anteriores mantêm seus hashes e não foram apresentados como reexecutados neste build. Próximo passo concreto: criar um sprite próprio para o posto de parceiros, substituindo a placa provisória. O acabamento amazônico e os demais habitats continuam pendentes.
+
 ## Ações das caixas em português
 
 Foram traduzidos em `src/strings.c` os rótulos Guardar, Retirar, Resumo, Marcar, Libertar e Cancelar, a indicação do parceiro escolhido, a pergunta de caixa de destino, a confirmação de saída e a pergunta de Libertar. Placeholders, ordem das opções e regras de armazenamento foram preservados. Não é uma tradução completa do PC: títulos gráficos, nomes das caixas, conteúdo do resumo e mensagens de libertação efetiva ainda contêm texto herdado.

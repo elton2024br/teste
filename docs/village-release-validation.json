@@ -1,0 +1,36 @@
+{
+  "rom_sha1": "a7583c0fdb6f030f180cd7057471848931b35f27",
+  "result": "PASS",
+  "source_save_sha256": "272291fc7cbff220450c5528f0947ac713a49f8193742b4fe4fe6731230c6a37",
+  "source_full_party_is_synthetic": true,
+  "interface_test_writes": false,
+  "isolated_copy": true,
+  "source_preserved": true,
+  "cancel_preserves_creature": true,
+  "confirmed_release_species": 1,
+  "selected_box_slot_cleared": true,
+  "only_selected_creature_removed": true,
+  "counts_before": {
+    "party": 5,
+    "pc": 2
+  },
+  "counts_after": {
+    "party": 5,
+    "pc": 1
+  },
+  "other_creatures_identity_checksum_preserved": true,
+  "normal_save_continue": true,
+  "progress": {
+    "partner": 1,
+    "flags": 1,
+    "keyitem": 0,
+    "party": 5,
+    "starter": 1,
+    "map": "3/0",
+    "position": [
+      13,
+      15
+    ]
+  },
+  "scope": "Cancel then confirm release of boxed Tatupedra in an isolated native-save copy sourced from synthetic full-party capture; other creatures, progress, capsules and persistence verified. No party-member release, egg/HM refusal, all names or every release path."
+}

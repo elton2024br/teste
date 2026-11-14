@@ -85,6 +85,23 @@ O fluxo também abre/fecha Resumo e cancela a confirmação de Libertar, compara
 
 Relatório: `docs/village-pc-validation.json`; capturas revisadas em `docs/screenshots/village-pc/preview.png` e `docs/screenshots/box-actions/preview.png`. Menu principal, rótulos do menu de ações e os avisos exercitados estão em português; a revisão visual não é uma validação automática de todo o texto ou de todos os nomes. Não cobre libertação efetiva, PC cheio, operações de mover parceiros/itens, todas as caixas ou obtenção natural dos seis membros. A placa, títulos gráficos, conteúdo do resumo e parte das mensagens ainda usam recursos provisórios/herdados; a interface interna não está totalmente traduzida.
 
+## Libertar: confirmação em cópia isolada
+
+Depois de gerar a origem com `check_capture.py --full-party-fixture` no build atual:
+
+```bash
+python3 tests/emulator/check_village_release.py \
+  --runner "$(pwd)/tests/emulator/runner" \
+  --rom "$(pwd)/pokefirered/pokefirered_rev1.gba" \
+  --symbols "$(pwd)/tests/emulator/current-symbols.txt" \
+  --capture-results "$(pwd)/tests/emulator/results/capture-equipe-cheia" \
+  --output "$(pwd)/tests/emulator/results/village-release-nova-execucao"
+```
+
+Exige saída vazia e origem do mesmo hash de ROM. O teste copia o save e opera somente em `isolated-release.sav`: guarda um Capivágua, cancela Libertar para conferir preservação e depois seleciona SIM explicitamente para libertar apenas Tatupedra da caixa. Confere que o slot foi zerado e os outros seis animais, dados, progresso e quatro cápsulas permanecem intactos. Salva pelo menu e reabre Continue na cópia; verifica por hash que a origem não mudou.
+
+A origem tem equipe cheia artificial, mas o teste de interface não habilita escritas nem usa savestates. Relatório em `docs/village-release-validation.json` e capturas revisadas em `docs/screenshots/release/preview.png`. Não cobre libertação de membro da equipe, recusa por ovo/HM, todos os apelidos ou todos os caminhos. As mensagens de sucesso/despedida estão em português; outros avisos e títulos da interface ainda são herdados.
+
 ## Missão da Pedra das Águas
 
 ```bash
