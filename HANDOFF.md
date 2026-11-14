@@ -8,6 +8,16 @@ A restauracao ja foi feita na nuvem. O conteudo abaixo conserva o historico e as
 
 # Bichos do Brasil — ponto de retomada
 
+## Menu principal do PC em português
+
+Foram traduzidos em `src/strings.c` os cinco rótulos (Retirar parceiros, Guardar parceiros, Mover parceiros, Mover itens e Sair), suas descrições e os avisos de equipe cheia/último parceiro. As regras e a ordem das opções foram preservadas. A descrição de saída é genérica para não depender da vila em futuros pontos de acesso.
+
+Build PASS: SHA-1 `55d4f85f0bf1c525102c96e3ecfeb61effbf5f6b`, registrado em `SOURCE_STATE.json`, com símbolos regenerados. A captura de origem com equipe cheia foi repetida neste build e passou. `check_village_pc.py` ganhou a recusa de guardar o último parceiro, obtido por controles normais em jogo novo, e capturas das cinco opções. Esse ramo não usa preparação artificial. A sequência de origem artificial com seis membros também passou: recusa de retirada, depósito, retirada de Tatupedra e save/Continue, preservando as contagens 6/1 → 5/2 → 6/1, identidade, espécie, experiência, checksum, cápsulas e flags.
+
+Relatórios atualizados: `docs/full-party-capture-validation.json` e `docs/village-pc-validation.json`. Capturas das cinco descrições e dos dois avisos revisadas manualmente, sem cortes observados, em `docs/screenshots/village-pc/preview.png`. Resultados completos em `tests/emulator/results/pc-menu-pt-capture-01/` e `village-pc-pt-01/`, ignorados. `py_compile` e `git diff --check` PASS. Nenhuma ROM ou save é publicada.
+
+Escopo: apenas o menu principal e os dois avisos de limite. As ações dentro das caixas, nomes de caixas, telas de resumo e parte da interface continuam herdadas/em inglês. Capturar a descrição de Mover parceiros/itens não testa suas operações. O ramo de seis membros continua vindo de fixture artificial, sem escritas no teste de interface; não valida obtenção natural dos seis animais ou PC cheio. Próximo passo concreto: traduzir as ações Guardar/Retirar/Resumo e a confirmação de saída dentro das caixas. O acabamento amazônico e os demais habitats permanecem pendentes; fixtures anteriores exigem regeneração para o hash atual.
+
 ## Posto de parceiros — acesso e retirada pelo PC
 
 Não havia acesso ao armazenamento no percurso atual. Foi adicionado um posto em (13,16), perto do cuidador da vila, usando provisoriamente o sprite de placa. Antes da escolha do parceiro, orienta procurar a guia. Depois, abre diretamente o armazenamento nativo, sem os menus de Professor Oak/Bill da base. Ao sair, restaura o contexto de ajuda do mapa e libera os controles. O cuidador e sua cura/reposição não foram alterados.

@@ -1,11 +1,13 @@
 {
-  "rom_sha1": "c6fa4ebc601246fe80bdfc59757b0c0dd7f7f18c",
+  "rom_sha1": "55d4f85f0bf1c525102c96e3ecfeb61effbf5f6b",
   "result": "PASS",
   "source_save_sha256": "272291fc7cbff220450c5528f0947ac713a49f8193742b4fe4fe6731230c6a37",
   "source_full_party_is_synthetic": true,
   "interface_test_writes": false,
   "pre_partner_gate": "PASS",
   "full_party_withdrawal_rejected": true,
+  "last_partner_deposit_rejected": true,
+  "main_menu_options_captured": 5,
   "counts_initial": {
     "party": 6,
     "pc": 1

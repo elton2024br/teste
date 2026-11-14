@@ -78,6 +78,26 @@ def check(args):
         blocked = snapshot(emu, symbols)
         assert blocked['partner'] == blocked['party'] == blocked['flags'] == 0, blocked
         assert emu.read(symbols['sLockFieldControls']) == 0
+        # Receive one real partner, then inspect all menu descriptions and
+        # exercise the last-member guard without preparing a party fixture.
+        emu.send('run 64 96\nrun 0 30\nrun 32 80\nrun 0 30\nrun 64 4\nrun 0 30')
+        emu.send(press_a(15))
+        dismiss(emu)
+        assert snapshot(emu, symbols)['party'] == 1 and capsules(emu, symbols) == 5
+        emu.send('run 16 80\nrun 0 30\nrun 128 96\nrun 0 30\nrun 128 4\nrun 0 30')
+        emu.send(press_a(3, 180))
+        assert menu(emu, symbols) == 2
+        for option in range(5):
+            emu.send(f'shot {args.output / ("menu-option-" + str(option) + ".ppm")}')
+            if option < 4:
+                emu.send('run 128 12\nrun 0 120')
+        emu.send('run 128 12\nrun 0 60\nrun 128 12\nrun 0 60' + '\n' + press_a(1, 180))
+        assert menu(emu, symbols) == 3, 'last-member deposit was not rejected'
+        assert len(party(emu, symbols)) == 1 and boxes(emu, symbols) == {}
+        emu.send(f'shot {args.output / "last-partner.ppm"}')
+        emu.send('run 2 12\nrun 0 60\nrun 2 12\nrun 0 180')
+        assert menu(emu, symbols) is None and emu.read(symbols['sLockFieldControls']) == 0
+        assert snapshot(emu, symbols)['party'] == 1 and capsules(emu, symbols) == 5
     finally:
         emu.close()
     source = args.capture_results / 'captured.sav'
@@ -155,6 +175,7 @@ def check(args):
     report = dict(rom_sha1=digest, result='PASS', source_save_sha256=original_hash,
                   source_full_party_is_synthetic=True, interface_test_writes=False,
                   pre_partner_gate='PASS', full_party_withdrawal_rejected=True,
+                  last_partner_deposit_rejected=True, main_menu_options_captured=5,
                   counts_initial=dict(party=6, pc=1), counts_after_deposit=dict(party=5, pc=2),
                   counts_after_withdraw=dict(party=6, pc=1), withdrawn_species=1, withdrawn_level=3,
                   deposited_species=7, species_exp_identity_checksum_preserved=True,
