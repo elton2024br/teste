@@ -123,6 +123,24 @@ def check(args):
         assert list(initial_boxes) == [0] and initial_boxes[0]['species'] == 1
         emu.send('run 32 64\nrun 0 30')
         walk_to(emu, symbols, 128, '3/0', [11, 15])
+        # Traverse the service clearing perimeter and its northern connector.
+        for direction, xy in [(64, [11, 13]), (128, [11, 15]),
+                              (32, [10, 15]), (128, [10, 17]),
+                              (16, [14, 17]), (64, [14, 15]), (32, [11, 15])]:
+            walk_to(emu, symbols, direction, '3/0', xy)
+        emu.send('run 128 4\nrun 0 30')
+        before_care = snapshot(emu, symbols)
+        emu.send(press_a(6, 180))
+        dismiss(emu)
+        assert snapshot(emu, symbols) == before_care
+        assert emu.read(symbols['sLockFieldControls']) == 0
+        for slot in range(6):
+            mon = symbols['gPlayerParty'] + slot * 100
+            hp = emu.read(mon + 84, 32) >> 16
+            maximum = emu.read(mon + 88, 32) & 65535
+            assert hp == maximum and maximum > 0, 'caregiver did not heal'
+        assert party(emu, symbols) == initial_party and boxes(emu, symbols) == initial_boxes
+        emu.send(f'shot {args.output / "caregiver.ppm"}')
         approach(emu, symbols)
         emu.send(f'shot {args.output / "station.ppm"}')
         emu.send(press_a(3, 180))
@@ -200,7 +218,8 @@ def check(args):
     assert hashlib.sha256(source.read_bytes()).hexdigest() == original_hash, 'source save modified'
     report = dict(rom_sha1=digest, result='PASS', source_save_sha256=original_hash,
                   source_full_party_is_synthetic=True, interface_test_writes=False,
-                  pre_partner_gate='PASS', full_party_withdrawal_rejected=True,
+                  pre_partner_gate='PASS', clearing_perimeter_and_connector='PASS',
+                  caregiver_access_and_full_hp='PASS', full_party_withdrawal_rejected=True,
                   last_partner_deposit_rejected=True, main_menu_options_captured=5,
                   summary_open_close_preserved_creature=True, release_cancel_preserved_creature=True,
                   counts_initial=dict(party=6, pc=1), counts_after_deposit=dict(party=5, pc=2),

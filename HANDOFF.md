@@ -8,6 +8,16 @@ A restauracao ja foi feita na nuvem. O conteudo abaixo conserva o historico e as
 
 # Bichos do Brasil — ponto de retomada
 
+## Chão de terra no posto e cuidador
+
+Criada uma pequena área de terra batida com arte original: 17 quadrados em x=10..14/y=15..17 e ligação ao norte em (11,13)/(11,14). O metatile novo 0x2F3 usa quatro tiles próprios e quatro cores da paleta 7 existente, sem alterar paletas, objetos, scripts ou coordenadas dos serviços. Todos os bits de colisão/altura do mapa foram comparados com a versão anterior e preservados. Arte e conversor reproduzível em `assets/amazon/village-ground/` e `tools/build_village_ground_asset.py`; reconversão byte a byte idêntica.
+
+Build PASS após regenerar mapas/eventos, SHA-1 `68e8475e49945a4b44561bf9719ea61595cbcc54`, símbolos e `SOURCE_STATE.json` atualizados. Captura com equipe cheia regenerada e PASS (`docs/full-party-capture-validation.json`). `check_village_pc.py` agora percorre o contorno e a ligação ao norte e atende o cuidador: coordenadas alcançadas, controles liberados, HP completo nos seis slots, identidades/caixa e progresso preservados. Não foi injetado dano para esse atendimento. O restante da interface também passou: bloqueio antes da escolha, limites de equipe, depósito, Resumo, cancelamento de Libertar, retirada, save normal e Continue em novo processo. Contagens 6/1 → 5/2 → 6/1, sete animais preservados e origem intacta (`docs/village-pc-validation.json`).
+
+Capturas reais revisadas em `docs/screenshots/village-ground/preview.png`: textura e paleta corretas, serviços visíveis. `py_compile` do conversor/teste e `git diff --check` PASS. Logs e saves de teste em `tests/emulator/results/ground-capture-01/` e `ground-pc-01/`, ignorados. Nenhuma ROM ou save publicada. O aviso herdado do conversor de tiles sobre o limite 76 é ignorado pelo próprio conversor diante dos tiles adicionais; a inclusão foi conferida no emulador.
+
+Limites: origem de equipe cheia artificial; sem escrita de memória/savestates no teste de percurso/interface. Missão completa, derrota e libertação efetiva não foram reexecutadas; seus relatórios mantêm os hashes anteriores. Contorno do terreno ainda reto e vila/campanha incompletas. Próximo passo concreto: criar transições de terra para grama nas bordas dessa área, preservando colisões e validando novamente o acesso ao cuidador e terminal.
+
 ## Terminal próprio do posto de parceiros
 
 A placa provisória foi substituída por um terminal original de madeira e tela verde, com detalhe de folhas. O gráfico tem ID próprio 152, quadro de 16×16 e usa a paleta NPC_GREEN existente no slot nativo 3. Nenhuma paleta compartilhada ou placa genérica foi alterada. O objeto permanece em (13,16), com o mesmo script e acesso por (13,15). Arte-fonte e instruções em `assets/amazon/storage/`; conversor determinístico `tools/build_storage_terminal_asset.py`. A redução simplifica os detalhes da arte-fonte.
