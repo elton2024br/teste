@@ -8,6 +8,16 @@ A restauracao ja foi feita na nuvem. O conteudo abaixo conserva o historico e as
 
 # Bichos do Brasil — ponto de retomada
 
+## Terminal próprio do posto de parceiros
+
+A placa provisória foi substituída por um terminal original de madeira e tela verde, com detalhe de folhas. O gráfico tem ID próprio 152, quadro de 16×16 e usa a paleta NPC_GREEN existente no slot nativo 3. Nenhuma paleta compartilhada ou placa genérica foi alterada. O objeto permanece em (13,16), com o mesmo script e acesso por (13,15). Arte-fonte e instruções em `assets/amazon/storage/`; conversor determinístico `tools/build_storage_terminal_asset.py`. A redução simplifica os detalhes da arte-fonte.
+
+Build PASS após regenerar explicitamente mapas/eventos: SHA-1 `fafcb6a2168cd7b0f7b7db3bf24359b0d161f31f`, registrado em `SOURCE_STATE.json`, com símbolos regenerados. Captura com equipe cheia regenerada e PASS (`docs/full-party-capture-validation.json`). Interface do posto PASS: bloqueio antes da escolha, recusa de guardar último parceiro/retirar com equipe cheia, depósito, Resumo, cancelamento de Libertar, retirada e save normal/Continue. Contagens 6/1 → 5/2 → 6/1; identidade, espécie, experiência/checksum, cápsulas e flags preservadas; save de origem intacto (`docs/village-pc-validation.json`).
+
+Capturas reais revisadas em `docs/screenshots/storage-terminal/preview.png`: transparência, paleta e separação visual do jogador/cuidador adequadas nos pontos testados. A reconversão do PNG produziu bytes idênticos; `py_compile` do conversor e `git diff --check` PASS. Logs/PPM em `tests/emulator/results/terminal-capture-01/` e `terminal-pc-01/`, ignorados. Nenhuma ROM ou save publicada.
+
+Limites: equipe cheia de origem artificial; teste da interface sem escrita de memória/savestates. Não reexecutados missão completa, derrota ou libertação efetiva; seus relatórios conservam os próprios hashes. A vila e outros habitats ainda usam cenário provisório. Próximo passo concreto: criar um pequeno caminho de chão próprio ao redor do posto e do cuidador, preservando coordenadas, colisões e acesso aos serviços; validar o percurso no emulador.
+
 ## Libertação efetiva em cópia isolada
 
 Foram traduzidas somente as mensagens de sucesso e despedida da libertação em `src/strings.c`, preservando o placeholder do nome e as regras existentes. Build PASS: SHA-1 `a7583c0fdb6f030f180cd7057471848931b35f27`, registrado em `SOURCE_STATE.json`, com símbolos regenerados. A captura de origem foi regenerada neste build e passou (`docs/full-party-capture-validation.json`).

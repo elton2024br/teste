@@ -1,7 +1,7 @@
 {
-  "rom_sha1": "cd757ce280f4f57251e25987bab5d7788b59994d",
+  "rom_sha1": "fafcb6a2168cd7b0f7b7db3bf24359b0d161f31f",
   "result": "PASS",
-  "source_save_sha256": "272291fc7cbff220450c5528f0947ac713a49f8193742b4fe4fe6731230c6a37",
+  "source_save_sha256": "c7d15a414b139a73d32262826ef413ba7defd732592d8228db4f5f66707cc53d",
   "source_full_party_is_synthetic": true,
   "interface_test_writes": false,
   "pre_partner_gate": "PASS",
