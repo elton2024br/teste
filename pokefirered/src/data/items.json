@@ -5867,17 +5867,17 @@
       "secondaryId": 0
     },
     {
-      "english": "FAME CHECKER",
+      "english": "P. da Seca",
       "itemId": "ITEM_FAME_CHECKER",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
-      "description_english": "A device that enables you to\\nrecall what you've heard and seen\\nabout famous people.",
+      "description_english": "Uma pedra rara ligada à resistência\\ne aos ciclos da Caatinga.",
       "importance": 1,
-      "registrability": 1,
+      "registrability": 0,
       "pocket": "POCKET_KEY_ITEMS",
       "type": "ITEM_TYPE_BAG_MENU",
-      "fieldUseFunc": "FieldUseFunc_FameChecker",
+      "fieldUseFunc": "FieldUseFunc_AmazonStone",
       "battleUsage": 0,
       "battleUseFunc": "NULL",
       "secondaryId": 0

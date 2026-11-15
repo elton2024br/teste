@@ -9,6 +9,12 @@ Route2_EventScript_DiglettsCaveSign::
 	msgbox Route2_Text_DiglettsCave, MSGBOX_SIGN
 	end
 
+Amazon_EventScript_EnterCaatinga::
+	goto_if_unset FLAG_AMAZON_ROOT_STONE, Amazon_EventScript_CerradoLocked
+	warp MAP_PEWTER_CITY, 23, 38
+	waitstate
+	end
+
 Amazon_EventScript_CerradoAgent::
 	lock
 	faceplayer
@@ -27,6 +33,7 @@ Amazon_EventScript_CerradoReward::
 Amazon_EventScript_CerradoMarkReward::
 	setflag FLAG_AMAZON_ROOT_STONE
 	msgbox Amazon_Text_CerradoReward, MSGBOX_DEFAULT
+	removeobject LOCALID_AMAZON_CERRADO_AGENT
 	release
 	end
 Amazon_EventScript_CerradoLocked::

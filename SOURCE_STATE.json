@@ -1,9 +1,9 @@
 {
   "base_commit": "ce6406d8c2eaf46d543c8a2606de0c3cb1951982",
   "compiler_commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
-  "cloud_built_rom_sha1": "3acf79cee5b75e2db85e2964663952dcbd6775a9",
+  "cloud_built_rom_sha1": "fe3e29d7190ccdc9ff968cc9496a0fac8d551710",
   "source_count": 9859,
   "rom_included": false,
   "windows_or_wsl_build_tested": false,
-  "stage": "campaign-second-habitat-root-stone"
+  "stage": "campaign-third-habitat-drought-stone"
 }

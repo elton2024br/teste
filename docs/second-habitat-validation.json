@@ -1,5 +1,5 @@
 {
-  "rom_sha1": "3acf79cee5b75e2db85e2964663952dcbd6775a9",
+  "rom_sha1": "fe3e29d7190ccdc9ff968cc9496a0fac8d551710",
   "result": "PASS",
   "test_writes": false,
   "cases": [
@@ -30,5 +30,5 @@
     "water_stone_item": 361,
     "root_stone_item": 362
   },
-  "scope": "Fresh first missions for all three partners, ordinary source saves, walk through the new forest connection, Cerrado battle, two unique key items, ordinary save and Continue in new emulator processes. Does not validate a full key-item pocket, northern Route 2 progression, habitats three to five, final art or ending."
+  "scope": "Fresh first missions for all three partners, ordinary source saves, walk through the forest connection, Cerrado battle, two unique key items, ordinary save and Continue in new emulator processes. Does not validate a full key-item pocket, defeat in this battle, final art or ending."
 }

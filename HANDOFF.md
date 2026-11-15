@@ -19,7 +19,15 @@ Meta de planejamento até 5 de dezembro de 2026: uma campanha mínima jogável d
 - Dias 16–17: acesso às Terras Raras, confronto e desfecho mínimo.
 - Dias 18–20: percurso integral com os três parceiros, balanceamento essencial, save/Continue e correções bloqueadoras.
 
-Progresso ao fim da rotina 1: primeira missão revalidada e segundo habitat funcional concluído com os três parceiros. Restam três habitats, duas etapas finais e a regressão integral. O ritmo precisa manter entregas funcionais por rotina para a meta continuar plausível.
+Progresso ao fim da rotina 2: primeira missão e Campo Cerrado revalidados e terceiro habitat/Caatinga funcional concluído com os três parceiros. Restam dois habitats, as Terras Raras/desfecho e a regressão integral. O ritmo precisa manter entregas funcionais por rotina para a meta continuar plausível.
+
+## Caatinga e Pedra da Seca — rotina 2
+
+O bloqueio herdado ao norte do Campo Cerrado foi substituído por uma trilha curta e uma transição provisória reproduzível para a antiga Pewter City, agora apresentada como Caatinga. O agente do Cerrado recebe ID local e desaparece depois da recompensa, evitando bloquear o caminho. Na Caatinga, um terceiro agente do Tio Sam inicia uma batalha própria e concede a Pedra da Seca, item especial 363, somente depois da vitória. Flags separadas registram batalha e recompensa; mochila cheia preserva a entrega para uma nova tentativa. A mensagem confirma três de cinco pedras e orienta seguir ao leste.
+
+Build PASS, SHA-1 \`fe3e29d7190ccdc9ff968cc9496a0fac8d551710\`. A campanha foi repetida desde jogo novo com Capivágua, Ararafogo e Tatupedra: primeira missão, Pedra das Águas, Campo Cerrado, Pedra das Raízes, transição para a Caatinga, terceira batalha, Pedra da Seca, save normal e Continue em processo novo, tudo PASS. Cada caso terminou com flags \`0xFF\` e uma unidade dos itens 361, 362 e 363, sem escrita de memória ou savestate. Relatórios resumidos: \`docs/mission-current-validation.json\`, \`docs/second-habitat-validation.json\` e \`docs/third-habitat-validation.json\`. Teste novo: \`tests/emulator/check_third_habitat.py\`; ajuste reproduzível da trilha: \`tools/open_third_habitat_route.py\`. Capturas reais revisadas em \`docs/screenshots/third-habitat/preview.png\`.
+
+Limites: Caatinga, NPC, música e cenário ainda reutilizam arte da base; a transição do Cerrado é um gatilho provisório e a batalha usa um Ararafogo nível 2 antes do balanceamento. Não foram validados derrota na terceira batalha, bolso de itens especiais cheio, retorno ao Cerrado, saída leste nem habitat quatro. Próximo passo funcional: transformar a saída leste da Caatinga em acesso sequencial à Mata Atlântica, com quarta missão, batalha e quarta pedra.
 
 ## Campo Cerrado e Pedra das Raízes
 

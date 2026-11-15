@@ -1,0 +1,35 @@
+{
+  "rom_sha1": "fe3e29d7190ccdc9ff968cc9496a0fac8d551710",
+  "result": "PASS",
+  "test_writes": false,
+  "cases": [
+    {
+      "partner": "capivagua",
+      "battle_input_cycles": 35,
+      "stones": {"water": 1, "roots": 1, "drought": 1},
+      "normal_save_continue": true
+    },
+    {
+      "partner": "ararafogo",
+      "battle_input_cycles": 29,
+      "stones": {"water": 1, "roots": 1, "drought": 1},
+      "normal_save_continue": true
+    },
+    {
+      "partner": "tatupedra",
+      "battle_input_cycles": 28,
+      "stones": {"water": 1, "roots": 1, "drought": 1},
+      "normal_save_continue": true
+    }
+  ],
+  "progression": {
+    "initial_map": "3/20",
+    "third_habitat_entry_map": "3/2",
+    "flags_before": 63,
+    "flags_after": 255,
+    "water_stone_item": 361,
+    "root_stone_item": 362,
+    "drought_stone_item": 363
+  },
+  "scope": "Fresh campaign chain for all three partners, ordinary source saves, Campo Cerrado trail transition, Caatinga battle, three unique key items, ordinary save and Continue in new emulator processes. Uses inherited provisional art and does not validate defeat, a full key-item pocket, habitat four or the ending."
+}

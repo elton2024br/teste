@@ -116,6 +116,12 @@ Use uma pasta vazia. O teste começa jogos novos com Ararafogo e Tatupedra, conf
 
 Para rodar somente Capivágua, acrescente `--partners capivagua` e use uma pasta de saída nova. Também é possível selecionar parceiros por nome com `--partners`; o padrão continua Ararafogo e Tatupedra para preservar os consumidores de fixtures existentes, que exigem essa dupla. A validação isolada de Capivágua está em `docs/capivagua-mission-validation.json`; os dois outros ramos estão em `docs/mission-current-validation.json`.
 
+## Segundo e terceiro habitats
+
+Depois de gerar os três saves com `check_mission.py`, execute `check_second_habitat.py` uma vez por parceiro, passando `--first-mission-results`, `--partner` e uma pasta de saída vazia. Em seguida, passe cada pasta resultante a `check_third_habitat.py` por `--second-habitat-results`, com o mesmo parceiro e outra saída vazia.
+
+O segundo teste percorre a conexão da floresta, vence o agente do Campo Cerrado, confere as Pedras das Águas e das Raízes e faz save/Continue. O terceiro contorna o agente removido, usa a trilha provisória para a Caatinga, vence a terceira batalha, confere também a Pedra da Seca e repete save/Continue. Ambos exigem fixtures do mesmo hash da ROM, preservam a origem e não habilitam escritas nem usam savestates. Não cobrem derrota, mochila cheia ou arte final.
+
 ## Revisita à pedra e ao cuidador
 
 Depois de executar `check_mission.py` no build atual, use a pasta de resultados dele como entrada:

@@ -2,6 +2,61 @@ PewterCity_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, PewterCity_OnTransition
 	.byte 0
 
+Amazon_EventScript_CaatingaAgent::
+	lock
+	faceplayer
+	goto_if_unset FLAG_AMAZON_ROOT_STONE, Amazon_EventScript_CaatingaLocked
+	goto_if_set FLAG_AMAZON_DROUGHT_STONE, Amazon_EventScript_CaatingaDone
+	goto_if_set FLAG_AMAZON_CAATINGA_AGENT_DEFEATED, Amazon_EventScript_CaatingaReward
+	trainerbattle_single TRAINER_BUG_CATCHER_SAMMY, Amazon_Text_CaatingaAgentIntro, Amazon_Text_CaatingaAgentLoss
+	setflag FLAG_AMAZON_CAATINGA_AGENT_DEFEATED
+Amazon_EventScript_CaatingaReward::
+	checkitem ITEM_PEDRA_DA_SECA
+	goto_if_eq VAR_RESULT, TRUE, Amazon_EventScript_CaatingaMarkReward
+	checkitemspace ITEM_PEDRA_DA_SECA, 1
+	goto_if_eq VAR_RESULT, FALSE, Amazon_EventScript_CaatingaFull
+	additem ITEM_PEDRA_DA_SECA, 1
+	goto_if_eq VAR_RESULT, FALSE, Amazon_EventScript_CaatingaFull
+Amazon_EventScript_CaatingaMarkReward::
+	setflag FLAG_AMAZON_DROUGHT_STONE
+	msgbox Amazon_Text_CaatingaReward, MSGBOX_DEFAULT
+	removeobject LOCALID_AMAZON_CAATINGA_AGENT
+	release
+	end
+Amazon_EventScript_CaatingaLocked::
+	msgbox Amazon_Text_CaatingaLocked, MSGBOX_DEFAULT
+	release
+	end
+Amazon_EventScript_CaatingaDone::
+	msgbox Amazon_Text_CaatingaDone, MSGBOX_DEFAULT
+	release
+	end
+Amazon_EventScript_CaatingaFull::
+	msgbox Amazon_Text_CaatingaFull, MSGBOX_DEFAULT
+	release
+	end
+
+Amazon_Text_CaatingaAgentIntro::
+	.string "A seca vai quebrar sua jornada.\n"
+	.string "A terceira pedra é do Tio Sam!$"
+Amazon_Text_CaatingaAgentLoss::
+	.string "Vocês resistiram como a Caatinga...$"
+Amazon_Text_CaatingaReward::
+	.string "Você recuperou a\n"
+	.string "Pedra da Seca!\p"
+	.string "Agora você tem três das\n"
+	.string "cinco pedras.\p"
+	.string "A trilha segue para o leste.$"
+Amazon_Text_CaatingaLocked::
+	.string "A força das raízes ainda falta.\n"
+	.string "Volte ao Cerrado primeiro.$"
+Amazon_Text_CaatingaDone::
+	.string "A Pedra da Seca está segura.\n"
+	.string "Siga pela trilha ao leste.$"
+Amazon_Text_CaatingaFull::
+	.string "Abra espaço nos itens especiais\n"
+	.string "e volte para receber a pedra.$"
+
 PewterCity_OnTransition::
 	setworldmapflag FLAG_WORLD_MAP_PEWTER_CITY
 	setvar VAR_MAP_SCENE_PEWTER_CITY_MUSEUM_1F, 0
