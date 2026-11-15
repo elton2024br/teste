@@ -8,6 +8,29 @@ A restauracao ja foi feita na nuvem. O conteudo abaixo conserva o historico e as
 
 # Bichos do Brasil — ponto de retomada
 
+## Plano funcional de 20 dias — rotina 1
+
+Meta de planejamento até 5 de dezembro de 2026: uma campanha mínima jogável de ponta a ponta. O prazo é alvo, não garantia. Prioridade: progressão, habitats, missões, batalhas, cinco pedras e desfecho; polimento visual e traduções secundárias ficam depois.
+
+- Dias 1–3: concluir e estabilizar o segundo habitat/Campo Cerrado e a Pedra das Raízes.
+- Dias 4–7: terceiro habitat, missão, batalha e terceira pedra.
+- Dias 8–11: quarto habitat, missão, batalha e quarta pedra.
+- Dias 12–15: quinto habitat, missão, batalha e quinta pedra.
+- Dias 16–17: acesso às Terras Raras, confronto e desfecho mínimo.
+- Dias 18–20: percurso integral com os três parceiros, balanceamento essencial, save/Continue e correções bloqueadoras.
+
+Progresso ao fim da rotina 1: primeira missão revalidada e segundo habitat funcional concluído com os três parceiros. Restam três habitats, duas etapas finais e a regressão integral. O ritmo precisa manter entregas funcionais por rotina para a meta continuar plausível.
+
+## Campo Cerrado e Pedra das Raízes
+
+A saída norte da floresta foi aberta em dois quadrados e conectada ao antigo Route 2, agora apresentado como Campo Cerrado. A conexão inversa volta à floresta. O mapa e a arte seguem provisórios, mas já há progressão real: depois da Pedra das Águas, o jogador encontra um segundo agente do Tio Sam, vence uma batalha e recebe a Pedra das Raízes como item especial distinto. Flags próprias impedem repetição da batalha e duplicação da pedra; mochila cheia permite retornar para receber a recompensa. A mensagem orienta seguir ao norte. O retorno à comunidade depois da primeira pedra agora recupera a equipe antes da segunda expedição.
+
+Build PASS, SHA-1 `3acf79cee5b75e2db85e2964663952dcbd6775a9`, registrado em `SOURCE_STATE.json`, com mapas/eventos e símbolos regenerados. A primeira missão foi repetida desde jogos novos com Capivágua, Ararafogo e Tatupedra: batalha, ponte, Pedra das Águas e save/Continue PASS (`docs/mission-current-validation.json`). Em seguida, os três saves nativos percorreram a nova conexão, venceram o agente do Cerrado, mantiveram uma unidade de cada pedra e fizeram save normal/Continue em novo processo. Flags passaram de `0x0F` para `0x3F`; nenhuma escrita de memória ou savestate foi usada (`docs/second-habitat-validation.json`).
+
+Capturas reais revisadas em `docs/screenshots/second-habitat/preview.png`; a mensagem da recompensa foi quebrada manualmente em linhas e não apresentou corte. O teste reproduzível está em `tests/emulator/check_second_habitat.py`; o ajuste binário da saída pode ser repetido por `tools/open_second_habitat_route.py`. `py_compile` e `git diff --check` PASS. Resultados completos ficam ignorados em `tests/emulator/results/routine-01-final2-*`. Nenhuma ROM ou save publicada.
+
+Limites: o Campo Cerrado reutiliza mapa, cenário, NPC e música provisórios; o agente usa um Tatupedra nível 2 para garantir o fluxo mínimo antes do balanceamento. Não foram testados mochila especial cheia, derrota nessa segunda batalha, retorno ao sul depois da recompensa nem a continuação ao norte. Próximo passo funcional: transformar a saída norte do Campo Cerrado em acesso sequencial ao terceiro habitat, criar sua missão e terceira pedra, e estender o teste de campanha.
+
 ## Chão de terra no posto e cuidador
 
 Criada uma pequena área de terra batida com arte original: 17 quadrados em x=10..14/y=15..17 e ligação ao norte em (11,13)/(11,14). O metatile novo 0x2F3 usa quatro tiles próprios e quatro cores da paleta 7 existente, sem alterar paletas, objetos, scripts ou coordenadas dos serviços. Todos os bits de colisão/altura do mapa foram comparados com a versão anterior e preservados. Arte e conversor reproduzível em `assets/amazon/village-ground/` e `tools/build_village_ground_asset.py`; reconversão byte a byte idêntica.

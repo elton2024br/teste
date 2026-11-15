@@ -5851,17 +5851,17 @@
       "secondaryId": 0
     },
     {
-      "english": "VS SEEKER",
+      "english": "P. das Raízes",
       "itemId": "ITEM_VS_SEEKER",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
-      "description_english": "A device that indicates TRAINERS\\nwho want to battle. The battery\\ncharges while traveling.",
+      "description_english": "Uma pedra rara ligada às raízes\\ne à força da terra.",
       "importance": 1,
-      "registrability": 1,
+      "registrability": 0,
       "pocket": "POCKET_KEY_ITEMS",
-      "type": "ITEM_TYPE_FIELD",
-      "fieldUseFunc": "FieldUseFunc_VsSeeker",
+      "type": "ITEM_TYPE_BAG_MENU",
+      "fieldUseFunc": "FieldUseFunc_AmazonStone",
       "battleUsage": 0,
       "battleUseFunc": "NULL",
       "secondaryId": 0

@@ -926,6 +926,6 @@ void ItemUse_SetQuestLogEvent(u8 eventId, struct Pokemon *pokemon, u16 itemId, u
 
 void FieldUseFunc_AmazonStone(u8 taskId)
 {
-    static const u8 text[] = _("Esta pedra guarda a força dos rios.");
+    static const u8 text[] = _("Esta pedra guarda a força dos biomas.");
     DisplayItemMessageInBag(taskId, FONT_NORMAL, text, Task_ReturnToBagFromContextMenu);
 }

@@ -547,6 +547,7 @@ Amazon_Text_GrantFailed::
     .string "antes de seguir.$"
 
 Amazon_EventScript_Returned::
+    call EventScript_OutOfCenterPartyHeal
     msgbox Amazon_Text_Returned, MSGBOX_DEFAULT
     release
     end
