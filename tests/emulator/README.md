@@ -120,7 +120,15 @@ Para rodar somente Capivágua, acrescente `--partners capivagua` e use uma pasta
 
 Depois de gerar os três saves com `check_mission.py`, execute `check_second_habitat.py` uma vez por parceiro, passando `--first-mission-results`, `--partner` e uma pasta de saída vazia. Encadeie então `check_third_habitat.py`, `check_fourth_habitat.py`, `check_fifth_habitat.py` e `check_campaign_ending.py`, sempre usando o resultado da etapa anterior, o mesmo parceiro e outra saída vazia.
 
-Os testes percorrem Campo Cerrado, Caatinga, Mata Atlântica, Pantanal e Terras Raras, conferem os cinco itens especiais, exigem HP máximo depois de cada recompensa, enfrentam os dois adversários de Tio Sam e repetem save/Continue após cada pedra e após o desfecho. Todos exigem fixtures do mesmo hash da ROM, preservam a origem e não habilitam escritas nem usam savestates. Não cobrem derrota nas etapas novas, mochila cheia, retorno entre todos os mapas, estratégias otimizadas, balanceamento final, créditos ou arte final.
+Os testes percorrem Campo Cerrado, Caatinga, Mata Atlântica, Pantanal e Terras Raras, conferem os cinco itens especiais, exigem HP máximo depois de cada recompensa, enfrentam os dois adversários de Tio Sam e repetem save/Continue após cada pedra e após o desfecho. Todos exigem fixtures do mesmo hash da ROM, preservam a origem e não habilitam escritas nem usam savestates. Estes testes de vitória não cobrem derrota, mochila cheia, retorno entre todos os mapas, estratégias otimizadas, balanceamento final, créditos ou arte final; as duas regressões de derrota cobertas estão descritas separadamente abaixo.
+
+## Derrota no chefe e nova tentativa
+
+Depois de gerar o resultado do quinto habitat para um parceiro, execute `check_campaign_final_defeat.py` com `--fifth-habitat-results`, `--partner` e uma saída vazia. Repita para os três parceiros. O teste copia o save e prepara somente HP=1 no primeiro membro por escrita opt-in; não escreve flags, itens, parceiro ou resultado. A derrota deve ocorrer normalmente, retornar à casa, restaurar HP e preservar as cinco pedras sem marcar o final. Em seguida salva sobre a cópia, abre Continue com escritas desativadas, percorre novamente todos os habitats e vence Tio Sam.
+
+Relatório resumido: `docs/campaign-final-defeat-validation.json`. A fixture não comprova dano acumulado naturalmente, derrota com equipe maior, status/PP, agentes intermediários ou todos os caminhos de recuperação.
+
+`check_fifth_habitat_defeat.py` aplica a mesma fixture ao agente do Pantanal, partindo do resultado do quarto habitat. A derrota deve preservar as quatro pedras e deixar tanto a flag de vitória quanto a Pedra das Cheias pendentes. Depois de save/Continue com escritas desativadas, o teste retorna pelos habitats anteriores, vence normalmente e exige a quinta pedra e a recuperação total. Relatório: `docs/fifth-habitat-defeat-validation.json`.
 
 ## Revisita à pedra e ao cuidador
 

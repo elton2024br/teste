@@ -1,0 +1,45 @@
+{
+  "rom_sha1": "a3ac6c681a92b84b7d34863932930dca787c2155",
+  "result": "PASS",
+  "fixture_writes": true,
+  "fixture": "Party slot 0 current HP set to 1; no flags, items, partner, opponent or outcome written.",
+  "cases": [
+    {
+      "partner": "capivagua",
+      "loss_input_cycles": 19,
+      "battle_outcome_loss": 2,
+      "recovered_party_health": [[26, 26]],
+      "recovered_flag_bytes": [255, 0, 224, 1],
+      "win_input_cycles_after_retry": 98,
+      "final_flag_bytes": [255, 0, 224, 7]
+    },
+    {
+      "partner": "ararafogo",
+      "loss_input_cycles": 20,
+      "battle_outcome_loss": 2,
+      "recovered_party_health": [[23, 23]],
+      "recovered_flag_bytes": [255, 0, 224, 1],
+      "win_input_cycles_after_retry": 70,
+      "final_flag_bytes": [255, 0, 224, 7]
+    },
+    {
+      "partner": "tatupedra",
+      "loss_input_cycles": 18,
+      "battle_outcome_loss": 2,
+      "recovered_party_health": [[27, 27]],
+      "recovered_flag_bytes": [255, 0, 224, 1],
+      "win_input_cycles_after_retry": 109,
+      "final_flag_bytes": [255, 0, 224, 7]
+    }
+  ],
+  "assertions": {
+    "five_stones_preserved_after_loss": true,
+    "ending_flags_absent_after_loss": true,
+    "normal_save_overwrite": true,
+    "continue_with_writes_disabled": true,
+    "returned_through_all_habitats": true,
+    "campaign_completed_after_retry": true,
+    "source_saves_preserved": true
+  },
+  "scope": "Artificial HP=1 fixture only; normal final-boss defeats for all three partners, home recovery, five stones and pre-ending flags preserved, ordinary save/Continue with writes disabled, return through the cleared campaign and normal victories. Not evidence of naturally accumulated damage, multi-member parties, status/PP recovery or intermediate-agent defeats."
+}
