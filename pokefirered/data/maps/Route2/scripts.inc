@@ -32,6 +32,7 @@ Amazon_EventScript_CerradoReward::
 	goto_if_eq VAR_RESULT, FALSE, Amazon_EventScript_CerradoFull
 Amazon_EventScript_CerradoMarkReward::
 	setflag FLAG_AMAZON_ROOT_STONE
+	special HealPlayerParty
 	msgbox Amazon_Text_CerradoReward, MSGBOX_DEFAULT
 	removeobject LOCALID_AMAZON_CERRADO_AGENT
 	release

@@ -18,6 +18,7 @@ Amazon_EventScript_PantanalReward::
 	goto_if_eq VAR_RESULT, FALSE, Amazon_EventScript_PantanalFull
 Amazon_EventScript_PantanalMarkReward::
 	setflag FLAG_AMAZON_FLOOD_STONE
+	special HealPlayerParty
 	msgbox Amazon_Text_PantanalReward, MSGBOX_DEFAULT
 	removeobject LOCALID_AMAZON_PANTANAL_AGENT
 	release

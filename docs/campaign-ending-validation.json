@@ -1,23 +1,26 @@
 {
-  "rom_sha1": "132a2eaddc09e0e8561fd5df9322945f17ccfcae",
+  "rom_sha1": "a3ac6c681a92b84b7d34863932930dca787c2155",
   "result": "PASS",
   "test_writes": false,
   "cases": [
     {
       "partner": "capivagua",
-      "battle_input_cycles": 38,
+      "battle_input_cycles": 110,
+      "initial_party_health": [[26, 26]],
       "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1, "flood": 1},
       "normal_save_continue": true
     },
     {
       "partner": "ararafogo",
-      "battle_input_cycles": 37,
+      "battle_input_cycles": 61,
+      "initial_party_health": [[23, 23]],
       "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1, "flood": 1},
       "normal_save_continue": true
     },
     {
       "partner": "tatupedra",
-      "battle_input_cycles": 39,
+      "battle_input_cycles": 98,
+      "initial_party_health": [[27, 27]],
       "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1, "flood": 1},
       "normal_save_continue": true
     }
@@ -27,7 +30,11 @@
     "rare_lands_entry_map": "3/3",
     "flag_bytes_before": [255, 0, 224, 1],
     "flag_bytes_after": [255, 0, 224, 7],
+    "opponents": [
+      {"species": "Caterpie", "level": 7},
+      {"species": "Weedle", "level": 7}
+    ],
     "campaign_complete": true
   },
-  "scope": "Fresh full campaign chain for all three partners; Pantanal east transition, Tio Sam battle, minimal textual ending, five stones preserved, ordinary save and Continue in new emulator processes. Uses inherited provisional art and does not validate defeat, final balance, credits or a polished ending."
+  "scope": "Fresh full campaign chain for all three partners; full HP entering Terras Raras, two-opponent level-7 Tio Sam battle, minimal textual ending, five stones preserved, ordinary save and Continue in new emulator processes. Uses inherited provisional art and does not validate defeat, optimized strategies, credits or a polished ending."
 }

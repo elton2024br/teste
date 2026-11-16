@@ -9,7 +9,7 @@ import shutil
 from check_intro import Emulator
 from check_starters import press_a
 from check_defeat_recovery import snapshot
-from check_second_habitat import key_items
+from check_second_habitat import key_items, party_health
 
 
 def campaign_flag_bytes(emu, symbols):
@@ -79,6 +79,8 @@ def check(args):
         assert rewarded_flags == (0xFF, 0x00, 0xE0, 0x01), rewarded_flags
         items = key_items(emu, symbols)
         assert all(items.get(item) == 1 for item in (361, 362, 363, 364, 365)), items
+        healed = party_health(emu, symbols)
+        assert healed and all(hp == max_hp and hp > 0 for hp, max_hp in healed), healed
         assert emu.read(symbols["sLockFieldControls"]) == 0
         emu.send(f"shot {args.output / 'five-stones.ppm'}")
 
@@ -117,6 +119,7 @@ def check(args):
         rewarded_flag_bytes=list(rewarded_flags),
         continued=continued,
         continued_flag_bytes=list(continued_flags),
+        healed_party=healed,
         stones={"water": items_after[361], "roots": items_after[362],
                 "drought": items_after[363], "forest": items_after[364],
                 "flood": items_after[365]},

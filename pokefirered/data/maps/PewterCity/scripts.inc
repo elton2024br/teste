@@ -19,6 +19,7 @@ Amazon_EventScript_CaatingaReward::
 	goto_if_eq VAR_RESULT, FALSE, Amazon_EventScript_CaatingaFull
 Amazon_EventScript_CaatingaMarkReward::
 	setflag FLAG_AMAZON_DROUGHT_STONE
+	special HealPlayerParty
 	msgbox Amazon_Text_CaatingaReward, MSGBOX_DEFAULT
 	removeobject LOCALID_AMAZON_CAATINGA_AGENT
 	release

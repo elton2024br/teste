@@ -1,23 +1,26 @@
 {
-  "rom_sha1": "132a2eaddc09e0e8561fd5df9322945f17ccfcae",
+  "rom_sha1": "a3ac6c681a92b84b7d34863932930dca787c2155",
   "result": "PASS",
   "test_writes": false,
   "cases": [
     {
       "partner": "capivagua",
-      "battle_input_cycles": 35,
+      "battle_input_cycles": 44,
+      "healed_party": [[24, 24]],
       "stones": {"water": 1, "roots": 1, "drought": 1},
       "normal_save_continue": true
     },
     {
       "partner": "ararafogo",
-      "battle_input_cycles": 29,
+      "battle_input_cycles": 33,
+      "healed_party": [[21, 21]],
       "stones": {"water": 1, "roots": 1, "drought": 1},
       "normal_save_continue": true
     },
     {
       "partner": "tatupedra",
-      "battle_input_cycles": 28,
+      "battle_input_cycles": 45,
+      "healed_party": [[24, 24]],
       "stones": {"water": 1, "roots": 1, "drought": 1},
       "normal_save_continue": true
     }
@@ -27,9 +30,10 @@
     "third_habitat_entry_map": "3/2",
     "flags_before": 63,
     "flags_after": 255,
+    "opponent_level": 4,
     "water_stone_item": 361,
     "root_stone_item": 362,
     "drought_stone_item": 363
   },
-  "scope": "Fresh campaign chain for all three partners, ordinary source saves, Campo Cerrado trail transition, Caatinga battle, three unique key items, ordinary save and Continue in new emulator processes. Uses inherited provisional art and does not validate defeat, a full key-item pocket, habitat four or the ending."
+  "scope": "Fresh campaign chain for all three partners, ordinary source saves, Campo Cerrado trail transition, level-4 neutral Caatinga battle, three unique key items, full HP after the reward, ordinary save and Continue in new emulator processes. Uses inherited provisional art and does not validate defeat or a full key-item pocket."
 }

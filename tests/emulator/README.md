@@ -120,7 +120,7 @@ Para rodar somente Capivágua, acrescente `--partners capivagua` e use uma pasta
 
 Depois de gerar os três saves com `check_mission.py`, execute `check_second_habitat.py` uma vez por parceiro, passando `--first-mission-results`, `--partner` e uma pasta de saída vazia. Encadeie então `check_third_habitat.py`, `check_fourth_habitat.py`, `check_fifth_habitat.py` e `check_campaign_ending.py`, sempre usando o resultado da etapa anterior, o mesmo parceiro e outra saída vazia.
 
-Os testes percorrem Campo Cerrado, Caatinga, Mata Atlântica, Pantanal e Terras Raras, conferem os cinco itens especiais, enfrentam Tio Sam e repetem save/Continue após cada recompensa e após o desfecho. Todos exigem fixtures do mesmo hash da ROM, preservam a origem e não habilitam escritas nem usam savestates. Não cobrem derrota nas etapas novas, mochila cheia, retorno entre todos os mapas, balanceamento final, créditos ou arte final.
+Os testes percorrem Campo Cerrado, Caatinga, Mata Atlântica, Pantanal e Terras Raras, conferem os cinco itens especiais, exigem HP máximo depois de cada recompensa, enfrentam os dois adversários de Tio Sam e repetem save/Continue após cada pedra e após o desfecho. Todos exigem fixtures do mesmo hash da ROM, preservam a origem e não habilitam escritas nem usam savestates. Não cobrem derrota nas etapas novas, mochila cheia, retorno entre todos os mapas, estratégias otimizadas, balanceamento final, créditos ou arte final.
 
 ## Revisita à pedra e ao cuidador
 

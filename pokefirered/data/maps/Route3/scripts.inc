@@ -18,6 +18,7 @@ Amazon_EventScript_AtlanticReward::
 	goto_if_eq VAR_RESULT, FALSE, Amazon_EventScript_AtlanticFull
 Amazon_EventScript_AtlanticMarkReward::
 	setflag FLAG_AMAZON_FOREST_STONE
+	special HealPlayerParty
 	msgbox Amazon_Text_AtlanticReward, MSGBOX_DEFAULT
 	removeobject LOCALID_AMAZON_ATLANTIC_AGENT
 	release

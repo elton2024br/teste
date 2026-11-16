@@ -9,7 +9,7 @@ import shutil
 from check_intro import Emulator
 from check_starters import press_a
 from check_defeat_recovery import snapshot
-from check_second_habitat import key_items
+from check_second_habitat import key_items, party_health
 
 
 def campaign_flag_bytes(emu, symbols):
@@ -54,6 +54,9 @@ def check(args):
         assert campaign_flag_bytes(emu, symbols) == (0xFF, 0x00, 0xE0, 0x01)
         items = key_items(emu, symbols)
         assert all(items.get(item) == 1 for item in (361, 362, 363, 364, 365))
+        initial_health = party_health(emu, symbols)
+        assert initial_health and all(hp == max_hp and hp > 0
+                                      for hp, max_hp in initial_health), initial_health
 
         emu.send("run 16 20\nrun 0 600\nrun 64 12\nrun 0 60")
         entered = snapshot(emu, symbols)
@@ -109,6 +112,7 @@ def check(args):
         source_fifth_habitat="fresh five-stone save with ordinary save/Continue",
         test_writes=False,
         initial=initial,
+        initial_party_health=initial_health,
         entered=entered,
         battle_input_cycles=cycles,
         ended=ended,

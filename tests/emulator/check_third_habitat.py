@@ -9,7 +9,7 @@ import shutil
 from check_intro import Emulator
 from check_starters import press_a
 from check_defeat_recovery import snapshot
-from check_second_habitat import key_items
+from check_second_habitat import key_items, party_health
 
 
 def fight_caatinga_agent(emu, symbols):
@@ -71,6 +71,8 @@ def check(args):
         assert rewarded["flags"] == 0xFF, rewarded
         items = key_items(emu, symbols)
         assert items.get(361) == items.get(362) == items.get(363) == 1, items
+        healed = party_health(emu, symbols)
+        assert healed and all(hp == max_hp and hp > 0 for hp, max_hp in healed), healed
         assert emu.read(symbols["sLockFieldControls"]) == 0
         emu.send(f"shot {args.output / 'drought-stone.ppm'}")
 
@@ -105,6 +107,7 @@ def check(args):
         battle_input_cycles=cycles,
         rewarded=rewarded,
         continued=continued,
+        healed_party=healed,
         stones={"water": items_after[361], "roots": items_after[362],
                 "drought": items_after[363]},
         scope=("Native second-mission save; Campo Cerrado trail transition; "

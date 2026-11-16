@@ -24,6 +24,18 @@ def key_items(emu, symbols):
     return result
 
 
+def party_health(emu, symbols):
+    count = emu.read(symbols["gPlayerPartyCount"])
+    party = symbols["gPlayerParty"]
+    result = []
+    for index in range(count):
+        pokemon = party + index * 100
+        hp = emu.read(pokemon + 0x56) | (emu.read(pokemon + 0x57) << 8)
+        max_hp = emu.read(pokemon + 0x58) | (emu.read(pokemon + 0x59) << 8)
+        result.append([hp, max_hp])
+    return result
+
+
 def fight_cerrado_agent(emu, symbols):
     for cycle in range(260):
         handler = emu.read(symbols["gBattlerControllerFuncs"], 32) & ~1
@@ -91,6 +103,8 @@ def check(args):
         assert rewarded["flags"] == 0x3F, rewarded
         items = key_items(emu, symbols)
         assert items.get(361) == items.get(362) == 1, items
+        healed = party_health(emu, symbols)
+        assert healed and all(hp == max_hp and hp > 0 for hp, max_hp in healed), healed
         assert emu.read(symbols["sLockFieldControls"]) == 0
         emu.send(f"shot {args.output / 'root-stone.ppm'}")
 
@@ -126,6 +140,7 @@ def check(args):
         battle_input_cycles=cycles,
         rewarded=rewarded,
         continued=continued,
+        healed_party=healed,
         stones={"water": items_after[361], "roots": items_after[362]},
         scope=("Native first-mission save; walk through the new forest connection; "
                "Cerrado battle, two unique key items, normal save and Continue. "
