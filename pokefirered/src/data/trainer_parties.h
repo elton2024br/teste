@@ -10443,57 +10443,15 @@ static const struct TrainerMonNoItemCustomMoves sParty_CoolCoupleLexNya2[] = {
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherColton2[] = {
-    {
-        .iv = 20,
-        .lvl = 19,
-        .species = SPECIES_METAPOD,
-    },
-    {
-        .iv = 20,
-        .lvl = 19,
-        .species = SPECIES_WEEDLE,
-    },
-    {
-        .iv = 20,
-        .lvl = 19,
-        .species = SPECIES_METAPOD,
-    },
+    {.iv = 0, .lvl = 2, .species = SPECIES_CATERPIE},
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherColton3[] = {
-    {
-        .iv = 60,
-        .lvl = 27,
-        .species = SPECIES_BUTTERFREE,
-    },
-    {
-        .iv = 60,
-        .lvl = 27,
-        .species = SPECIES_KAKUNA,
-    },
-    {
-        .iv = 60,
-        .lvl = 27,
-        .species = SPECIES_BUTTERFREE,
-    },
+    {.iv = 0, .lvl = 2, .species = SPECIES_CATERPIE},
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherColton4[] = {
-    {
-        .iv = 120,
-        .lvl = 51,
-        .species = SPECIES_BUTTERFREE,
-    },
-    {
-        .iv = 120,
-        .lvl = 54,
-        .species = SPECIES_BEEDRILL,
-    },
-    {
-        .iv = 120,
-        .lvl = 51,
-        .species = SPECIES_BUTTERFREE,
-    },
+    {.iv = 0, .lvl = 2, .species = SPECIES_CATERPIE},
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerMaleMatthew2[] = {

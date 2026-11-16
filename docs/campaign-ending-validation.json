@@ -1,0 +1,33 @@
+{
+  "rom_sha1": "132a2eaddc09e0e8561fd5df9322945f17ccfcae",
+  "result": "PASS",
+  "test_writes": false,
+  "cases": [
+    {
+      "partner": "capivagua",
+      "battle_input_cycles": 38,
+      "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1, "flood": 1},
+      "normal_save_continue": true
+    },
+    {
+      "partner": "ararafogo",
+      "battle_input_cycles": 37,
+      "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1, "flood": 1},
+      "normal_save_continue": true
+    },
+    {
+      "partner": "tatupedra",
+      "battle_input_cycles": 39,
+      "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1, "flood": 1},
+      "normal_save_continue": true
+    }
+  ],
+  "progression": {
+    "initial_map": "3/22",
+    "rare_lands_entry_map": "3/3",
+    "flag_bytes_before": [255, 0, 224, 1],
+    "flag_bytes_after": [255, 0, 224, 7],
+    "campaign_complete": true
+  },
+  "scope": "Fresh full campaign chain for all three partners; Pantanal east transition, Tio Sam battle, minimal textual ending, five stones preserved, ordinary save and Continue in new emulator processes. Uses inherited provisional art and does not validate defeat, final balance, credits or a polished ending."
+}

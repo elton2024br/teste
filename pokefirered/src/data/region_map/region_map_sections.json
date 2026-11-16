@@ -290,7 +290,7 @@
     },
     {
       "id": "MAPSEC_CERULEAN_CITY",
-      "name": "CERULEAN CITY",
+      "name": "TERRAS RARAS",
       "x": 14,
       "y": 3,
       "width": 1,
@@ -354,7 +354,7 @@
     },
     {
       "id": "MAPSEC_ROUTE_4_POKECENTER",
-      "name": "ROUTE 4",
+      "name": "PANTANAL",
       "name_clone": true,
       "x": 8,
       "y": 3,
@@ -388,7 +388,7 @@
     },
     {
       "id": "MAPSEC_ROUTE_3",
-      "name": "ROUTE 3",
+      "name": "MATA ATLANTICA",
       "x": 5,
       "y": 4,
       "width": 4,

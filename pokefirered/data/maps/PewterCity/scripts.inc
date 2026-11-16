@@ -57,6 +57,12 @@ Amazon_Text_CaatingaFull::
 	.string "Abra espaço nos itens especiais\n"
 	.string "e volte para receber a pedra.$"
 
+Amazon_EventScript_EnterAtlanticForest::
+	goto_if_unset FLAG_AMAZON_DROUGHT_STONE, Amazon_EventScript_CaatingaLocked
+	warp MAP_ROUTE3, 5, 9
+	waitstate
+	end
+
 PewterCity_OnTransition::
 	setworldmapflag FLAG_WORLD_MAP_PEWTER_CITY
 	setvar VAR_MAP_SCENE_PEWTER_CITY_MUSEUM_1F, 0

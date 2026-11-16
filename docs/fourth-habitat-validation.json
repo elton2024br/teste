@@ -1,0 +1,33 @@
+{
+  "rom_sha1": "132a2eaddc09e0e8561fd5df9322945f17ccfcae",
+  "result": "PASS",
+  "test_writes": false,
+  "cases": [
+    {
+      "partner": "capivagua",
+      "battle_input_cycles": 35,
+      "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1},
+      "normal_save_continue": true
+    },
+    {
+      "partner": "ararafogo",
+      "battle_input_cycles": 24,
+      "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1},
+      "normal_save_continue": true
+    },
+    {
+      "partner": "tatupedra",
+      "battle_input_cycles": 28,
+      "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1},
+      "normal_save_continue": true
+    }
+  ],
+  "progression": {
+    "initial_map": "3/2",
+    "fourth_habitat_entry_map": "3/21",
+    "flag_bytes_before": [255, 0, 0],
+    "flag_bytes_after": [255, 0, 96],
+    "forest_stone_item": 364
+  },
+  "scope": "Fresh campaign chain for all three partners, Caatinga east transition, Mata Atlântica battle, four unique key items, ordinary save and Continue in new emulator processes. Uses inherited provisional art and does not validate defeat, a full key-item pocket or final balance."
+}

@@ -1,6 +1,6 @@
 # Testes no emulador
 
-O runner usa a biblioteca nativa do mGBA. Os testes abaixo cobrem introdução, escolha/save dos parceiros, derrota/recuperação dos três parceiros e a missão da pedra com os três parceiros. Não validam a campanha dos cinco habitats.
+O runner usa a biblioteca nativa do mGBA. Os testes abaixo cobrem introdução, escolha/save dos parceiros, derrota/recuperação dos três parceiros e a campanha mínima dos cinco habitats até o desfecho com os três parceiros. Cada teste declara seus limites; isso não certifica arte, balanceamento ou acabamento final.
 
 ## Compilar e executar
 
@@ -116,11 +116,11 @@ Use uma pasta vazia. O teste começa jogos novos com Ararafogo e Tatupedra, conf
 
 Para rodar somente Capivágua, acrescente `--partners capivagua` e use uma pasta de saída nova. Também é possível selecionar parceiros por nome com `--partners`; o padrão continua Ararafogo e Tatupedra para preservar os consumidores de fixtures existentes, que exigem essa dupla. A validação isolada de Capivágua está em `docs/capivagua-mission-validation.json`; os dois outros ramos estão em `docs/mission-current-validation.json`.
 
-## Segundo e terceiro habitats
+## Segundo ao quinto habitat
 
-Depois de gerar os três saves com `check_mission.py`, execute `check_second_habitat.py` uma vez por parceiro, passando `--first-mission-results`, `--partner` e uma pasta de saída vazia. Em seguida, passe cada pasta resultante a `check_third_habitat.py` por `--second-habitat-results`, com o mesmo parceiro e outra saída vazia.
+Depois de gerar os três saves com `check_mission.py`, execute `check_second_habitat.py` uma vez por parceiro, passando `--first-mission-results`, `--partner` e uma pasta de saída vazia. Encadeie então `check_third_habitat.py`, `check_fourth_habitat.py`, `check_fifth_habitat.py` e `check_campaign_ending.py`, sempre usando o resultado da etapa anterior, o mesmo parceiro e outra saída vazia.
 
-O segundo teste percorre a conexão da floresta, vence o agente do Campo Cerrado, confere as Pedras das Águas e das Raízes e faz save/Continue. O terceiro contorna o agente removido, usa a trilha provisória para a Caatinga, vence a terceira batalha, confere também a Pedra da Seca e repete save/Continue. Ambos exigem fixtures do mesmo hash da ROM, preservam a origem e não habilitam escritas nem usam savestates. Não cobrem derrota, mochila cheia ou arte final.
+Os testes percorrem Campo Cerrado, Caatinga, Mata Atlântica, Pantanal e Terras Raras, conferem os cinco itens especiais, enfrentam Tio Sam e repetem save/Continue após cada recompensa e após o desfecho. Todos exigem fixtures do mesmo hash da ROM, preservam a origem e não habilitam escritas nem usam savestates. Não cobrem derrota nas etapas novas, mochila cheia, retorno entre todos os mapas, balanceamento final, créditos ou arte final.
 
 ## Revisita à pedra e ao cuidador
 

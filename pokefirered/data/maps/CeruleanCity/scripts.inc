@@ -2,6 +2,46 @@ CeruleanCity_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, CeruleanCity_OnTransition
 	.byte 0
 
+Amazon_EventScript_TioSamFinal::
+	lock
+	faceplayer
+	goto_if_unset FLAG_AMAZON_FLOOD_STONE, Amazon_EventScript_TioSamLocked
+	goto_if_set FLAG_AMAZON_CAMPAIGN_COMPLETE, Amazon_EventScript_TioSamDone
+	goto_if_set FLAG_AMAZON_TIO_SAM_DEFEATED, Amazon_EventScript_TioSamEnding
+	trainerbattle_single TRAINER_BUG_CATCHER_COLTON_4, Amazon_Text_TioSamIntro, Amazon_Text_TioSamLoss
+	setflag FLAG_AMAZON_TIO_SAM_DEFEATED
+Amazon_EventScript_TioSamEnding::
+	setflag FLAG_AMAZON_CAMPAIGN_COMPLETE
+	msgbox Amazon_Text_CampaignEnding, MSGBOX_DEFAULT
+	removeobject LOCALID_AMAZON_TIO_SAM
+	release
+	end
+Amazon_EventScript_TioSamLocked::
+	msgbox Amazon_Text_TioSamLocked, MSGBOX_DEFAULT
+	release
+	end
+Amazon_EventScript_TioSamDone::
+	msgbox Amazon_Text_CampaignDone, MSGBOX_DEFAULT
+	release
+	end
+
+Amazon_Text_TioSamIntro::
+	.string "Com as pedras, estas terras\n"
+	.string "seriam meu maior negócio!\p"
+	.string "Nao deixarei vocês impedir isso!$"
+Amazon_Text_TioSamLoss::
+	.string "Meu plano... derrotado por vocês?$"
+Amazon_Text_CampaignEnding::
+	.string "As cinco pedras selaram o caminho\n"
+	.string "e Tio Sam abandonou seu plano.\p"
+	.string "Os animais e as Terras Raras\n"
+	.string "ficaram protegidos novamente.\p"
+	.string "FIM DA CAMPANHA ATUAL$"
+Amazon_Text_TioSamLocked::
+	.string "Volte quando reunir as cinco pedras.$"
+Amazon_Text_CampaignDone::
+	.string "As Terras Raras ficaram seguras.$"
+
 CeruleanCity_OnTransition::
 	setworldmapflag FLAG_WORLD_MAP_CERULEAN_CITY
 	call_if_unset FLAG_GOT_SS_TICKET, CeruleanCity_EventScript_BlockExits
