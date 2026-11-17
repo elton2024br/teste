@@ -42,6 +42,38 @@ Amazon_Text_TioSamLocked::
 Amazon_Text_CampaignDone::
 	.string "As Terras Raras ficaram seguras.$"
 
+Amazon_EventScript_RareMarkerWater::
+	msgbox Amazon_Text_RareMarkerWater, MSGBOX_SIGN
+	end
+Amazon_EventScript_RareMarkerRoots::
+	msgbox Amazon_Text_RareMarkerRoots, MSGBOX_SIGN
+	end
+Amazon_EventScript_RareMarkerDrought::
+	msgbox Amazon_Text_RareMarkerDrought, MSGBOX_SIGN
+	end
+Amazon_EventScript_RareMarkerForest::
+	msgbox Amazon_Text_RareMarkerForest, MSGBOX_SIGN
+	end
+Amazon_EventScript_RareMarkerFlood::
+	msgbox Amazon_Text_RareMarkerFlood, MSGBOX_SIGN
+	end
+
+Amazon_Text_RareMarkerWater::
+	.string "PEDRA DAS ÁGUAS\n"
+	.string "A vida corre livre novamente.$"
+Amazon_Text_RareMarkerRoots::
+	.string "PEDRA DAS RAÍZES\n"
+	.string "O Cerrado permanece firme.$"
+Amazon_Text_RareMarkerDrought::
+	.string "PEDRA DA SECA\n"
+	.string "A Caatinga resistiu.$"
+Amazon_Text_RareMarkerForest::
+	.string "PEDRA DA MATA\n"
+	.string "A floresta voltou a respirar.$"
+Amazon_Text_RareMarkerFlood::
+	.string "PEDRA DAS CHEIAS\n"
+	.string "O Pantanal segue seu ciclo.$"
+
 CeruleanCity_OnTransition::
 	setworldmapflag FLAG_WORLD_MAP_CERULEAN_CITY
 	call_if_unset FLAG_GOT_SS_TICKET, CeruleanCity_EventScript_BlockExits

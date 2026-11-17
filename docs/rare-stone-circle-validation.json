@@ -1,0 +1,47 @@
+{
+  "rom_sha1": "e493f7397a77808d960c77f5aa731456719a21c7",
+  "result": "PASS",
+  "test_writes": false,
+  "cases": [
+    {
+      "partner": "capivagua",
+      "markers_checked": ["water", "roots", "drought", "forest", "flood"],
+      "battle_input_cycles": 100,
+      "normal_save_continue": true
+    },
+    {
+      "partner": "ararafogo",
+      "markers_checked": ["water", "roots", "drought", "forest", "flood"],
+      "battle_input_cycles": 63,
+      "normal_save_continue": true
+    },
+    {
+      "partner": "tatupedra",
+      "markers_checked": ["water", "roots", "drought", "forest", "flood"],
+      "battle_input_cycles": 100,
+      "normal_save_continue": true
+    }
+  ],
+  "geometry": {
+    "entry": [5, 9],
+    "tio_sam": [5, 8],
+    "markers": {
+      "water": [4, 7],
+      "roots": [6, 7],
+      "drought": [4, 9],
+      "forest": [6, 9],
+      "flood": [5, 6]
+    },
+    "vertical_campaign_axis_preserved": true
+  },
+  "assertions": {
+    "fifteen_marker_interactions": true,
+    "controls_released_after_each_message": true,
+    "three_final_battles_won": true,
+    "five_stones_preserved": true,
+    "final_flag_bytes": [255, 0, 224, 7],
+    "normal_save_continue": true,
+    "pantanal_and_final_defeat_regressions_repeated": true
+  },
+  "scope": "Five inherited rock graphics form an interactive stone circle around the final confrontation without moving the campaign entry or boss. All messages, three victories and native save/Continue passed. The surrounding city map, water, building, music and rock art remain inherited and provisional."
+}

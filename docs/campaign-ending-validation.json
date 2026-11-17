@@ -1,25 +1,25 @@
 {
-  "rom_sha1": "a3ac6c681a92b84b7d34863932930dca787c2155",
+  "rom_sha1": "e493f7397a77808d960c77f5aa731456719a21c7",
   "result": "PASS",
   "test_writes": false,
   "cases": [
     {
       "partner": "capivagua",
-      "battle_input_cycles": 110,
+      "battle_input_cycles": 100,
       "initial_party_health": [[26, 26]],
       "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1, "flood": 1},
       "normal_save_continue": true
     },
     {
       "partner": "ararafogo",
-      "battle_input_cycles": 61,
+      "battle_input_cycles": 63,
       "initial_party_health": [[23, 23]],
       "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1, "flood": 1},
       "normal_save_continue": true
     },
     {
       "partner": "tatupedra",
-      "battle_input_cycles": 98,
+      "battle_input_cycles": 100,
       "initial_party_health": [[27, 27]],
       "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1, "flood": 1},
       "normal_save_continue": true
@@ -36,5 +36,6 @@
     ],
     "campaign_complete": true
   },
-  "scope": "Fresh full campaign chain for all three partners; full HP entering Terras Raras, two-opponent level-7 Tio Sam battle, minimal textual ending, five stones preserved, ordinary save and Continue in new emulator processes. Uses inherited provisional art and does not validate defeat, optimized strategies, credits or a polished ending."
+  "rare_stone_markers_checked": ["water", "roots", "drought", "forest", "flood"],
+  "scope": "Fresh full campaign chain for all three partners; full HP entering Terras Raras, five interactive stone markers, two-opponent level-7 Tio Sam battle, minimal textual ending, five stones preserved, ordinary save and Continue in new emulator processes. Most map art remains inherited and provisional; does not validate optimized strategies, credits or a polished ending."
 }

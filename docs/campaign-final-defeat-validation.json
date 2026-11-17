@@ -1,5 +1,5 @@
 {
-  "rom_sha1": "a3ac6c681a92b84b7d34863932930dca787c2155",
+  "rom_sha1": "e493f7397a77808d960c77f5aa731456719a21c7",
   "result": "PASS",
   "fixture_writes": true,
   "fixture": "Party slot 0 current HP set to 1; no flags, items, partner, opponent or outcome written.",

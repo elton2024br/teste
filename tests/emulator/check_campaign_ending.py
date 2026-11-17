@@ -31,6 +31,20 @@ def fight_tio_sam(emu, symbols):
     raise AssertionError("Tio Sam battle did not finish")
 
 
+def inspect_marker(emu, symbols, direction, output):
+    before = snapshot(emu, symbols)
+    emu.send(f"run {direction} 4\nrun 0 30\nrun 1 12\nrun 0 300")
+    assert snapshot(emu, symbols)["position"] == before["position"]
+    assert emu.read(symbols["sLockFieldControls"]) != 0
+    emu.send(f"shot {output}")
+    for _ in range(8):
+        if emu.read(symbols["sLockFieldControls"]) == 0:
+            break
+        emu.send("run 2 12\nrun 0 180")
+    else:
+        raise AssertionError("rare-stone marker did not release controls")
+
+
 def check(args):
     args.output.mkdir(parents=True, exist_ok=True)
     assert not any(args.output.iterdir()), "Use a fresh output directory."
@@ -63,6 +77,9 @@ def check(args):
         assert entered["map"] == "3/3" and entered["position"] == [5, 9], entered
         emu.send(f"shot {args.output / 'rare-lands-entry.ppm'}")
 
+        inspect_marker(emu, symbols, 32, args.output / "drought-marker.ppm")
+        inspect_marker(emu, symbols, 16, args.output / "forest-marker.ppm")
+        emu.send("run 64 4\nrun 0 30")
         emu.send(press_a(2, 180))
         cycles = fight_tio_sam(emu, symbols)
         for _ in range(14):
@@ -81,6 +98,13 @@ def check(args):
         items = key_items(emu, symbols)
         assert all(items.get(item) == 1 for item in (361, 362, 363, 364, 365)), items
         assert emu.read(symbols["sLockFieldControls"]) == 0
+
+        emu.send("run 64 24\nrun 0 60")
+        assert snapshot(emu, symbols)["position"] == [5, 7]
+        inspect_marker(emu, symbols, 32, args.output / "water-marker.ppm")
+        inspect_marker(emu, symbols, 16, args.output / "roots-marker.ppm")
+        inspect_marker(emu, symbols, 64, args.output / "flood-marker.ppm")
+        ended = snapshot(emu, symbols)
         emu.send(f"shot {args.output / 'campaign-complete.ppm'}")
 
         emu.send("run 8 12\nrun 0 60\n" + "run 128 12\nrun 0 20\n" * 3
@@ -119,6 +143,7 @@ def check(args):
         ended_flag_bytes=list(ended_flags),
         continued=continued,
         continued_flag_bytes=list(continued_flags),
+        rare_stone_markers_checked=["water", "roots", "drought", "forest", "flood"],
         stones={"water": items_after[361], "roots": items_after[362],
                 "drought": items_after[363], "forest": items_after[364],
                 "flood": items_after[365]},
