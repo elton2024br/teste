@@ -1,0 +1,30 @@
+{
+  "rom_sha1": "0a1b55c94bebf8d1d0560ff283e4388f3594fe75",
+  "result": "PASS",
+  "test_writes": false,
+  "map": "CeruleanCity / Terras Raras",
+  "geometry": {
+    "cells": 21,
+    "x_range": [4, 6],
+    "y_range": [5, 11],
+    "metatile_id": 217,
+    "attributes_preserved": true,
+    "entry": [5, 9],
+    "tio_sam": [5, 8]
+  },
+  "cases": [
+    {"partner": "capivagua", "campaign_ending": true, "normal_save_continue": true},
+    {"partner": "ararafogo", "campaign_ending": true, "normal_save_continue": true},
+    {"partner": "tatupedra", "campaign_ending": true, "normal_save_continue": true}
+  ],
+  "assertions": {
+    "fresh_full_campaigns": 3,
+    "five_stone_markers_checked": true,
+    "three_final_battles_won": true,
+    "pantanal_defeat_retry_regressions": 3,
+    "final_defeat_retry_regressions": 3,
+    "normal_save_continue": true,
+    "visual_preview_reviewed": true
+  },
+  "scope": "The 3x7 corridor beneath the final stone circle reuses the dry tan metatile 0x0D9 already available in the shared Cerulean/Route 4 tileset. Collision and elevation attribute bits were preserved. The narrow strip is a provisional readability improvement, not final original Terras Raras art; surrounding water, building, cliffs, music and rock graphics remain inherited."
+}

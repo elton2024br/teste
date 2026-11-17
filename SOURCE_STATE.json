@@ -1,9 +1,9 @@
 {
   "base_commit": "ce6406d8c2eaf46d543c8a2606de0c3cb1951982",
   "compiler_commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
-  "cloud_built_rom_sha1": "e493f7397a77808d960c77f5aa731456719a21c7",
+  "cloud_built_rom_sha1": "0a1b55c94bebf8d1d0560ff283e4388f3594fe75",
   "source_count": 9859,
   "rom_included": false,
   "windows_or_wsl_build_tested": false,
-  "stage": "campaign-rare-stone-circle-validated"
+  "stage": "campaign-rare-lands-dry-ground-validated"
 }

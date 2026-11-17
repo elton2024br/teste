@@ -19,7 +19,15 @@ Meta de planejamento até 5 de dezembro de 2026: uma campanha mínima jogável d
 - Dias 16–17: acesso às Terras Raras, confronto e desfecho mínimo.
 - Dias 18–20: percurso integral com os três parceiros, balanceamento essencial, save/Continue e correções bloqueadoras.
 
-Progresso ao fim da rotina 6: os cinco habitats, as cinco pedras, o acesso às Terras Raras, o confronto com Tio Sam e um desfecho mínimo formam uma campanha funcional com os três parceiros. A cadeia integral foi regenerada desde jogo novo após o primeiro elemento de cenário próprio das Terras Raras e persistiu por save/Continue após cada etapa. Derrota, recuperação, persistência, retorno pelos habitats e nova tentativa continuam aprovados no Pantanal e no chefe nos três ramos. Restam derrota nos três agentes intermediários anteriores, refinamento de balanceamento, substituição dos demais mapas/arte provisórios e polimento do encerramento. A meta de 5 de dezembro continua plausível, mas não é garantia de jogo completo.
+Progresso ao fim da rotina 7: os cinco habitats, as cinco pedras, o acesso às Terras Raras, o confronto com Tio Sam e um desfecho mínimo formam uma campanha funcional com os três parceiros. A cadeia integral foi regenerada desde jogo novo após a troca do corredor azul por solo seco e persistiu por save/Continue após cada etapa. Derrota, recuperação, persistência, retorno pelos habitats e nova tentativa continuam aprovados no Pantanal e no chefe nos três ramos. Restam derrota nos três agentes intermediários anteriores, refinamento de balanceamento, substituição dos demais mapas/arte provisórios e polimento do encerramento. A meta de 5 de dezembro continua plausível, mas não é garantia de jogo completo.
+
+## Solo seco sob o círculo final — rotina 7
+
+O corredor imediato das Terras Raras deixou de parecer uma passagem sobre água. As 21 células de `x=4..6`, `y=5..11` agora usam o metatile seco `0x0D9`, já disponível no tileset compartilhado com a Route 4/Pantanal. O conversor idempotente `tools/build_rare_lands_ground.py` altera somente o ID visual e preserva os bits de colisão e elevação de cada célula. Entrada `(5,9)`, Tio Sam `(5,8)`, cinco marcos, scripts e eixo vertical permaneceram nas mesmas coordenadas.
+
+Build PASS, SHA-1 `0a1b55c94bebf8d1d0560ff283e4388f3594fe75`. A campanha inteira foi refeita desde jogos novos com Capivágua, Ararafogo e Tatupedra: 18 vitórias, cinco pedras, 15 interações nos marcos, desfecho e save/Continue depois de cada etapa passaram sem escrita de memória ou savestate. As três derrotas/revanche no Pantanal e as três no chefe também passaram; somente essas regressões preparam HP=1 artificialmente. Relatório: `docs/rare-lands-ground-validation.json`; captura revisada: `docs/screenshots/rare-lands-ground/preview.png`.
+
+Limites: é uma faixa estreita que reutiliza textura herdada, não arte própria das Terras Raras. Água, prédio, penhasco, música e rochas continuam provisórios. Próximo passo funcional: ampliar a identidade visual do entorno imediato sem mover o eixo validado; depois substituir o cenário herdado da Mata Atlântica e do Pantanal. Derrotas no Cerrado, Caatinga e Mata Atlântica também permanecem sem regressão dedicada.
 
 ## Círculo das cinco pedras nas Terras Raras — rotina 6
 
