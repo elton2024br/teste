@@ -19,7 +19,15 @@ Meta de planejamento até 5 de dezembro de 2026: uma campanha mínima jogável d
 - Dias 16–17: acesso às Terras Raras, confronto e desfecho mínimo.
 - Dias 18–20: percurso integral com os três parceiros, balanceamento essencial, save/Continue e correções bloqueadoras.
 
-Progresso ao fim da rotina 7: os cinco habitats, as cinco pedras, o acesso às Terras Raras, o confronto com Tio Sam e um desfecho mínimo formam uma campanha funcional com os três parceiros. A cadeia integral foi regenerada desde jogo novo após a troca do corredor azul por solo seco e persistiu por save/Continue após cada etapa. Derrota, recuperação, persistência, retorno pelos habitats e nova tentativa continuam aprovados no Pantanal e no chefe nos três ramos. Restam derrota nos três agentes intermediários anteriores, refinamento de balanceamento, substituição dos demais mapas/arte provisórios e polimento do encerramento. A meta de 5 de dezembro continua plausível, mas não é garantia de jogo completo.
+Progresso ao fim da rotina 8: os cinco habitats, as cinco pedras, o acesso às Terras Raras, o confronto com Tio Sam e um desfecho mínimo formam uma campanha funcional com os três parceiros. A cadeia integral permanece validada desde jogo novo e por save/Continue após cada etapa. Derrota, recuperação, persistência, retorno e nova tentativa agora passaram nos cinco agentes posteriores à primeira missão e no chefe, nos três ramos. Restam refinamento de balanceamento, substituição dos mapas/arte provisórios, casos de equipe maior/status/PP e polimento do encerramento. A meta de 5 de dezembro continua plausível, mas não é garantia de jogo completo.
+
+## Derrota e revanche nos agentes intermediários — rotina 8
+
+O teste parametrizado `tests/emulator/check_intermediate_habitat_defeat.py` cobre Cerrado, Caatinga e Mata Atlântica com Capivágua, Ararafogo e Tatupedra. Cada um dos nove cenários copia o save nativo anterior ao habitat, prepara somente o HP atual do primeiro parceiro em 1, perde normalmente para o agente, confirma que flags e pedra pendente não foram concedidas, conclui a recuperação em casa e salva pelo menu. Um processo novo abre Continue com escritas desativadas, refaz o percurso real, vence o mesmo agente e exige a pedra correta e HP total.
+
+Os nove cenários passaram no build SHA-1 `0a1b55c94bebf8d1d0560ff283e4388f3594fe75`. Antes/depois: Cerrado `[15,0,0]` → `[63,0,0]` e item 362; Caatinga `[63,0,0]` → `[255,0,0]` e item 363; Mata Atlântica `[255,0,0]` → `[255,0,96]` e item 364. Os saves de origem foram conferidos por hash e preservados. Relatório: `docs/intermediate-habitat-defeat-validation.json`; captura revisada: `docs/screenshots/intermediate-defeats/preview.png`.
+
+Limites: HP=1 é uma fixture artificial e não prova desgaste natural, equipe com vários membros, status ou PP. O teste exercita batalha, derrota, retorno, cura, persistência, percurso e revanche pelas regras normais; não testa bolso especial cheio. Próximo passo funcional: substituir oponentes neutros provisórios por fauna coerente com cada habitat, mantendo a curva viável para os três parceiros; em paralelo, ampliar o cenário próprio das Terras Raras sem mover o eixo validado.
 
 ## Solo seco sob o círculo final — rotina 7
 

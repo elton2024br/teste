@@ -130,6 +130,10 @@ Relatório resumido: `docs/campaign-final-defeat-validation.json`. A fixture nã
 
 `check_fifth_habitat_defeat.py` aplica a mesma fixture ao agente do Pantanal, partindo do resultado do quarto habitat. A derrota deve preservar as quatro pedras e deixar tanto a flag de vitória quanto a Pedra das Cheias pendentes. Depois de save/Continue com escritas desativadas, o teste retorna pelos habitats anteriores, vence normalmente e exige a quinta pedra e a recuperação total. Relatório: `docs/fifth-habitat-defeat-validation.json`.
 
+`check_intermediate_habitat_defeat.py` cobre a mesma sequência no Cerrado, Caatinga e Mata Atlântica. Use `--stage second|third|fourth` e forneça em `--source-results` respectivamente a saída da primeira missão, do segundo habitat ou do terceiro habitat para o mesmo parceiro. O teste prepara somente HP=1, exige derrota sem conceder a pedra/flags pendentes, recuperação, save/Continue com escritas desativadas, retorno pelo percurso real, vitória e recompensa correta. A matriz dos três habitats com os três parceiros está resumida em `docs/intermediate-habitat-defeat-validation.json`.
+
+Essas fixtures não comprovam dano acumulado naturalmente, equipe com vários membros, status/PP ou bolso especial cheio. Os saves de origem são preservados e conferidos por hash.
+
 ## Revisita à pedra e ao cuidador
 
 Depois de executar `check_mission.py` no build atual, use a pasta de resultados dele como entrada:

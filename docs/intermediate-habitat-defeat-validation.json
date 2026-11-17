@@ -1,0 +1,34 @@
+{
+  "rom_sha1": "0a1b55c94bebf8d1d0560ff283e4388f3594fe75",
+  "result": "PASS",
+  "fixture_writes": true,
+  "fixture": "Party slot 0 current HP set to 1; no flags, items, partner, opponent or outcome written.",
+  "cases": [
+    {"habitat": "Cerrado", "partner": "capivagua", "trainer_ball_attempts": 1, "win_input_cycles_after_retry": 47},
+    {"habitat": "Cerrado", "partner": "ararafogo", "trainer_ball_attempts": 1, "win_input_cycles_after_retry": 28},
+    {"habitat": "Cerrado", "partner": "tatupedra", "trainer_ball_attempts": 1, "win_input_cycles_after_retry": 40},
+    {"habitat": "Caatinga", "partner": "capivagua", "trainer_ball_attempts": 4, "win_input_cycles_after_retry": 37},
+    {"habitat": "Caatinga", "partner": "ararafogo", "trainer_ball_attempts": 1, "win_input_cycles_after_retry": 34},
+    {"habitat": "Caatinga", "partner": "tatupedra", "trainer_ball_attempts": 3, "win_input_cycles_after_retry": 33},
+    {"habitat": "Mata Atlantica", "partner": "capivagua", "trainer_ball_attempts": 1, "win_input_cycles_after_retry": 61},
+    {"habitat": "Mata Atlantica", "partner": "ararafogo", "trainer_ball_attempts": 1, "win_input_cycles_after_retry": 41},
+    {"habitat": "Mata Atlantica", "partner": "tatupedra", "trainer_ball_attempts": 3, "win_input_cycles_after_retry": 40}
+  ],
+  "progression": {
+    "Cerrado": {"flags_before": [15, 0, 0], "flags_after": [63, 0, 0], "stone_after": 362},
+    "Caatinga": {"flags_before": [63, 0, 0], "flags_after": [255, 0, 0], "stone_after": 363},
+    "Mata Atlantica": {"flags_before": [255, 0, 0], "flags_after": [255, 0, 96], "stone_after": 364}
+  },
+  "assertions": {
+    "normal_defeats": 9,
+    "pending_flags_and_stones_preserved": true,
+    "home_recovery_full_hp": true,
+    "normal_save_continue": true,
+    "continue_with_writes_disabled": true,
+    "returned_through_prior_habitats": true,
+    "normal_retry_victories": 9,
+    "pending_stones_received_after_retry": true,
+    "source_saves_preserved": true
+  },
+  "scope": "Artificial HP=1 fixtures only; normal defeats against the Cerrado, Caatinga and Mata Atlantica agents for all three partners, home recovery, previous stones and pending rewards preserved, ordinary save/Continue with writes disabled, return through the campaign and normal retry victories. Not evidence of naturally accumulated damage, multi-member parties, status/PP recovery or all inventory edge cases."
+}
