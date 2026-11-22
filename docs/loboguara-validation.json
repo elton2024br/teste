@@ -1,5 +1,5 @@
 {
-  "rom_sha1": "659e499081659d665939ba636ba66c95d2a96b1c",
+  "rom_sha1": "ab709422a13713f62e58ed68e48e40074cac2000",
   "result": "PASS",
   "technical_slot": "SPECIES_CATERPIE",
   "display_name": "LOBO-GUARÁ",
@@ -30,5 +30,5 @@
     "level": 8,
     "reason": "Caterpie is now Lobo-guara; one inherited provisional attacker preserves both normal victory and the HP=1 defeat/retry regression for all partners."
   },
-  "scope": "Original milestone art and balanced Cerrado battle. Reusing the Caterpie slot also replaces inherited Caterpie appearances elsewhere with Lobo-guara. The shiny palette repeats the normal palette; cry, Pokedex text/category, habitat maps and later opponents remain inherited or provisional."
+  "scope": "Original milestone art and balanced Cerrado battle. Reusing the Caterpie slot also replaces inherited Caterpie appearances elsewhere with Lobo-guara. The shiny palette repeats the normal palette; cry, Pokedex text/category, habitat maps and some later opponents remain inherited or provisional."
 }

@@ -1,24 +1,24 @@
 {
-  "rom_sha1": "659e499081659d665939ba636ba66c95d2a96b1c",
+  "rom_sha1": "ab709422a13713f62e58ed68e48e40074cac2000",
   "result": "PASS",
   "test_writes": false,
   "cases": [
     {
       "partner": "capivagua",
       "markers_checked": ["water", "roots", "drought", "forest", "flood"],
-      "battle_input_cycles": 77,
+      "battle_input_cycles": 76,
       "normal_save_continue": true
     },
     {
       "partner": "ararafogo",
       "markers_checked": ["water", "roots", "drought", "forest", "flood"],
-      "battle_input_cycles": 51,
+      "battle_input_cycles": 50,
       "normal_save_continue": true
     },
     {
       "partner": "tatupedra",
       "markers_checked": ["water", "roots", "drought", "forest", "flood"],
-      "battle_input_cycles": 75,
+      "battle_input_cycles": 74,
       "normal_save_continue": true
     }
   ],

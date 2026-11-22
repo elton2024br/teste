@@ -1,5 +1,5 @@
 {
-  "rom_sha1": "659e499081659d665939ba636ba66c95d2a96b1c",
+  "rom_sha1": "ab709422a13713f62e58ed68e48e40074cac2000",
   "result": "PASS",
   "fixture_writes": true,
   "fixture": "Party slot 0 current HP set to 1; no flags, items, partner, opponent or outcome written.",
@@ -10,7 +10,7 @@
       "battle_outcome_loss": 2,
       "recovered_party_health": [[26, 26]],
       "recovered_flag_bytes": [255, 0, 224, 1],
-      "win_input_cycles_after_retry": 77,
+      "win_input_cycles_after_retry": 76,
       "final_flag_bytes": [255, 0, 224, 7]
     },
     {
@@ -19,7 +19,7 @@
       "battle_outcome_loss": 2,
       "recovered_party_health": [[23, 23]],
       "recovered_flag_bytes": [255, 0, 224, 1],
-      "win_input_cycles_after_retry": 51,
+      "win_input_cycles_after_retry": 50,
       "final_flag_bytes": [255, 0, 224, 7]
     },
     {
@@ -28,7 +28,7 @@
       "battle_outcome_loss": 2,
       "recovered_party_health": [[27, 27]],
       "recovered_flag_bytes": [255, 0, 224, 1],
-      "win_input_cycles_after_retry": 66,
+      "win_input_cycles_after_retry": 65,
       "final_flag_bytes": [255, 0, 224, 7]
     }
   ],

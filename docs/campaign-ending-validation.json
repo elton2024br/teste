@@ -1,25 +1,25 @@
 {
-  "rom_sha1": "659e499081659d665939ba636ba66c95d2a96b1c",
+  "rom_sha1": "ab709422a13713f62e58ed68e48e40074cac2000",
   "result": "PASS",
   "test_writes": false,
   "cases": [
     {
       "partner": "capivagua",
-      "battle_input_cycles": 77,
+      "battle_input_cycles": 76,
       "initial_party_health": [[26, 26]],
       "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1, "flood": 1},
       "normal_save_continue": true
     },
     {
       "partner": "ararafogo",
-      "battle_input_cycles": 51,
+      "battle_input_cycles": 50,
       "initial_party_health": [[23, 23]],
       "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1, "flood": 1},
       "normal_save_continue": true
     },
     {
       "partner": "tatupedra",
-      "battle_input_cycles": 75,
+      "battle_input_cycles": 74,
       "initial_party_health": [[27, 27]],
       "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1, "flood": 1},
       "normal_save_continue": true

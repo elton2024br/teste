@@ -19,7 +19,23 @@ Meta de planejamento até 5 de dezembro de 2026: uma campanha mínima jogável d
 - Dias 16–17: acesso às Terras Raras, confronto e desfecho mínimo.
 - Dias 18–20: percurso integral com os três parceiros, balanceamento essencial, save/Continue e correções bloqueadoras.
 
-Progresso ao fim da rotina 9: os cinco habitats, as cinco pedras, o acesso às Terras Raras, o confronto com Tio Sam e um desfecho mínimo formam uma campanha funcional com os três parceiros. A cadeia integral permanece validada desde jogo novo e por save/Continue após cada etapa. Derrota, recuperação, persistência, retorno e nova tentativa passaram nos cinco agentes posteriores à primeira missão e no chefe, nos três ramos. O Cerrado agora tem o primeiro adversário brasileiro próprio além dos parceiros. Restam fauna própria para Caatinga, Mata Atlântica, Pantanal e chefe, substituição dos mapas/arte provisórios, casos de equipe maior/status/PP e polimento do encerramento. A meta de 5 de dezembro continua plausível, mas não é garantia de jogo completo.
+Progresso ao fim da rotina 10: os cinco habitats, as cinco pedras, o acesso às Terras Raras, o confronto com Tio Sam e um desfecho mínimo formam uma campanha funcional com os três parceiros. A cadeia integral permanece validada desde jogo novo e por save/Continue após cada etapa. Derrota, recuperação, persistência, retorno e nova tentativa passaram nos cinco agentes posteriores à primeira missão e no chefe, nos três ramos. Cerrado, Caatinga e Mata Atlântica agora têm adversários brasileiros próprios além dos parceiros. Restam fauna própria para Pantanal e chefe, substituição dos mapas/arte provisórios, casos de equipe maior/status/PP e polimento do encerramento. A meta de 5 de dezembro continua plausível, mas não é garantia de jogo completo.
+
+## Mico-leão na Mata Atlântica — rotina 10
+
+O adversário de nível 5 da Mata Atlântica deixou de reutilizar o Lobo-guará e passou a ser `MICO-LEAO`, com arte original de frente/costas, ícone, pegada e paleta. O slot técnico é `SPECIES_HOOTHOOT`; a espécie é Normal, não evolui e no nível 5 conhece Tackle e Growl. O nome fica sem o til porque o compilador legado rejeitou `Ã`; os dez caracteres cabem com segurança na interface. O conversor idempotente `tools/build_micoleao_asset.py` e a referência `assets/amazon/creatures/micoleao-source.png` reproduzem os assets.
+
+Build PASS, SHA-1 `ab709422a13713f62e58ed68e48e40074cac2000`. Três campanhas foram regeneradas desde jogos novos: 18 vitórias, cinco pedras, desfecho e save/Continue depois de cada etapa passaram. O Mico-leão foi vencido por Capivágua, Ararafogo e Tatupedra em 63, 48 e 52 ciclos. As nove derrotas/revanche intermediárias, as três do Pantanal e as três do chefe também passaram no mesmo hash. Arte, nome e enquadramento foram revisados no emulador em `docs/screenshots/micoleao/preview.png`; relatório: `docs/micoleao-validation.json`.
+
+O teste da Mata Atlântica agora captura a primeira seleção de golpe. Limites: a única equipe herdada que usava Hoothoot também passa a mostrar Mico-leão; cry, textos/categoria de Pokédex e paleta alternativa ainda são herdados/provisórios. O mapa, NPC e música da Mata Atlântica continuam herdados. Próximo passo funcional: criar fauna própria para o Pantanal em outro slot controlado e repetir a matriz completa antes de substituir o oponente de Tio Sam.
+
+## Asa-branca na Caatinga — rotina 10
+
+O adversário de nível 4 da Caatinga deixou de reutilizar o Lobo-guará e passou a ser `ASA-BRANCA`, com arte original de frente/costas, ícone, pegada e paleta. O slot técnico é `SPECIES_PIDGEY`; a espécie é Normal/Voador, não evolui e no nível 4 conhece Tackle. O conversor idempotente `tools/build_asabranca_asset.py` e a referência `assets/amazon/creatures/asabranca-source.png` reproduzem os assets. A paleta alternativa ainda repete a normal.
+
+Build PASS, SHA-1 `1f5de62e9b6fa3996ca197ee148dbe12583eb1c7`. Três campanhas foram regeneradas desde jogos novos: 18 vitórias, cinco pedras, desfecho e save/Continue depois de cada etapa passaram. A Asa-branca foi vencida por Capivágua, Ararafogo e Tatupedra em 39, 38 e 31 ciclos. As nove derrotas/revanche intermediárias, as três do Pantanal e as três do chefe também passaram no mesmo hash. Arte, nome e enquadramento foram revisados no emulador em `docs/screenshots/asabranca/preview.png`; relatório: `docs/asabranca-validation.json`.
+
+O teste da Caatinga agora captura a primeira seleção de golpe, preservando uma evidência visual reproduzível. Limites: aparições herdadas de Pidgey fora da missão também mostram Asa-branca; cry, textos/categoria de Pokédex e paleta alternativa ainda são herdados/provisórios. O mapa, NPC e música da Caatinga continuam herdados. O próximo marco funcional foi cumprido na mesma rotina com o Mico-leão da Mata Atlântica.
 
 ## Lobo-guará no Campo Cerrado — rotina 9
 

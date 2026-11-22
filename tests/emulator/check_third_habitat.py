@@ -12,11 +12,15 @@ from check_defeat_recovery import snapshot
 from check_second_habitat import key_items, party_health
 
 
-def fight_caatinga_agent(emu, symbols):
+def fight_caatinga_agent(emu, symbols, battle_shot=None):
+    captured = False
     for cycle in range(260):
         handler = emu.read(symbols["gBattlerControllerFuncs"], 32) & ~1
         if handler == symbols["HandleInputChooseMove"]:
             assert emu.read(symbols["gMoveSelectionCursor"]) == 0
+            if battle_shot is not None and not captured:
+                emu.send(f"shot {battle_shot}")
+                captured = True
         emu.send(press_a(1, 90))
         state = snapshot(emu, symbols)
         assert state["map"] == "3/2", ("left third habitat", state)
@@ -56,7 +60,9 @@ def check(args):
         emu.send(f"shot {args.output / 'caatinga-entry.ppm'}")
 
         emu.send(press_a(2, 180))
-        cycles = fight_caatinga_agent(emu, symbols)
+        cycles = fight_caatinga_agent(
+            emu, symbols, args.output / "caatinga-battle.ppm"
+        )
         for _ in range(10):
             if snapshot(emu, symbols)["flags"] & 0x80:
                 break

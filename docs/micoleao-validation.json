@@ -1,0 +1,29 @@
+{
+  "rom_sha1": "ab709422a13713f62e58ed68e48e40074cac2000",
+  "result": "PASS",
+  "technical_slot": "SPECIES_HOOTHOOT",
+  "display_name": "MICO-LEAO",
+  "habitat_role": "Mata Atlantica agent opponent",
+  "level": 5,
+  "type": "NORMAL",
+  "moves_at_level_5": ["TACKLE", "GROWL"],
+  "evolution_disabled": true,
+  "original_assets": ["front", "back", "icon", "footprint", "normal_palette"],
+  "reproducible_builder": "tools/build_micoleao_asset.py",
+  "cases": [
+    {"partner": "capivagua", "battle_input_cycles": 63, "normal_save_continue": true},
+    {"partner": "ararafogo", "battle_input_cycles": 48, "normal_save_continue": true},
+    {"partner": "tatupedra", "battle_input_cycles": 52, "normal_save_continue": true}
+  ],
+  "assertions": {
+    "fresh_full_campaigns": 3,
+    "mata_atlantica_victories": 3,
+    "mata_atlantica_defeat_retry_regressions": 3,
+    "all_five_stones_and_ending": true,
+    "all_intermediate_pantanal_and_final_defeat_retries": true,
+    "normal_save_continue": true,
+    "visual_preview_reviewed": true,
+    "asset_rebuild_byte_identical": true
+  },
+  "scope": "Original milestone art and balanced Mata Atlantica battle. Reusing the Hoothoot slot also replaces its single inherited trainer appearance with Mico-leao. The display omits the tilde because the legacy compiler rejects that source character. The shiny palette repeats the normal palette; cry, Pokedex text/category, habitat maps and later opponents remain inherited or provisional."
+}

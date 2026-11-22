@@ -280,7 +280,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherDoug[] = {
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherSammy[] = {
-    {.iv = 0, .lvl = 4, .species = SPECIES_CATERPIE},
+    {.iv = 0, .lvl = 4, .species = SPECIES_PIDGEY},
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherColton[] = {
@@ -10443,7 +10443,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_CoolCoupleLexNya2[] = {
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherColton2[] = {
-    {.iv = 0, .lvl = 5, .species = SPECIES_CATERPIE},
+    {.iv = 0, .lvl = 5, .species = SPECIES_HOOTHOOT},
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherColton3[] = {

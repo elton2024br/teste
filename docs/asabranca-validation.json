@@ -1,0 +1,29 @@
+{
+  "rom_sha1": "ab709422a13713f62e58ed68e48e40074cac2000",
+  "result": "PASS",
+  "technical_slot": "SPECIES_PIDGEY",
+  "display_name": "ASA-BRANCA",
+  "habitat_role": "Caatinga agent opponent",
+  "level": 4,
+  "types": ["NORMAL", "FLYING"],
+  "moves_at_level_4": ["TACKLE"],
+  "evolution_disabled": true,
+  "original_assets": ["front", "back", "icon", "footprint", "normal_palette"],
+  "reproducible_builder": "tools/build_asabranca_asset.py",
+  "cases": [
+    {"partner": "capivagua", "battle_input_cycles": 39, "normal_save_continue": true},
+    {"partner": "ararafogo", "battle_input_cycles": 38, "normal_save_continue": true},
+    {"partner": "tatupedra", "battle_input_cycles": 31, "normal_save_continue": true}
+  ],
+  "assertions": {
+    "fresh_full_campaigns": 3,
+    "caatinga_victories": 3,
+    "caatinga_defeat_retry_regressions": 3,
+    "all_five_stones_and_ending": true,
+    "all_intermediate_pantanal_and_final_defeat_retries": true,
+    "normal_save_continue": true,
+    "visual_preview_reviewed": true,
+    "asset_rebuild_byte_identical": true
+  },
+  "scope": "Original milestone art and balanced Caatinga battle. Reusing the Pidgey slot also replaces inherited Pidgey appearances elsewhere with Asa-branca. The shiny palette repeats the normal palette; cry, Pokedex text/category, habitat maps and later opponents remain inherited or provisional."
+}

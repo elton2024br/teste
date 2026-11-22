@@ -1,25 +1,25 @@
 {
-  "rom_sha1": "659e499081659d665939ba636ba66c95d2a96b1c",
+  "rom_sha1": "ab709422a13713f62e58ed68e48e40074cac2000",
   "result": "PASS",
   "test_writes": false,
   "cases": [
     {
       "partner": "capivagua",
-      "battle_input_cycles": 54,
+      "battle_input_cycles": 63,
       "healed_party": [[26, 26]],
       "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1},
       "normal_save_continue": true
     },
     {
       "partner": "ararafogo",
-      "battle_input_cycles": 59,
+      "battle_input_cycles": 48,
       "healed_party": [[23, 23]],
       "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1},
       "normal_save_continue": true
     },
     {
       "partner": "tatupedra",
-      "battle_input_cycles": 45,
+      "battle_input_cycles": 52,
       "healed_party": [[27, 27]],
       "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1},
       "normal_save_continue": true
@@ -31,7 +31,8 @@
     "flag_bytes_before": [255, 0, 0],
     "flag_bytes_after": [255, 0, 96],
     "opponent_level": 5,
+    "opponent_species": "Mico-leao",
     "forest_stone_item": 364
   },
-  "scope": "Fresh campaign chain for all three partners, Caatinga east transition, level-5 neutral Mata Atlântica battle, four unique key items, full HP after the reward, ordinary save and Continue in new emulator processes. Uses inherited provisional art and does not validate defeat or a full key-item pocket."
+  "scope": "Fresh campaign chain for all three partners, Caatinga east transition, level-5 Mico-leao battle, four unique key items, full HP after the reward, ordinary save and Continue in new emulator processes. The original opponent art was reviewed in-emulator; the habitat map remains inherited and provisional."
 }
