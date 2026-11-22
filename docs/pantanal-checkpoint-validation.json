@@ -1,0 +1,38 @@
+{
+  "rom_sha1": "05db3b2f46980ce51a19783edc532fcf144add8f",
+  "route4_map_sha256": "ef79c728c29b05cad56a0a3e86a63e458d711334d7763cb7334c50930f907d0f",
+  "result": "PASS",
+  "builder": "tools/build_pantanal_checkpoint.py",
+  "changed_cells": {
+    "normal_green_floor": {
+      "metatile": "0x008",
+      "count": 12,
+      "area": "x=4..7, y=8..10"
+    },
+    "calm_water": {
+      "metatile": "0x12B",
+      "count": 6,
+      "area": "x=3 and x=8, y=8..10"
+    }
+  },
+  "preserved": {
+    "player_entry": [5, 9],
+    "agent": [5, 8],
+    "east_exit_trigger": [6, 9],
+    "collision_and_elevation_bits": true
+  },
+  "assertions": {
+    "builder_idempotent": true,
+    "fresh_full_campaigns": 3,
+    "campaign_battles": 18,
+    "all_five_stones_and_ending": true,
+    "normal_save_continue_after_each_stage": true,
+    "intermediate_defeat_retries": 9,
+    "pantanal_defeat_retries": 3,
+    "final_boss_defeat_retries": 3,
+    "visual_preview_reviewed": true
+  },
+  "rejected_candidate": "Metatile 0x00D looked like vegetation but has MB_TALL_GRASS behavior. A Capivagua Pantanal defeat/retry run encountered an unintended battle and returned home; this candidate was rejected and is not the reported PASS build.",
+  "preview": "docs/screenshots/pantanal-checkpoint/preview.png",
+  "scope": "The immediate campaign checkpoint is now a readable green island surrounded by water. The rest of Route 4, its cliffs, buildings, NPCs, music and broader layout remain inherited and provisional."
+}

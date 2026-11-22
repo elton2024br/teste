@@ -1,5 +1,5 @@
 {
-  "rom_sha1": "df1c09b9278833fa62d3914e170e7af7b137329d",
+  "rom_sha1": "05db3b2f46980ce51a19783edc532fcf144add8f",
   "result": "PASS",
   "test_writes": false,
   "cases": [
@@ -34,5 +34,5 @@
     "opponent_species": "Tuiuiu",
     "flood_stone_item": 365
   },
-  "scope": "Fresh campaign chain for all three partners, Mata Atlântica east transition, level-6 Tuiuiu battle, five unique key items, full HP after the reward, ordinary save and Continue in new emulator processes. Original opponent art was reviewed in-emulator; the habitat map remains inherited and provisional."
+  "scope": "Fresh campaign chain for all three partners, Mata Atlântica east transition, flooded green checkpoint, level-6 Tuiuiu battle, five unique key items, full HP after the reward, ordinary save and Continue in new emulator processes. The immediate checkpoint and original opponent art were reviewed in-emulator; the rest of the Route 4 habitat remains inherited and provisional."
 }

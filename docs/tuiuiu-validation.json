@@ -1,5 +1,5 @@
 {
-  "rom_sha1": "df1c09b9278833fa62d3914e170e7af7b137329d",
+  "rom_sha1": "05db3b2f46980ce51a19783edc532fcf144add8f",
   "result": "PASS",
   "technical_slot": "SPECIES_LEDYBA",
   "display_name": "TUIUIU",
@@ -26,5 +26,5 @@
     "visual_preview_reviewed": true,
     "asset_rebuild_byte_identical": true
   },
-  "scope": "Original milestone art and balanced Pantanal battle. Reusing the Ledyba slot also replaces four inherited wild-encounter entries with Tuiuiu. The shiny palette repeats the normal palette; cry, Pokedex text/category and habitat map remain inherited or provisional."
+  "scope": "Original milestone art, balanced Pantanal battle and reviewed flooded green checkpoint. Reusing the Ledyba slot also replaces four inherited wild-encounter entries with Tuiuiu. The shiny palette repeats the normal palette; cry, Pokedex text/category and most of the Route 4 habitat remain inherited or provisional."
 }

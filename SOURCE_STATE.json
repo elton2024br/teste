@@ -1,9 +1,9 @@
 {
   "base_commit": "ce6406d8c2eaf46d543c8a2606de0c3cb1951982",
   "compiler_commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
-  "cloud_built_rom_sha1": "df1c09b9278833fa62d3914e170e7af7b137329d",
+  "cloud_built_rom_sha1": "05db3b2f46980ce51a19783edc532fcf144add8f",
   "source_count": 9859,
   "rom_included": false,
   "windows_or_wsl_build_tested": false,
-  "stage": "campaign-all-habitat-fauna-and-final-opponent-validated"
+  "stage": "campaign-pantanal-checkpoint-validated"
 }
