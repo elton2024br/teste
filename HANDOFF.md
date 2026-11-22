@@ -19,7 +19,15 @@ Meta de planejamento até 5 de dezembro de 2026: uma campanha mínima jogável d
 - Dias 16–17: acesso às Terras Raras, confronto e desfecho mínimo.
 - Dias 18–20: percurso integral com os três parceiros, balanceamento essencial, save/Continue e correções bloqueadoras.
 
-Progresso ao fim da rotina 10: os cinco habitats, as cinco pedras, o acesso às Terras Raras, o confronto com Tio Sam e um desfecho mínimo formam uma campanha funcional com os três parceiros. A cadeia integral permanece validada desde jogo novo e por save/Continue após cada etapa. Derrota, recuperação, persistência, retorno e nova tentativa passaram nos cinco agentes posteriores à primeira missão e no chefe, nos três ramos. Cerrado, Caatinga e Mata Atlântica agora têm adversários brasileiros próprios além dos parceiros. Restam fauna própria para Pantanal e chefe, substituição dos mapas/arte provisórios, casos de equipe maior/status/PP e polimento do encerramento. A meta de 5 de dezembro continua plausível, mas não é garantia de jogo completo.
+Progresso ao fim da rotina 11: os cinco habitats, as cinco pedras, o acesso às Terras Raras, o confronto com Tio Sam e um desfecho mínimo formam uma campanha funcional com os três parceiros. A cadeia integral permanece validada desde jogo novo e por save/Continue após cada etapa. Derrota, recuperação, persistência, retorno e nova tentativa passaram nos cinco agentes posteriores à primeira missão e no chefe, nos três ramos. Cerrado, Caatinga, Mata Atlântica, Pantanal e chefe agora têm fauna brasileira própria. Restam substituição dos mapas/arte provisórios, casos de equipe maior/status/PP e polimento do encerramento. A meta de 5 de dezembro continua plausível, mas não é garantia de jogo completo.
+
+## Tuiuiú no Pantanal e Onça-pintada de Tio Sam — rotina 11
+
+O adversário de nível 6 do Pantanal passou a ser `TUIUIU`, no slot técnico `SPECIES_LEDYBA`, com arte original, tipo Normal/Voador, evolução desativada e Tackle no nível atual. O chefe de nível 8 passou a usar `ONCA-PINTA`, no slot `SPECIES_SPINARAK`, com arte original e tipo Sombrio. Tio Sam usa uma equipe de golpes explícitos com somente Ataque Rápido: a prioridade torna determinística a derrota da fixture com 1 HP, enquanto os atributos frágeis permitem que os três parceiros vençam com HP normal. Os conversores idempotentes são `tools/build_tuiuiu_asset.py` e `tools/build_oncapinta_asset.py`.
+
+Build PASS, SHA-1 `df1c09b9278833fa62d3914e170e7af7b137329d`. Três campanhas foram regeneradas desde jogos novos: 18 vitórias, cinco pedras, desfecho e save/Continue após cada etapa passaram. O Tuiuiú foi vencido em 38, 42 e 39 ciclos; a Onça-pintada, em 51, 45 e 46 ciclos para Capivágua, Ararafogo e Tatupedra. As nove derrotas/revanche intermediárias, as três do Pantanal e as três do chefe passaram no mesmo hash. Capturas revisadas: `docs/screenshots/tuiuiu/preview.png` e `docs/screenshots/oncapinta/preview.png`; relatórios: `docs/tuiuiu-validation.json` e `docs/oncapinta-validation.json`.
+
+Foram rejeitados dois equilíbrios da Onça que derrotavam Capivágua com HP cheio e uma versão de Tuiuiú que alterava a sequência aleatória e deixava Ararafogo vencer a antiga batalha final com 1 HP. Esses estados não são apresentados como PASS. Limites: aparições herdadas de Ledyba e Spinarak também exibem as novas espécies; cry, Pokédex, paletas alternativas, mapas, NPCs e músicas continuam herdados/provisórios. Próximo passo funcional: substituir primeiro o mapa/cenário provisório do Pantanal sem mover o eixo validado; depois refinar as Terras Raras e o encerramento.
 
 ## Mico-leão na Mata Atlântica — rotina 10
 
@@ -27,7 +35,7 @@ O adversário de nível 5 da Mata Atlântica deixou de reutilizar o Lobo-guará 
 
 Build PASS, SHA-1 `ab709422a13713f62e58ed68e48e40074cac2000`. Três campanhas foram regeneradas desde jogos novos: 18 vitórias, cinco pedras, desfecho e save/Continue depois de cada etapa passaram. O Mico-leão foi vencido por Capivágua, Ararafogo e Tatupedra em 63, 48 e 52 ciclos. As nove derrotas/revanche intermediárias, as três do Pantanal e as três do chefe também passaram no mesmo hash. Arte, nome e enquadramento foram revisados no emulador em `docs/screenshots/micoleao/preview.png`; relatório: `docs/micoleao-validation.json`.
 
-O teste da Mata Atlântica agora captura a primeira seleção de golpe. Limites: a única equipe herdada que usava Hoothoot também passa a mostrar Mico-leão; cry, textos/categoria de Pokédex e paleta alternativa ainda são herdados/provisórios. O mapa, NPC e música da Mata Atlântica continuam herdados. Próximo passo funcional: criar fauna própria para o Pantanal em outro slot controlado e repetir a matriz completa antes de substituir o oponente de Tio Sam.
+O teste da Mata Atlântica agora captura a primeira seleção de golpe. Limites: a única equipe herdada que usava Hoothoot também passa a mostrar Mico-leão; cry, textos/categoria de Pokédex e paleta alternativa ainda são herdados/provisórios. O mapa, NPC e música da Mata Atlântica continuam herdados. O próximo marco funcional foi cumprido na rotina 11 com Tuiuiú e Onça-pintada.
 
 ## Asa-branca na Caatinga — rotina 10
 

@@ -17,11 +17,15 @@ def campaign_flag_bytes(emu, symbols):
     return tuple(emu.read(block1 + offset) for offset in (0xF75, 0xF76, 0xF77, 0xF78))
 
 
-def fight_pantanal_agent(emu, symbols):
+def fight_pantanal_agent(emu, symbols, battle_shot=None):
+    captured = False
     for cycle in range(260):
         handler = emu.read(symbols["gBattlerControllerFuncs"], 32) & ~1
         if handler == symbols["HandleInputChooseMove"]:
             assert emu.read(symbols["gMoveSelectionCursor"]) == 0
+            if battle_shot is not None and not captured:
+                emu.send(f"shot {battle_shot}")
+                captured = True
         emu.send(press_a(1, 90))
         state = snapshot(emu, symbols)
         assert state["map"] == "3/22", ("left fifth habitat", state)
@@ -63,7 +67,9 @@ def check(args):
         emu.send(f"shot {args.output / 'pantanal-entry.ppm'}")
 
         emu.send(press_a(2, 180))
-        cycles = fight_pantanal_agent(emu, symbols)
+        cycles = fight_pantanal_agent(
+            emu, symbols, args.output / "pantanal-battle.ppm"
+        )
         for _ in range(10):
             if campaign_flag_bytes(emu, symbols)[3] & 0x01:
                 break

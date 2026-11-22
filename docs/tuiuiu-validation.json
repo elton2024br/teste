@@ -1,0 +1,30 @@
+{
+  "rom_sha1": "df1c09b9278833fa62d3914e170e7af7b137329d",
+  "result": "PASS",
+  "technical_slot": "SPECIES_LEDYBA",
+  "display_name": "TUIUIU",
+  "habitat_role": "Pantanal agent opponent",
+  "level": 6,
+  "types": ["NORMAL", "FLYING"],
+  "moves_at_level_6": ["TACKLE"],
+  "exp_yield": 53,
+  "evolution_disabled": true,
+  "original_assets": ["front", "back", "icon", "footprint", "normal_palette"],
+  "reproducible_builder": "tools/build_tuiuiu_asset.py",
+  "cases": [
+    {"partner": "capivagua", "battle_input_cycles": 38, "normal_save_continue": true},
+    {"partner": "ararafogo", "battle_input_cycles": 42, "normal_save_continue": true},
+    {"partner": "tatupedra", "battle_input_cycles": 39, "normal_save_continue": true}
+  ],
+  "assertions": {
+    "fresh_full_campaigns": 3,
+    "pantanal_victories": 3,
+    "pantanal_defeat_retry_regressions": 3,
+    "all_five_stones_and_ending": true,
+    "all_intermediate_and_final_defeat_retries": true,
+    "normal_save_continue": true,
+    "visual_preview_reviewed": true,
+    "asset_rebuild_byte_identical": true
+  },
+  "scope": "Original milestone art and balanced Pantanal battle. Reusing the Ledyba slot also replaces four inherited wild-encounter entries with Tuiuiu. The shiny palette repeats the normal palette; cry, Pokedex text/category and habitat map remain inherited or provisional."
+}

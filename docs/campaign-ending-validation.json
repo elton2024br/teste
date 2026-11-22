@@ -1,25 +1,25 @@
 {
-  "rom_sha1": "ab709422a13713f62e58ed68e48e40074cac2000",
+  "rom_sha1": "df1c09b9278833fa62d3914e170e7af7b137329d",
   "result": "PASS",
   "test_writes": false,
   "cases": [
     {
       "partner": "capivagua",
-      "battle_input_cycles": 76,
+      "battle_input_cycles": 51,
       "initial_party_health": [[26, 26]],
       "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1, "flood": 1},
       "normal_save_continue": true
     },
     {
       "partner": "ararafogo",
-      "battle_input_cycles": 50,
+      "battle_input_cycles": 45,
       "initial_party_health": [[23, 23]],
       "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1, "flood": 1},
       "normal_save_continue": true
     },
     {
       "partner": "tatupedra",
-      "battle_input_cycles": 74,
+      "battle_input_cycles": 46,
       "initial_party_health": [[27, 27]],
       "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1, "flood": 1},
       "normal_save_continue": true
@@ -31,10 +31,10 @@
     "flag_bytes_before": [255, 0, 224, 1],
     "flag_bytes_after": [255, 0, 224, 7],
     "opponents": [
-      {"species": "Weedle", "level": 8}
+      {"species": "Onca-pinta", "level": 8, "moves": ["Quick Attack"]}
     ],
     "campaign_complete": true
   },
   "rare_stone_markers_checked": ["water", "roots", "drought", "forest", "flood"],
-  "scope": "Fresh full campaign chain for all three partners; full HP entering Terras Raras, dry ground beneath the five interactive stone markers, provisional level-8 Weedle Tio Sam battle, minimal textual ending, five stones preserved, ordinary save and Continue in new emulator processes. Most map art and the final opponent remain inherited and provisional; does not validate optimized strategies, credits or a polished ending."
+  "scope": "Fresh full campaign chain for all three partners; full HP entering Terras Raras, dry ground beneath the five interactive stone markers, original level-8 Onca-pinta Tio Sam battle, minimal textual ending, five stones preserved, ordinary save and Continue in new emulator processes. Most map art remains inherited and the ending is provisional; does not validate optimized strategies, credits or a polished ending."
 }

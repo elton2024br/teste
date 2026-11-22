@@ -1,25 +1,25 @@
 {
-  "rom_sha1": "ab709422a13713f62e58ed68e48e40074cac2000",
+  "rom_sha1": "df1c09b9278833fa62d3914e170e7af7b137329d",
   "result": "PASS",
   "test_writes": false,
   "cases": [
     {
       "partner": "capivagua",
-      "battle_input_cycles": 43,
+      "battle_input_cycles": 38,
       "healed_party": [[26, 26]],
       "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1, "flood": 1},
       "normal_save_continue": true
     },
     {
       "partner": "ararafogo",
-      "battle_input_cycles": 50,
+      "battle_input_cycles": 42,
       "healed_party": [[23, 23]],
       "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1, "flood": 1},
       "normal_save_continue": true
     },
     {
       "partner": "tatupedra",
-      "battle_input_cycles": 75,
+      "battle_input_cycles": 39,
       "healed_party": [[27, 27]],
       "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1, "flood": 1},
       "normal_save_continue": true
@@ -31,7 +31,8 @@
     "flag_bytes_before": [255, 0, 96, 0],
     "flag_bytes_after": [255, 0, 224, 1],
     "opponent_level": 6,
+    "opponent_species": "Tuiuiu",
     "flood_stone_item": 365
   },
-  "scope": "Fresh campaign chain for all three partners, Mata Atlântica east transition, level-6 neutral Pantanal battle, five unique key items, full HP after the reward, ordinary save and Continue in new emulator processes. Uses inherited provisional art and does not validate defeat or a full key-item pocket."
+  "scope": "Fresh campaign chain for all three partners, Mata Atlântica east transition, level-6 Tuiuiu battle, five unique key items, full HP after the reward, ordinary save and Continue in new emulator processes. Original opponent art was reviewed in-emulator; the habitat map remains inherited and provisional."
 }

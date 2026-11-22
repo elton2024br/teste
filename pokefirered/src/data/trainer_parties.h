@@ -10447,11 +10447,16 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherColton2[] = {
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherColton3[] = {
-    {.iv = 0, .lvl = 6, .species = SPECIES_CATERPIE},
+    {.iv = 0, .lvl = 6, .species = SPECIES_LEDYBA},
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherColton4[] = {
-    {.iv = 0, .lvl = 8, .species = SPECIES_WEEDLE},
+static const struct TrainerMonNoItemCustomMoves sParty_BugCatcherColton4[] = {
+    {
+        .iv = 0,
+        .lvl = 8,
+        .species = SPECIES_SPINARAK,
+        .moves = {MOVE_QUICK_ATTACK, MOVE_NONE, MOVE_NONE, MOVE_NONE},
+    },
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerMaleMatthew2[] = {

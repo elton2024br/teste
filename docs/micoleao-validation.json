@@ -1,5 +1,5 @@
 {
-  "rom_sha1": "ab709422a13713f62e58ed68e48e40074cac2000",
+  "rom_sha1": "df1c09b9278833fa62d3914e170e7af7b137329d",
   "result": "PASS",
   "technical_slot": "SPECIES_HOOTHOOT",
   "display_name": "MICO-LEAO",
@@ -25,5 +25,5 @@
     "visual_preview_reviewed": true,
     "asset_rebuild_byte_identical": true
   },
-  "scope": "Original milestone art and balanced Mata Atlantica battle. Reusing the Hoothoot slot also replaces its single inherited trainer appearance with Mico-leao. The display omits the tilde because the legacy compiler rejects that source character. The shiny palette repeats the normal palette; cry, Pokedex text/category, habitat maps and later opponents remain inherited or provisional."
+  "scope": "Original milestone art and balanced Mata Atlantica battle. Reusing the Hoothoot slot also replaces its single inherited trainer appearance with Mico-leao. The display omits the tilde because the legacy compiler rejects that source character. The shiny palette repeats the normal palette; cry, Pokedex text/category and habitat maps remain inherited or provisional."
 }

@@ -17,11 +17,15 @@ def campaign_flag_bytes(emu, symbols):
     return tuple(emu.read(block1 + offset) for offset in (0xF75, 0xF76, 0xF77, 0xF78))
 
 
-def fight_tio_sam(emu, symbols):
+def fight_tio_sam(emu, symbols, battle_shot=None):
+    captured = False
     for cycle in range(260):
         handler = emu.read(symbols["gBattlerControllerFuncs"], 32) & ~1
         if handler == symbols["HandleInputChooseMove"]:
             assert emu.read(symbols["gMoveSelectionCursor"]) == 0
+            if battle_shot is not None and not captured:
+                emu.send(f"shot {battle_shot}")
+                captured = True
         emu.send(press_a(1, 90))
         state = snapshot(emu, symbols)
         assert state["map"] == "3/3", ("left Terras Raras", state)
@@ -81,7 +85,9 @@ def check(args):
         inspect_marker(emu, symbols, 16, args.output / "forest-marker.ppm")
         emu.send("run 64 4\nrun 0 30")
         emu.send(press_a(2, 180))
-        cycles = fight_tio_sam(emu, symbols)
+        cycles = fight_tio_sam(
+            emu, symbols, args.output / "tio-sam-battle.ppm"
+        )
         for _ in range(14):
             if campaign_flag_bytes(emu, symbols)[3] & 0x04:
                 break

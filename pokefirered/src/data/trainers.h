@@ -7310,7 +7310,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_BugCatcherColton4),
+        .party = NO_ITEM_CUSTOM_MOVES(sParty_BugCatcherColton4),
     },
     [TRAINER_SWIMMER_MALE_MATTHEW_2] = {
         .trainerClass = TRAINER_CLASS_SWIMMER_M,
