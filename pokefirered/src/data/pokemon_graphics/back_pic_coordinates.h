@@ -52,8 +52,8 @@ const struct MonCoords gMonBackPicCoords[] =
     },
     [SPECIES_CATERPIE] =
     {
-        .size = MON_COORDS_SIZE(40, 40),
-        .y_offset = 15,
+        .size = MON_COORDS_SIZE(64, 56),
+        .y_offset = 4,
     },
     [SPECIES_METAPOD] =
     {

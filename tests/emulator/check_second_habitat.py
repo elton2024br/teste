@@ -36,11 +36,15 @@ def party_health(emu, symbols):
     return result
 
 
-def fight_cerrado_agent(emu, symbols):
+def fight_cerrado_agent(emu, symbols, battle_shot=None):
+    captured = False
     for cycle in range(260):
         handler = emu.read(symbols["gBattlerControllerFuncs"], 32) & ~1
         if handler == symbols["HandleInputChooseMove"]:
             assert emu.read(symbols["gMoveSelectionCursor"]) == 0
+            if battle_shot is not None and not captured:
+                emu.send(f"shot {battle_shot}")
+                captured = True
         emu.send(press_a(1, 90))
         state = snapshot(emu, symbols)
         assert state["map"] == "3/20", ("left second habitat", state)
@@ -88,7 +92,7 @@ def check(args):
         emu.send(f"shot {args.output / 'cerrado-entry.ppm'}")
 
         emu.send(press_a(2, 180))
-        cycles = fight_cerrado_agent(emu, symbols)
+        cycles = fight_cerrado_agent(emu, symbols, args.output / "cerrado-battle.ppm")
         for _ in range(8):
             if snapshot(emu, symbols)["flags"] & 0x20:
                 break

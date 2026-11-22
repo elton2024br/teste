@@ -1,25 +1,25 @@
 {
-  "rom_sha1": "0a1b55c94bebf8d1d0560ff283e4388f3594fe75",
+  "rom_sha1": "659e499081659d665939ba636ba66c95d2a96b1c",
   "result": "PASS",
   "test_writes": false,
   "cases": [
     {
       "partner": "capivagua",
-      "battle_input_cycles": 97,
+      "battle_input_cycles": 77,
       "initial_party_health": [[26, 26]],
       "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1, "flood": 1},
       "normal_save_continue": true
     },
     {
       "partner": "ararafogo",
-      "battle_input_cycles": 74,
+      "battle_input_cycles": 51,
       "initial_party_health": [[23, 23]],
       "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1, "flood": 1},
       "normal_save_continue": true
     },
     {
       "partner": "tatupedra",
-      "battle_input_cycles": 101,
+      "battle_input_cycles": 75,
       "initial_party_health": [[27, 27]],
       "stones": {"water": 1, "roots": 1, "drought": 1, "forest": 1, "flood": 1},
       "normal_save_continue": true
@@ -31,11 +31,10 @@
     "flag_bytes_before": [255, 0, 224, 1],
     "flag_bytes_after": [255, 0, 224, 7],
     "opponents": [
-      {"species": "Caterpie", "level": 7},
-      {"species": "Weedle", "level": 7}
+      {"species": "Weedle", "level": 8}
     ],
     "campaign_complete": true
   },
   "rare_stone_markers_checked": ["water", "roots", "drought", "forest", "flood"],
-  "scope": "Fresh full campaign chain for all three partners; full HP entering Terras Raras, dry ground beneath the five interactive stone markers, two-opponent level-7 Tio Sam battle, minimal textual ending, five stones preserved, ordinary save and Continue in new emulator processes. Most map art remains inherited and provisional; does not validate optimized strategies, credits or a polished ending."
+  "scope": "Fresh full campaign chain for all three partners; full HP entering Terras Raras, dry ground beneath the five interactive stone markers, provisional level-8 Weedle Tio Sam battle, minimal textual ending, five stones preserved, ordinary save and Continue in new emulator processes. Most map art and the final opponent remain inherited and provisional; does not validate optimized strategies, credits or a polished ending."
 }

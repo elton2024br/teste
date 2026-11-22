@@ -1,18 +1,18 @@
 {
-  "rom_sha1": "0a1b55c94bebf8d1d0560ff283e4388f3594fe75",
+  "rom_sha1": "659e499081659d665939ba636ba66c95d2a96b1c",
   "result": "PASS",
   "test_writes": false,
   "cases": [
     {
       "partner": "capivagua",
-      "battle_input_cycles": 37,
+      "battle_input_cycles": 38,
       "healed_party": [[24, 24]],
       "stones": {"water": 1, "roots": 1},
       "normal_save_continue": true
     },
     {
       "partner": "ararafogo",
-      "battle_input_cycles": 31,
+      "battle_input_cycles": 37,
       "healed_party": [[21, 21]],
       "stones": {"water": 1, "roots": 1},
       "normal_save_continue": true
@@ -31,8 +31,9 @@
     "flags_before": 15,
     "flags_after": 63,
     "opponent_level": 3,
+    "opponent_species": "Lobo-guara",
     "water_stone_item": 361,
     "root_stone_item": 362
   },
-  "scope": "Fresh first missions for all three partners, ordinary source saves, walk through the forest connection, level-3 neutral Cerrado battle, two unique key items, full HP after the reward, ordinary save and Continue in new emulator processes. Does not validate a full key-item pocket, defeat in this battle or final art."
+  "scope": "Fresh first missions for all three partners, ordinary source saves, walk through the forest connection, original level-3 Lobo-guara Cerrado battle, two unique key items, full HP after the reward, ordinary save and Continue in new emulator processes. Does not validate a full key-item pocket or final habitat art; defeat/retry is covered separately."
 }

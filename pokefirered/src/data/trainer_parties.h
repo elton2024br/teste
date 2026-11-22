@@ -10451,8 +10451,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherColton3[] = {
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_BugCatcherColton4[] = {
-    {.iv = 0, .lvl = 7, .species = SPECIES_CATERPIE},
-    {.iv = 0, .lvl = 7, .species = SPECIES_WEEDLE},
+    {.iv = 0, .lvl = 8, .species = SPECIES_WEEDLE},
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_SwimmerMaleMatthew2[] = {

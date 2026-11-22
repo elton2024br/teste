@@ -1,34 +1,34 @@
 {
-  "rom_sha1": "0a1b55c94bebf8d1d0560ff283e4388f3594fe75",
+  "rom_sha1": "659e499081659d665939ba636ba66c95d2a96b1c",
   "result": "PASS",
   "fixture_writes": true,
   "fixture": "Party slot 0 current HP set to 1; no flags, items, partner, opponent or outcome written.",
   "cases": [
     {
       "partner": "capivagua",
-      "trainer_ball_attempts": 1,
+      "trainer_ball_attempts": 4,
       "battle_outcome_loss": 2,
       "recovered_party_health": [[26, 26]],
       "recovered_flag_bytes": [255, 0, 96, 0],
-      "win_input_cycles_after_retry": 43,
+      "win_input_cycles_after_retry": 53,
       "final_flag_bytes": [255, 0, 224, 1]
     },
     {
       "partner": "ararafogo",
-      "trainer_ball_attempts": 4,
+      "trainer_ball_attempts": 1,
       "battle_outcome_loss": 2,
       "recovered_party_health": [[23, 23]],
       "recovered_flag_bytes": [255, 0, 96, 0],
-      "win_input_cycles_after_retry": 30,
+      "win_input_cycles_after_retry": 45,
       "final_flag_bytes": [255, 0, 224, 1]
     },
     {
       "partner": "tatupedra",
-      "trainer_ball_attempts": 2,
       "battle_outcome_loss": 2,
       "recovered_party_health": [[27, 27]],
       "recovered_flag_bytes": [255, 0, 96, 0],
-      "win_input_cycles_after_retry": 42,
+      "trainer_ball_attempts": 1,
+      "win_input_cycles_after_retry": 76,
       "final_flag_bytes": [255, 0, 224, 1]
     }
   ],

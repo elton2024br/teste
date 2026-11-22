@@ -1,0 +1,34 @@
+{
+  "rom_sha1": "659e499081659d665939ba636ba66c95d2a96b1c",
+  "result": "PASS",
+  "technical_slot": "SPECIES_CATERPIE",
+  "display_name": "LOBO-GUARÁ",
+  "habitat_role": "Campo Cerrado agent opponent",
+  "level": 3,
+  "type": "NORMAL",
+  "moves_at_level_3": ["TACKLE", "GROWL"],
+  "evolution_disabled": true,
+  "original_assets": ["front", "back", "icon", "footprint", "normal_palette"],
+  "reproducible_builder": "tools/build_loboguara_asset.py",
+  "cases": [
+    {"partner": "capivagua", "battle_input_cycles": 38, "normal_save_continue": true},
+    {"partner": "ararafogo", "battle_input_cycles": 37, "normal_save_continue": true},
+    {"partner": "tatupedra", "battle_input_cycles": 31, "normal_save_continue": true}
+  ],
+  "assertions": {
+    "fresh_full_campaigns": 3,
+    "cerrado_victories": 3,
+    "cerrado_defeat_retry_regressions": 3,
+    "all_five_stones_and_ending": true,
+    "all_intermediate_pantanal_and_final_defeat_retries": true,
+    "normal_save_continue": true,
+    "visual_preview_reviewed": true,
+    "asset_rebuild_byte_identical": true
+  },
+  "final_boss_adjustment": {
+    "opponent": "Weedle",
+    "level": 8,
+    "reason": "Caterpie is now Lobo-guara; one inherited provisional attacker preserves both normal victory and the HP=1 defeat/retry regression for all partners."
+  },
+  "scope": "Original milestone art and balanced Cerrado battle. Reusing the Caterpie slot also replaces inherited Caterpie appearances elsewhere with Lobo-guara. The shiny palette repeats the normal palette; cry, Pokedex text/category, habitat maps and later opponents remain inherited or provisional."
+}

@@ -127,7 +127,8 @@ static const u16 sBlastoiseLevelUpLearnset[] = {
 
 static const u16 sCaterpieLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_TACKLE),
-    LEVEL_UP_MOVE(1, MOVE_STRING_SHOT),
+    LEVEL_UP_MOVE(1, MOVE_GROWL),
+    LEVEL_UP_MOVE(7, MOVE_BITE),
     LEVEL_UP_END
 };
 

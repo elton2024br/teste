@@ -1,18 +1,18 @@
 {
-  "rom_sha1": "0a1b55c94bebf8d1d0560ff283e4388f3594fe75",
+  "rom_sha1": "659e499081659d665939ba636ba66c95d2a96b1c",
   "result": "PASS",
   "fixture_writes": true,
   "fixture": "Party slot 0 current HP set to 1; no flags, items, partner, opponent or outcome written.",
   "cases": [
-    {"habitat": "Cerrado", "partner": "capivagua", "trainer_ball_attempts": 1, "win_input_cycles_after_retry": 47},
-    {"habitat": "Cerrado", "partner": "ararafogo", "trainer_ball_attempts": 1, "win_input_cycles_after_retry": 28},
-    {"habitat": "Cerrado", "partner": "tatupedra", "trainer_ball_attempts": 1, "win_input_cycles_after_retry": 40},
-    {"habitat": "Caatinga", "partner": "capivagua", "trainer_ball_attempts": 4, "win_input_cycles_after_retry": 37},
-    {"habitat": "Caatinga", "partner": "ararafogo", "trainer_ball_attempts": 1, "win_input_cycles_after_retry": 34},
-    {"habitat": "Caatinga", "partner": "tatupedra", "trainer_ball_attempts": 3, "win_input_cycles_after_retry": 33},
-    {"habitat": "Mata Atlantica", "partner": "capivagua", "trainer_ball_attempts": 1, "win_input_cycles_after_retry": 61},
-    {"habitat": "Mata Atlantica", "partner": "ararafogo", "trainer_ball_attempts": 1, "win_input_cycles_after_retry": 41},
-    {"habitat": "Mata Atlantica", "partner": "tatupedra", "trainer_ball_attempts": 3, "win_input_cycles_after_retry": 40}
+    {"habitat": "Cerrado", "partner": "capivagua", "trainer_ball_attempts": 4, "win_input_cycles_after_retry": 56},
+    {"habitat": "Cerrado", "partner": "ararafogo", "trainer_ball_attempts": 1, "win_input_cycles_after_retry": 39},
+    {"habitat": "Cerrado", "partner": "tatupedra", "trainer_ball_attempts": 3, "win_input_cycles_after_retry": 45},
+    {"habitat": "Caatinga", "partner": "capivagua", "trainer_ball_attempts": 2, "win_input_cycles_after_retry": 53},
+    {"habitat": "Caatinga", "partner": "ararafogo", "trainer_ball_attempts": 2, "win_input_cycles_after_retry": 51},
+    {"habitat": "Caatinga", "partner": "tatupedra", "trainer_ball_attempts": 1, "win_input_cycles_after_retry": 57},
+    {"habitat": "Mata Atlantica", "partner": "capivagua", "trainer_ball_attempts": 3, "win_input_cycles_after_retry": 44},
+    {"habitat": "Mata Atlantica", "partner": "ararafogo", "trainer_ball_attempts": 4, "win_input_cycles_after_retry": 50},
+    {"habitat": "Mata Atlantica", "partner": "tatupedra", "trainer_ball_attempts": 4, "win_input_cycles_after_retry": 61}
   ],
   "progression": {
     "Cerrado": {"flags_before": [15, 0, 0], "flags_after": [63, 0, 0], "stone_after": 362},
