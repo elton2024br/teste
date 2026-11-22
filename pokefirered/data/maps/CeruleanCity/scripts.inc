@@ -25,6 +25,14 @@ Amazon_EventScript_TioSamDone::
 	release
 	end
 
+Amazon_EventScript_RareSanctuary::
+	goto_if_unset FLAG_AMAZON_CAMPAIGN_COMPLETE, Amazon_EventScript_RareSanctuaryDormant
+	msgbox Amazon_Text_RareSanctuaryRestored, MSGBOX_SIGN
+	end
+Amazon_EventScript_RareSanctuaryDormant::
+	msgbox Amazon_Text_RareSanctuaryDormant, MSGBOX_SIGN
+	end
+
 Amazon_Text_TioSamIntro::
 	.string "Com as pedras, estas terras\n"
 	.string "seriam meu maior negócio!\p"
@@ -32,15 +40,25 @@ Amazon_Text_TioSamIntro::
 Amazon_Text_TioSamLoss::
 	.string "Meu plano... derrotado por vocês?$"
 Amazon_Text_CampaignEnding::
-	.string "As cinco pedras selaram o caminho\n"
-	.string "e Tio Sam abandonou seu plano.\p"
-	.string "Os animais e as Terras Raras\n"
-	.string "ficaram protegidos novamente.\p"
+	.string "As cinco pedras formaram um\n"
+	.string "santuario vivo nas Terras Raras.\p"
+	.string "Águas, raízes, seca, mata e cheias\n"
+	.string "voltaram a sustentar seus habitats.\p"
+	.string "Tio Sam abandonou seu plano, e\n"
+	.string "os animais ficaram protegidos.\p"
+	.string "O santuario reconhece você como\n"
+	.string "guardiao deste equilíbrio.\p"
 	.string "FIM DA CAMPANHA ATUAL$"
 Amazon_Text_TioSamLocked::
 	.string "Volte quando reunir as cinco pedras.$"
 Amazon_Text_CampaignDone::
 	.string "As Terras Raras ficaram seguras.$"
+Amazon_Text_RareSanctuaryRestored::
+	.string "SANTUÁRIO DAS CINCO PEDRAS\n"
+	.string "O equilíbrio dos habitats vive aqui.\p"
+	.string "Você é o guardiao desta aliança.$"
+Amazon_Text_RareSanctuaryDormant::
+	.string "Um pedestal aguarda as cinco pedras.$"
 
 Amazon_EventScript_RareMarkerWater::
 	msgbox Amazon_Text_RareMarkerWater, MSGBOX_SIGN

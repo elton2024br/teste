@@ -1,0 +1,43 @@
+{
+  "rom_sha1": "e43bb5b13aaaa3964c3ccda86f3c44cbf580580f",
+  "result": "PASS",
+  "implementation": {
+    "expanded_ending": true,
+    "restored_sanctuary_bg_event": [5, 8],
+    "tio_sam_position_preserved": [5, 8],
+    "campaign_entry_preserved": [5, 9]
+  },
+  "cases": [
+    {
+      "partner": "capivagua",
+      "battle_input_cycles": 51,
+      "sanctuary_visits": 2,
+      "normal_save_continue": true
+    },
+    {
+      "partner": "ararafogo",
+      "battle_input_cycles": 45,
+      "sanctuary_visits": 2,
+      "normal_save_continue": true
+    },
+    {
+      "partner": "tatupedra",
+      "battle_input_cycles": 46,
+      "sanctuary_visits": 2,
+      "normal_save_continue": true
+    }
+  ],
+  "assertions": {
+    "fresh_full_campaigns": 3,
+    "campaign_battles": 18,
+    "all_five_stones_preserved": true,
+    "campaign_flags_after_ending": [255, 0, 224, 7],
+    "sanctuary_accessible_immediately_after_ending": true,
+    "sanctuary_accessible_after_continue": true,
+    "field_controls_released_after_each_visit": true,
+    "final_defeat_recovery_retry_regressions": 3,
+    "visual_preview_reviewed": true
+  },
+  "preview": "docs/screenshots/rare-sanctuary-ending/preview.png",
+  "scope": "The ending now explains the role of the five stones and names the player guardian of a restored sanctuary. A persistent sign interaction replaces the inaccessible post-campaign Tio Sam dialogue after his object disappears. The surrounding city, rock graphics, music and credits remain inherited or provisional; this is not a polished final ending."
+}

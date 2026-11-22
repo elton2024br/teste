@@ -1,4 +1,4 @@
-"""Continue a five-stone save through Terras Raras and the minimal ending."""
+"""Continue a five-stone save through Terras Raras and the sanctuary ending."""
 
 import argparse
 import hashlib
@@ -47,6 +47,22 @@ def inspect_marker(emu, symbols, direction, output):
         emu.send("run 2 12\nrun 0 180")
     else:
         raise AssertionError("rare-stone marker did not release controls")
+
+
+def inspect_sanctuary(emu, symbols, output):
+    before = snapshot(emu, symbols)
+    assert before["position"] == [5, 9], before
+    emu.send("run 128 12\nrun 0 20\nrun 64 12\nrun 0 20\n"
+             "run 1 12\nrun 0 300")
+    assert snapshot(emu, symbols)["position"] == before["position"]
+    assert emu.read(symbols["sLockFieldControls"]) != 0
+    emu.send(f"shot {output}")
+    for _ in range(12):
+        if emu.read(symbols["sLockFieldControls"]) == 0:
+            break
+        emu.send("run 2 12\nrun 0 180")
+    else:
+        raise AssertionError("rare sanctuary did not release controls")
 
 
 def check(args):
@@ -105,6 +121,8 @@ def check(args):
         assert all(items.get(item) == 1 for item in (361, 362, 363, 364, 365)), items
         assert emu.read(symbols["sLockFieldControls"]) == 0
 
+        inspect_sanctuary(emu, symbols, args.output / "restored-sanctuary.ppm")
+
         emu.send("run 64 24\nrun 0 60")
         assert snapshot(emu, symbols)["position"] == [5, 7]
         inspect_marker(emu, symbols, 32, args.output / "water-marker.ppm")
@@ -129,6 +147,11 @@ def check(args):
         assert continued_flags == ended_flags
         items_after = key_items(emu, symbols)
         assert all(items_after.get(item) == 1 for item in (361, 362, 363, 364, 365))
+        emu.send("run 128 36\nrun 0 60\nrun 64 4\nrun 0 30")
+        sanctuary_position = snapshot(emu, symbols)
+        assert sanctuary_position["position"] == [5, 9], sanctuary_position
+        inspect_sanctuary(emu, symbols,
+                          args.output / "restored-sanctuary-continue.ppm")
         emu.send(f"shot {args.output / 'continued.ppm'}")
     finally:
         emu.close()
@@ -150,15 +173,17 @@ def check(args):
         continued=continued,
         continued_flag_bytes=list(continued_flags),
         rare_stone_markers_checked=["water", "roots", "drought", "forest", "flood"],
+        restored_sanctuary_visits=2,
         stones={"water": items_after[361], "roots": items_after[362],
                 "drought": items_after[363], "forest": items_after[364],
                 "flood": items_after[365]},
         scope=("Native five-stone save; Pantanal east transition; Tio Sam battle, "
-               "minimal ending, normal save and Continue. Uses provisional inherited "
-               "map art and does not claim final balance, credits or a polished ending."),
+               "expanded ending, restored sanctuary before and after ordinary save/Continue. "
+               "Uses provisional inherited map art and does not claim final balance, "
+               "credits or a polished ending."),
     )
     (args.output / "results.json").write_text(json.dumps(report, indent=2) + "\n")
-    print("Terras Raras/Tio Sam/minimal ending/save/Continue: PASS", flush=True)
+    print("Terras Raras/Tio Sam/sanctuary ending/save/Continue: PASS", flush=True)
 
 
 if __name__ == "__main__":
