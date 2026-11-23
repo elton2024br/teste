@@ -1,0 +1,47 @@
+{
+  "rom_sha1": "d0955a510c864327d5c57ccc07eb9fdf2da4cd98",
+  "result": "PASS",
+  "routine": 17,
+  "team": [
+    {"slot": 0, "nickname": "ARARAFOGO", "species": 4},
+    {"slot": 1, "nickname": "TATUPEDRA", "species": 1, "captured_level": 2}
+  ],
+  "capture": {
+    "natural_encounter": true,
+    "memory_writes": false,
+    "throws": 1,
+    "capsules_before": 5,
+    "capsules_after": 4,
+    "ordinary_save_continue": true
+  },
+  "campaign": {
+    "first_mission_cycles": 102,
+    "first_mission_mandatory_switches": 1,
+    "cerrado_cycles": 42,
+    "caatinga_cycles": 37,
+    "mata_atlantica_cycles": 58,
+    "pantanal_cycles": 43,
+    "tio_sam_cycles": 40,
+    "five_stones_received": true,
+    "restored_sanctuary_visits": 2,
+    "save_continue_after_each_stage": true
+  },
+  "final_defeat_retry": {
+    "artificial_hp_one_for_both": true,
+    "battle_outcome_loss": 2,
+    "loss_input_cycles": 25,
+    "mandatory_switches": 1,
+    "full_recovery_both_members": true,
+    "five_stones_preserved": true,
+    "normal_save_continue": true,
+    "retry_win_input_cycles": 40,
+    "final_flag_bytes": [255, 0, 224, 7]
+  },
+  "identity": "personality, OT ID, species and nickname preserved throughout capture, rewards, Continue, ending and final defeat retry",
+  "source_saves_preserved": true,
+  "capivagua_regressions": {
+    "capture": "PASS",
+    "captured_first_mission": "PASS"
+  },
+  "scope": "One deterministic Ararafogo plus level-2 Tatupedra capture and complete campaign. It does not measure catch rates, validate another captured species, all team compositions or final balance. The final defeat uses only an artificial current-HP condition; battle outcomes and recovery are gameplay-driven."
+}

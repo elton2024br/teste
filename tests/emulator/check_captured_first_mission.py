@@ -14,6 +14,13 @@ from check_stone_revisit import walk_to
 from party_recovery import assert_party_fully_recovered, party_identities
 
 
+PARTNERS = {
+    "capivagua": (1, 7, "CAPIVÁGUA"),
+    "ararafogo": (2, 4, "ARARAFOGO"),
+    "tatupedra": (0, 1, "TATUPEDRA"),
+}
+
+
 def fight_with_captured_partner(emu, symbols, switch_handlers):
     switches = 0
     for cycle in range(360):
@@ -49,13 +56,15 @@ def check(args):
     assert capture["rom_sha1"] == digest and capture["result"] == "PASS"
     assert not capture["synthetic_full_party"]
     assert capture["before_save"]["party"] == 2
+    partner = capture["starter"]
+    starter, starter_species, starter_name = PARTNERS[partner]
     expected_identities = capture["party_identities"]
-    assert [mon["species"] for mon in expected_identities] == [7, 1]
-    assert [mon["nickname"] for mon in expected_identities] == ["CAPIVÁGUA", "TATUPEDRA"]
+    assert [mon["species"] for mon in expected_identities] == [starter_species, 1]
+    assert [mon["nickname"] for mon in expected_identities] == [starter_name, "TATUPEDRA"]
 
     source = args.capture_results / "captured.sav"
     source_hash = hashlib.sha256(source.read_bytes()).hexdigest()
-    save = args.output / "capivagua.sav"
+    save = args.output / (partner + ".sav")
     shutil.copyfile(source, save)
     lines = [p for line in args.symbols.read_text().splitlines()
              if len(p := line.split()) == 3]
@@ -86,7 +95,7 @@ def check(args):
         village = snapshot(emu, symbols)
         assert village["position"] == [8, 9], village
         initial = reach_control(emu, symbols)
-        assert initial == dict(partner=1, flags=1, keyitem=0, party=2, starter=1,
+        assert initial == dict(partner=1, flags=1, keyitem=0, party=2, starter=starter,
                                map="1/0", position=[12, 14]), initial
         assert party_identities(emu, symbols) == expected_identities
 
@@ -118,7 +127,7 @@ def check(args):
                  + "\n" + press_a(4))
         dismiss(emu)
         before = snapshot(emu, symbols)
-        assert before == dict(partner=1, flags=15, keyitem=361, party=2, starter=1,
+        assert before == dict(partner=1, flags=15, keyitem=361, party=2, starter=starter,
                               map="3/0", position=[8, 9]), before
         before_identities = party_identities(emu, symbols)
         assert before_identities == expected_identities
@@ -145,7 +154,7 @@ def check(args):
 
     assert hashlib.sha256(source.read_bytes()).hexdigest() == source_hash
     case = dict(
-        partner="capivagua",
+        partner=partner,
         result="PASS",
         battle_input_cycles=cycles,
         battle_switches=switches,
@@ -172,7 +181,7 @@ def check(args):
                "both party members; no memory writes or savestates."),
     )
     (args.output / "results.json").write_text(json.dumps(report, indent=2) + "\n")
-    print("natural two-member first mission/save/Continue: PASS", flush=True)
+    print(partner + " natural two-member first mission/save/Continue: PASS", flush=True)
 
 
 if __name__ == "__main__":

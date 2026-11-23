@@ -1,0 +1,29 @@
+{
+  "rom_sha1": "d0955a510c864327d5c57ccc07eb9fdf2da4cd98",
+  "result": "PASS",
+  "routine": 17,
+  "team": ["CAPIVÁGUA", "TATUPEDRA"],
+  "fixture": "current HP set to 1 for both members; no flags, items, identities or outcomes written",
+  "cases": [
+    {"encounter": "Cerrado", "trainer_ball_attempts": 4, "loss_input_cycles": 46, "mandatory_switches": 1, "recovered_health": [[21, 21], [18, 18]], "win_input_cycles": 34},
+    {"encounter": "Caatinga", "trainer_ball_attempts": 2, "loss_input_cycles": 34, "mandatory_switches": 1, "recovered_health": [[21, 21], [18, 18]], "win_input_cycles": 38},
+    {"encounter": "Mata Atlântica", "trainer_ball_attempts": 3, "loss_input_cycles": 41, "mandatory_switches": 1, "recovered_health": [[24, 24], [18, 18]], "win_input_cycles": 64},
+    {"encounter": "Pantanal", "trainer_ball_attempts": 2, "loss_input_cycles": 34, "mandatory_switches": 1, "recovered_health": [[24, 24], [18, 18]], "win_input_cycles": 51},
+    {"encounter": "Tio Sam", "trainer_ball_attempts": 0, "loss_input_cycles": 25, "mandatory_switches": 1, "recovered_health": [[26, 26], [18, 18]], "win_input_cycles": 40}
+  ],
+  "checks_per_case": [
+    "B_OUTCOME_LOST reached normally",
+    "prior stones and pending reward preserved",
+    "HP, status and PP restored for both members",
+    "ordinary save and Continue with writes disabled",
+    "stable personality, OT ID, species and nickname",
+    "return through prior habitats and normal retry victory",
+    "source save hash preserved"
+  ],
+  "single_member_regressions": {
+    "intermediate_script": "PASS",
+    "fifth_habitat_script": "PASS",
+    "final_boss_script": "PASS"
+  },
+  "scope": "Only the natural Capivágua plus captured Tatupedra team. HP=1 is an artificial condition fixture; battle outcomes, forced switches, recovery, Continue, traversal and retry are gameplay-driven. This does not prove naturally accumulated damage or other team compositions."
+}

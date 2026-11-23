@@ -16,6 +16,37 @@ from check_campaign_final_defeat import (
     save_from_house,
     set_hp_fixture,
 )
+from party_recovery import assert_party_fully_recovered, party_identities
+
+
+def lose_two_member_with_trainer_balls(emu, symbols, actions, switch_handlers,
+                                       expected_map):
+    """Use rejected trainer throws so both 1-HP members lose naturally."""
+    throws = 0
+    switches = 0
+    for cycle in range(240):
+        state = snapshot(emu, symbols)
+        if state["map"] == "4/0":
+            return throws, switches, cycle + 1
+        assert state["map"] == expected_map, state
+        handler = emu.read(symbols["gBattlerControllerFuncs"], 32) & ~1
+        if handler in switch_handlers:
+            assert switches == 0, switches
+            emu.send("run 128 12\nrun 0 30\n" + press_a(2, 180))
+            switches += 1
+        elif handler in actions:
+            cursor = emu.read(symbols["gActionSelectionCursor"])
+            assert cursor in (0, 1), cursor
+            if cursor == 0:
+                emu.send("run 16 12\nrun 0 30")
+            emu.send(press_a(1, 180))
+            if throws == 0:
+                emu.send("run 16 12\nrun 0 90\nrun 16 12\nrun 0 90")
+            emu.send(press_a(2, 180))
+            throws += 1
+        else:
+            emu.send("run 2 12\nrun 0 120")
+    raise AssertionError("two-member HP fixture did not reach a normal Pantanal defeat")
 
 
 def return_to_pantanal(emu, symbols):
@@ -53,6 +84,8 @@ def check(args):
              if len(p := line.split()) == 3]
     symbols = {p[2]: int(p[0], 16) for p in lines}
     actions = {int(p[0], 16) for p in lines if p[2] == "HandleInputChooseAction"}
+    switch_handlers = {int(p[0], 16) for p in lines if p[2] == "WaitForMonSelection"}
+    assert actions and switch_handlers
 
     emu = Emulator(args, "fifth-habitat-defeat-fixture", save, test_writes=True)
     try:
@@ -66,17 +99,28 @@ def check(args):
         assert initial_flags == (0xFF, 0x00, 0x60, 0x00), initial_flags
         assert all(initial_items.get(item) == 1 for item in range(361, 365))
         assert 365 not in initial_items
-        original_max_hp = set_hp_fixture(emu, symbols)
+        identities = party_identities(emu, symbols)
+        assert identities == fourth.get("party_identities", identities)
+        assert len(identities) == (2 if args.all_party_hp_fixture else 1), identities
+        original_max_hp = set_hp_fixture(emu, symbols, args.all_party_hp_fixture)
+        assert party_identities(emu, symbols) == identities
 
         emu.send(press_a(2, 180))
-        throws = attempt_trainer_balls(emu, symbols, actions)
-        for cycle in range(80):
-            state = snapshot(emu, symbols)
-            if state["map"] == "4/0":
-                break
-            emu.send(press_a(1, 240))
+        if args.all_party_hp_fixture:
+            throws, loss_switches, loss_cycles = lose_two_member_with_trainer_balls(
+                emu, symbols, actions, switch_handlers, "3/22"
+            )
         else:
-            raise AssertionError("HP fixture did not reach a normal Pantanal defeat")
+            throws = attempt_trainer_balls(emu, symbols, actions)
+            loss_switches = 0
+            for cycle in range(80):
+                state = snapshot(emu, symbols)
+                if state["map"] == "4/0":
+                    loss_cycles = cycle + 1
+                    break
+                emu.send(press_a(1, 240))
+            else:
+                raise AssertionError("HP fixture did not reach a normal Pantanal defeat")
         assert emu.read(symbols["gBattleOutcome"]) == 2, "expected B_OUTCOME_LOST"
         loss_flags = campaign_flag_bytes(emu, symbols)
         assert loss_flags == initial_flags, (initial_flags, loss_flags)
@@ -88,7 +132,12 @@ def check(args):
         assert recovered["map"] == "4/0" and recovered["position"] == [8, 5], recovered
         assert recovered_flags == initial_flags
         assert recovered_items == initial_items
-        assert recovered_health == [[original_max_hp, original_max_hp]], recovered_health
+        assert recovered_health == [[hp, hp] for hp in original_max_hp], recovered_health
+        if args.all_party_hp_fixture:
+            recovered_condition = assert_party_fully_recovered(emu, symbols)
+        else:
+            recovered_condition = None
+        assert party_identities(emu, symbols) == identities
         emu.send(f"shot {args.output / 'recovered-before-fifth-stone.ppm'}")
         save_from_house(emu)
     finally:
@@ -102,6 +151,9 @@ def check(args):
         assert continued == recovered, (recovered, continued)
         assert campaign_flag_bytes(emu, symbols) == recovered_flags
         assert key_items(emu, symbols) == recovered_items
+        assert party_identities(emu, symbols) == identities
+        if args.all_party_hp_fixture:
+            assert_party_fully_recovered(emu, symbols)
         return_to_pantanal(emu, symbols)
         emu.send("run 64 12\nrun 0 60")
         emu.send(press_a(2, 180))
@@ -122,6 +174,9 @@ def check(args):
         assert final_flags == (0xFF, 0x00, 0xE0, 0x01), final_flags
         assert all(final_items.get(item) == 1 for item in range(361, 366)), final_items
         assert final_health and all(hp == max_hp and hp > 0 for hp, max_hp in final_health)
+        assert party_identities(emu, symbols) == identities
+        if args.all_party_hp_fixture:
+            assert_party_fully_recovered(emu, symbols)
         assert emu.read(symbols["sLockFieldControls"]) == 0
         emu.send(f"shot {args.output / 'fifth-stone-after-retry.ppm'}")
     finally:
@@ -133,12 +188,19 @@ def check(args):
         result="PASS",
         partner=args.partner,
         fixture_writes=True,
-        fixture="party slot 0 current HP set to 1; no flags, items or outcomes written",
+        fixture=("all party members current HP set to 1"
+                 if args.all_party_hp_fixture
+                 else "party slot 0 current HP set to 1"),
+        fixture_scope="no flags, items, identities or outcomes written",
         trainer_ball_attempts=throws,
         battle_outcome_loss=2,
+        loss_input_cycles=loss_cycles,
+        mandatory_switches=loss_switches,
+        party_identities=identities,
         recovered=recovered,
         recovered_flag_bytes=list(recovered_flags),
         recovered_party_health=recovered_health,
+        recovered_party_condition=recovered_condition,
         four_stones_preserved_after_loss=True,
         fifth_agent_and_stone_pending_after_loss=True,
         normal_save_continue=True,
@@ -149,9 +211,12 @@ def check(args):
         final_flag_bytes=list(final_flags),
         fifth_stone_received_after_retry=True,
         source_save_preserved=True,
-        scope=("Artificial HP=1 fixture only; normal Pantanal-agent defeat, home "
+        scope=("Artificial HP=1 fixture applied to "
+               + ("both members" if args.all_party_hp_fixture else "the lead member")
+               + "; normal Pantanal-agent defeat, home "
                "recovery, four stones and pending reward preserved, ordinary save/Continue "
-               "with writes disabled, return through prior habitats and normal victory. "
+               "with writes disabled, stable party identities, return through prior "
+               "habitats and normal victory. "
                "Not evidence of naturally accumulated damage or other intermediate agents."),
     )
     (args.output / "results.json").write_text(json.dumps(report, indent=2) + "\n")
@@ -164,4 +229,6 @@ if __name__ == "__main__":
         parser.add_argument("--" + name, type=Path, required=True)
     parser.add_argument("--partner", required=True,
                         choices=["capivagua", "ararafogo", "tatupedra"])
+    parser.add_argument("--all-party-hp-fixture", action="store_true",
+                        help="require two members and set current HP=1 on both")
     check(parser.parse_args())

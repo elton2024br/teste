@@ -11,6 +11,13 @@ from check_stone_revisit import walk_to
 from party_recovery import party_identities
 
 
+PARTNERS = {
+    'capivagua': (0, 1, 7, 'CAPIVÁGUA'),
+    'ararafogo': (1, 2, 4, 'ARARAFOGO'),
+    'tatupedra': (2, 0, 1, 'TATUPEDRA'),
+}
+
+
 def read_bytes(emu, address, size):
     assert address % 4 == size % 4 == 0
     return b''.join(emu.read(address + i, 32).to_bytes(4, 'little') for i in range(0, size, 4))
@@ -33,13 +40,13 @@ def full_party_fixture(emu, symbols):
     return original
 
 
-def assert_party_preserved(emu, symbols, original):
+def assert_party_preserved(emu, symbols, original, starter_species):
     base = symbols['gPlayerParty']
     assert emu.read(symbols['gPlayerPartyCount']) == 6
     lead = read_bytes(emu, base, 100)
     assert lead[:28] == original[:28], 'lead identity changed'
     secure, growth = box_secure_data(lead[:80])
-    assert int.from_bytes(secure[growth:growth + 2], 'little') == 7, 'lead species changed'
+    assert int.from_bytes(secure[growth:growth + 2], 'little') == starter_species, 'lead species changed'
     for slot in range(1, 6):
         assert read_bytes(emu, base + slot * 100, 100) == original, ('party slot changed', slot)
 
@@ -99,18 +106,22 @@ def caught_identity(emu, symbols):
 def check(args):
     args.output.mkdir(parents=True, exist_ok=True)
     assert not any(args.output.iterdir()), 'Use a fresh output directory.'
+    assert not args.full_party_fixture or args.partner == 'capivagua', (
+        'the synthetic full-party regression remains pinned to capivagua'
+    )
     lines = [p for line in args.symbols.read_text().splitlines() if len(p := line.split()) == 3]
     symbols = {p[2]: int(p[0], 16) for p in lines}
     # Static action-handler names repeat in the ELF; examine player battler 0.
     actions = {int(p[0], 16) for p in lines if p[2] == 'HandleInputChooseAction'}
     assert actions
+    down, starter, starter_species, starter_name = PARTNERS[args.partner]
     save = args.output / 'captured.sav'
     emu = Emulator(args, 'capture', save, test_writes=args.full_party_fixture)
     try:
-        emu.send(bootstrap() + press_a(12))  # Capivagua, including five capsules.
+        emu.send(bootstrap() + 'run 128 12\nrun 0 30\n' * down + press_a(12))
         dismiss(emu)
         initial = snapshot(emu, symbols)
-        assert initial == dict(partner=1, flags=1, keyitem=0, party=1, starter=1,
+        assert initial == dict(partner=1, flags=1, keyitem=0, party=1, starter=starter,
                                map='3/0', position=[8, 9]), initial
         before_capsules = capsules(emu, symbols)
         assert before_capsules == 5, before_capsules
@@ -118,7 +129,7 @@ def check(args):
         if args.full_party_fixture:
             pc_capture(emu, symbols, empty=True)
             original = full_party_fixture(emu, symbols)
-            assert_party_preserved(emu, symbols, original)
+            assert_party_preserved(emu, symbols, original, starter_species)
         emu.send('run 16 48\nrun 0 30')
         walk_to(emu, symbols, 64, '3/19', [11, 16])
         emu.send('run 16 64\nrun 0 60')  # Grass at x=15, y=13..16.
@@ -134,7 +145,7 @@ def check(args):
         # The recorded encounter is Tatupedra. Read enemy party before battle
         # initialization finishes copying stats into BattlePokemon.
         wild_level = emu.read(symbols['gEnemyParty'] + 0x54)  # level (unencrypted)
-        assert wild_level == 3, ('expected level-3 encounter', wild_level)
+        assert wild_level in (2, 3), ('expected level-2/3 Tatupedra encounter', wild_level)
         for cycle in range(160):
             hp = emu.read(enemy + 0x28, 32) & 65535
             handler = emu.read(symbols['gBattlerControllerFuncs'], 32) & ~1
@@ -146,7 +157,7 @@ def check(args):
         else:
             raise AssertionError('could not weaken wild creature')
         species = emu.read(enemy, 32) & 65535
-        assert species == 1 and hp == 4, (species, hp)
+        assert species == 1 and 0 < hp <= 6, (species, hp)
         emu.send(f'shot {args.output / "weakened.ppm"}')
         emu.send('run 16 12\nrun 0 30\n' + press_a(1, 180))  # BAG.
         emu.send('run 16 12\nrun 0 90\nrun 16 12\nrun 0 90')  # Ball pocket.
@@ -178,12 +189,12 @@ def check(args):
             caught = pc_capture(emu, symbols)
             assert caught == dict(box=0, slot=0, species=1, nickname='TATUPEDRA', experience=27,
                                   checksum_valid=True), caught
-            assert_party_preserved(emu, symbols, original)
+            assert_party_preserved(emu, symbols, original, starter_species)
         else:
             caught = caught_identity(emu, symbols)
-            assert caught == dict(nickname='TATUPEDRA', level=3), caught
+            assert caught == dict(nickname='TATUPEDRA', level=wild_level), caught
         before = snapshot(emu, symbols)
-        assert before == dict(partner=1, flags=1, keyitem=0, party=expected_party, starter=1,
+        assert before == dict(partner=1, flags=1, keyitem=0, party=expected_party, starter=starter,
                               map='3/19', position=[15, 14]), before
         emu.send(f'shot {args.output / "caught.ppm"}')
         identities = party_identities(emu, symbols)
@@ -200,7 +211,7 @@ def check(args):
         assert continued == before, (before, continued)
         if args.full_party_fixture:
             assert pc_capture(emu, symbols) == caught
-            assert_party_preserved(emu, symbols, original)
+            assert_party_preserved(emu, symbols, original, starter_species)
         else:
             assert caught_identity(emu, symbols) == caught
         continued_identities = party_identities(emu, symbols)
@@ -210,7 +221,9 @@ def check(args):
     finally:
         emu.close()
     report = dict(rom_sha1=hashlib.sha1(args.rom.read_bytes()).hexdigest(), result='PASS',
-                  starter='capivagua', encounter_cycles=step + 1, wild_species=species,
+                  starter=args.partner, starter_species=starter_species,
+                  starter_name=starter_name, encounter_cycles=step + 1,
+                  wild_species=species, wild_level=wild_level,
                   wild_hp_before_throw=hp, caught=caught, outcome=7, throws=attempt + 1,
                   capsules_before=before_capsules, capsules_after=after_capsules,
                   before_save=before, continued=continued, save_bytes=save.stat().st_size,
@@ -232,4 +245,5 @@ if __name__ == '__main__':
     for name in ['runner', 'rom', 'symbols', 'output']:
         parser.add_argument('--' + name, type=Path, required=True)
     parser.add_argument('--full-party-fixture', action='store_true')
+    parser.add_argument('--partner', choices=PARTNERS, default='capivagua')
     check(parser.parse_args())

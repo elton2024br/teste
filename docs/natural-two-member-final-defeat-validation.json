@@ -1,0 +1,46 @@
+{
+  "rom_sha1": "d0955a510c864327d5c57ccc07eb9fdf2da4cd98",
+  "result": "PASS",
+  "routine": 17,
+  "team": [
+    {"slot": 0, "nickname": "CAPIVÁGUA", "species": 7},
+    {"slot": 1, "nickname": "TATUPEDRA", "species": 1}
+  ],
+  "fixture": {
+    "writes_enabled_only_during_preparation": true,
+    "current_hp_set_to_one_for_both_members": true,
+    "flags_items_identities_outcomes_written": false
+  },
+  "defeat": {
+    "battle_outcome": 2,
+    "input_cycles": 25,
+    "mandatory_switches": 1
+  },
+  "recovery": {
+    "party_health": [[26, 26], [18, 18]],
+    "status_cleared_for_both": true,
+    "pp_fully_restored_for_both": true,
+    "flag_bytes": [255, 0, 224, 1],
+    "five_stones_preserved": true
+  },
+  "continue_and_retry": {
+    "writes_disabled": true,
+    "returned_through_all_habitats": true,
+    "win_input_cycles": 40,
+    "final_flag_bytes": [255, 0, 224, 7]
+  },
+  "stable_identity_checks": [
+    "before HP fixture",
+    "after home recovery",
+    "after Continue",
+    "after retry victory"
+  ],
+  "source_save_preserved": true,
+  "single_member_regression": {
+    "result": "PASS",
+    "loss_input_cycles": 18,
+    "mandatory_switches": 0,
+    "win_input_cycles": 51
+  },
+  "scope": "Natural Capivágua plus captured Tatupedra save. HP=1 was prepared artificially on both members; defeat, forced switch, recovery, normal save/Continue, traversal and retry were gameplay-driven. This does not prove naturally accumulated damage or other team compositions."
+}

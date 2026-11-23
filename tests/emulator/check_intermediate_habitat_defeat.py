@@ -13,6 +13,8 @@ from check_second_habitat import fight_cerrado_agent, key_items, party_health
 from check_third_habitat import fight_caatinga_agent
 from check_fourth_habitat import campaign_flag_bytes, fight_atlantic_agent
 from check_campaign_final_defeat import finish_recovery, save_from_house, set_hp_fixture
+from check_fifth_habitat_defeat import lose_two_member_with_trainer_balls
+from party_recovery import assert_party_fully_recovered, party_identities
 
 
 HOUSE_TO_VILLAGE = (
@@ -88,10 +90,14 @@ def check(args):
     source_report = json.loads((args.source_results / "results.json").read_text())
     assert source_report["rom_sha1"] == digest
     if args.stage == "second":
+        partner_cases = [case for case in source_report["cases"]
+                         if case["partner"] == args.partner]
         partners = [case["partner"] for case in source_report["cases"]]
         assert partners.count(args.partner) == 1, (args.partner, partners)
+        expected_identities = partner_cases[0].get("party_identities")
     else:
         assert source_report["partner"] == args.partner
+        expected_identities = source_report.get("party_identities")
     source = stage["source_save"](args.source_results, args.partner)
     source_hash = hashlib.sha256(source.read_bytes()).hexdigest()
     save = args.output / (args.stage + "-habitat-defeat.sav")
@@ -100,6 +106,8 @@ def check(args):
              if len(p := line.split()) == 3]
     symbols = {p[2]: int(p[0], 16) for p in lines}
     actions = {int(p[0], 16) for p in lines if p[2] == "HandleInputChooseAction"}
+    switch_handlers = {int(p[0], 16) for p in lines if p[2] == "WaitForMonSelection"}
+    assert actions and switch_handlers
 
     emu = Emulator(args, args.stage + "-habitat-defeat-fixture", save, test_writes=True)
     try:
@@ -112,18 +120,30 @@ def check(args):
         assert initial_flags == stage["flags_before"], initial_flags
         assert all(initial_items.get(item) == 1 for item in range(361, stage["stone"]))
         assert stage["stone"] not in initial_items
-        original_max_hp = set_hp_fixture(emu, symbols)
+        identities = party_identities(emu, symbols)
+        if expected_identities is not None:
+            assert identities == expected_identities
+        assert len(identities) == (2 if args.all_party_hp_fixture else 1), identities
+        original_max_hp = set_hp_fixture(emu, symbols, args.all_party_hp_fixture)
+        assert party_identities(emu, symbols) == identities
         emu.send(f"shot {args.output / 'hp-fixture-before-battle.ppm'}")
 
         emu.send(press_a(2, 180))
-        throws = attempt_trainer_balls(emu, symbols, actions)
-        for _ in range(80):
-            state = snapshot(emu, symbols)
-            if state["map"] == "4/0":
-                break
-            emu.send(press_a(1, 240))
+        if args.all_party_hp_fixture:
+            throws, loss_switches, loss_cycles = lose_two_member_with_trainer_balls(
+                emu, symbols, actions, switch_handlers, stage["map"]
+            )
         else:
-            raise AssertionError("HP fixture did not reach a normal defeat")
+            throws = attempt_trainer_balls(emu, symbols, actions)
+            loss_switches = 0
+            for cycle in range(80):
+                state = snapshot(emu, symbols)
+                if state["map"] == "4/0":
+                    loss_cycles = cycle + 1
+                    break
+                emu.send(press_a(1, 240))
+            else:
+                raise AssertionError("HP fixture did not reach a normal defeat")
         assert emu.read(symbols["gBattleOutcome"]) == 2, "expected B_OUTCOME_LOST"
         assert campaign_flag_bytes(emu, symbols) == initial_flags
         assert key_items(emu, symbols) == initial_items
@@ -133,7 +153,12 @@ def check(args):
         assert recovered["map"] == "4/0" and recovered["position"] == [8, 5], recovered
         assert campaign_flag_bytes(emu, symbols) == initial_flags
         assert key_items(emu, symbols) == initial_items
-        assert recovered_health == [[original_max_hp, original_max_hp]], recovered_health
+        assert recovered_health == [[hp, hp] for hp in original_max_hp], recovered_health
+        if args.all_party_hp_fixture:
+            recovered_condition = assert_party_fully_recovered(emu, symbols)
+        else:
+            recovered_condition = None
+        assert party_identities(emu, symbols) == identities
         emu.send(f"shot {args.output / 'recovered-with-stone-pending.ppm'}")
         save_from_house(emu)
     finally:
@@ -147,6 +172,9 @@ def check(args):
         assert continued == recovered, (recovered, continued)
         assert campaign_flag_bytes(emu, symbols) == initial_flags
         assert key_items(emu, symbols) == initial_items
+        assert party_identities(emu, symbols) == identities
+        if args.all_party_hp_fixture:
+            assert_party_fully_recovered(emu, symbols)
         emu.send(HOUSE_TO_VILLAGE + "\n" + stage["return"])
         returned = assert_checkpoint(emu, symbols, stage)
         emu.send(press_a(2, 180))
@@ -167,6 +195,9 @@ def check(args):
         assert final_flags == stage["flags_after"], final_flags
         assert all(final_items.get(item) == 1 for item in range(361, stage["stone"] + 1))
         assert final_health and all(hp == max_hp and hp > 0 for hp, max_hp in final_health)
+        assert party_identities(emu, symbols) == identities
+        if args.all_party_hp_fixture:
+            assert_party_fully_recovered(emu, symbols)
         assert emu.read(symbols["sLockFieldControls"]) == 0
         emu.send(f"shot {args.output / 'stone-after-retry.ppm'}")
     finally:
@@ -180,14 +211,21 @@ def check(args):
         habitat=stage["label"],
         partner=args.partner,
         fixture_writes=True,
-        fixture="party slot 0 current HP set to 1; no flags, items or outcomes written",
+        fixture=("all party members current HP set to 1"
+                 if args.all_party_hp_fixture
+                 else "party slot 0 current HP set to 1"),
+        fixture_scope="no flags, items, identities or outcomes written",
         source=stage["source_kind"] + " save with ordinary Continue",
         trainer_ball_attempts=throws,
         battle_outcome_loss=2,
+        loss_input_cycles=loss_cycles,
+        mandatory_switches=loss_switches,
+        party_identities=identities,
         entered=entered,
         recovered=recovered,
         recovered_flag_bytes=list(initial_flags),
         recovered_party_health=recovered_health,
+        recovered_party_condition=recovered_condition,
         pending_stone_preserved_after_loss=True,
         normal_save_continue=True,
         continued=continued,
@@ -197,9 +235,12 @@ def check(args):
         final_flag_bytes=list(final_flags),
         pending_stone_received_after_retry=True,
         source_save_preserved=True,
-        scope=("Artificial HP=1 fixture only; normal intermediate-agent defeat, home "
+        scope=("Artificial HP=1 fixture applied to "
+               + ("both members" if args.all_party_hp_fixture else "the lead member")
+               + "; normal intermediate-agent defeat, home "
                "recovery, prior stones and pending reward preserved, ordinary save/Continue "
-               "with writes disabled, return through prior habitats and normal victory. "
+               "with writes disabled, stable party identities, return through prior "
+               "habitats and normal victory. "
                "Not evidence of naturally accumulated damage."),
     )
     (args.output / "results.json").write_text(json.dumps(report, indent=2) + "\n")
@@ -213,4 +254,6 @@ if __name__ == "__main__":
     parser.add_argument("--stage", required=True, choices=STAGES)
     parser.add_argument("--partner", required=True,
                         choices=["capivagua", "ararafogo", "tatupedra"])
+    parser.add_argument("--all-party-hp-fixture", action="store_true",
+                        help="require two members and set current HP=1 on both")
     check(parser.parse_args())
