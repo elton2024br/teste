@@ -10,6 +10,8 @@ from check_intro import Emulator
 from check_starters import press_a
 from check_defeat_recovery import snapshot
 from check_second_habitat import key_items, party_health
+from party_recovery import (apply_two_member_recovery_fixture,
+                            assert_party_fully_recovered)
 
 
 def campaign_flag_bytes(emu, symbols):
@@ -49,7 +51,7 @@ def check(args):
     symbols = {p[2]: int(p[0], 16) for line in args.symbols.read_text().splitlines()
                if len(p := line.split()) == 3}
 
-    emu = Emulator(args, "fourth-habitat", save)
+    emu = Emulator(args, "fourth-habitat", save, test_writes=args.recovery_fixture)
     try:
         emu.send("run 0 300\nrun 8 20\nrun 0 100\n"
                  "run 1 30\nrun 0 1200\nrun 2 30\nrun 0 1200")
@@ -59,6 +61,11 @@ def check(args):
         items = key_items(emu, symbols)
         assert items.get(361) == items.get(362) == items.get(363) == 1
         assert 364 not in items
+        fixture_before = None
+        if args.recovery_fixture:
+            fixture_before = apply_two_member_recovery_fixture(
+                emu, symbols, add_second_member=False
+            )
 
         # The tile east of the Caatinga checkpoint is the provisional exit.
         emu.send("run 16 20\nrun 0 600\nrun 64 12\nrun 0 60")
@@ -87,6 +94,8 @@ def check(args):
         assert all(items.get(item) == 1 for item in (361, 362, 363, 364)), items
         healed = party_health(emu, symbols)
         assert healed and all(hp == max_hp and hp > 0 for hp, max_hp in healed), healed
+        full_recovery = (assert_party_fully_recovered(emu, symbols)
+                         if args.recovery_fixture else None)
         assert emu.read(symbols["sLockFieldControls"]) == 0
         emu.send(f"shot {args.output / 'forest-stone.ppm'}")
 
@@ -106,6 +115,8 @@ def check(args):
         assert continued_flags == rewarded_flags
         items_after = key_items(emu, symbols)
         assert all(items_after.get(item) == 1 for item in (361, 362, 363, 364))
+        continued_recovery = (assert_party_fully_recovered(emu, symbols)
+                              if args.recovery_fixture else None)
         emu.send(f"shot {args.output / 'continued.ppm'}")
     finally:
         emu.close()
@@ -117,7 +128,10 @@ def check(args):
         source_save_sha256=source_hash,
         partner=args.partner,
         source_third_habitat="fresh third mission with ordinary save/Continue",
-        test_writes=False,
+        test_writes=args.recovery_fixture,
+        recovery_fixture_before=fixture_before,
+        full_recovery=full_recovery,
+        continued_recovery=continued_recovery,
         initial=initial,
         entered=entered,
         battle_input_cycles=cycles,
@@ -130,7 +144,10 @@ def check(args):
                 "drought": items_after[363], "forest": items_after[364]},
         scope=("Native third-mission save; Caatinga east transition; Mata Atlântica "
                "battle, four unique key items, normal save and Continue. Uses "
-               "provisional inherited map art and does not validate habitat five."),
+               "provisional inherited map art and does not validate habitat five."
+               + (" The opt-in recovery fixture changes only the two-member party's "
+                  "condition to verify full-team HP/status/PP recovery."
+                  if args.recovery_fixture else "")),
     )
     (args.output / "results.json").write_text(json.dumps(report, indent=2) + "\n")
     print("fourth habitat/battle/forest stone/save/Continue: PASS", flush=True)
@@ -142,4 +159,5 @@ if __name__ == "__main__":
         parser.add_argument("--" + name, type=Path, required=True)
     parser.add_argument("--partner", required=True,
                         choices=["capivagua", "ararafogo", "tatupedra"])
+    parser.add_argument("--recovery-fixture", action="store_true")
     check(parser.parse_args())

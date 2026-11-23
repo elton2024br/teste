@@ -1,0 +1,56 @@
+{
+  "rom_sha1": "d0955a510c864327d5c57ccc07eb9fdf2da4cd98",
+  "result": "PASS",
+  "fixture": {
+    "writes_enabled_only_during_condition_setup": true,
+    "second_member": "byte-for-byte clone of the valid chosen partner",
+    "before_each_habitat_route": {
+      "party_size": 2,
+      "both_members_hp": "maximum minus one",
+      "second_member_status": "poison",
+      "non-primary_pp_reduced": true,
+      "encrypted_checksum_recalculated": true
+    },
+    "flags_items_battle_results_and_rewards_written": false
+  },
+  "cases": [
+    {
+      "partner": "capivagua",
+      "habitat_rewards_checked": 4,
+      "members_checked_per_reward": 2,
+      "final_battle_input_cycles": 51,
+      "final_party_health": [[26, 26], [24, 24]],
+      "campaign_complete": true
+    },
+    {
+      "partner": "ararafogo",
+      "habitat_rewards_checked": 4,
+      "members_checked_per_reward": 2,
+      "final_battle_input_cycles": 45,
+      "final_party_health": [[23, 23], [21, 21]],
+      "campaign_complete": true
+    },
+    {
+      "partner": "tatupedra",
+      "habitat_rewards_checked": 4,
+      "members_checked_per_reward": 2,
+      "final_battle_input_cycles": 46,
+      "final_party_health": [[27, 27], [24, 24]],
+      "campaign_complete": true
+    }
+  ],
+  "assertions": {
+    "full_team_reward_checkpoints": 12,
+    "member_recoveries_checked": 24,
+    "hp_fully_restored": true,
+    "poison_cleared": true,
+    "all_move_pp_fully_restored": true,
+    "normal_save_continue_after_every_reward": true,
+    "recovery_preserved_after_continue": true,
+    "two_member_campaigns_reached_ending": 3,
+    "five_stones_preserved": true,
+    "source_saves_preserved": true,
+    "default_single_member_regression": "PASS"
+  },
+  "scope": "Synthetic two-member condition fixture across Cerrado, Caatinga, Mata Atlantica and Pantanal, followed by an unmodified-process Terras Raras ending. It validates full-party HP, poison and PP recovery plus native save/Continue for all three partners. It does not prove natural acquisition of the second member, deliberate battle switching or fainting, a six-member team, PP Up edge cases or other status conditions."
+}

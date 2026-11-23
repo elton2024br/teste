@@ -9,6 +9,8 @@ import shutil
 from check_intro import Emulator
 from check_starters import press_a
 from check_defeat_recovery import dismiss, snapshot
+from party_recovery import (apply_two_member_recovery_fixture,
+                            assert_party_fully_recovered)
 
 
 def key_items(emu, symbols):
@@ -71,7 +73,7 @@ def check(args):
     symbols = {p[2]: int(p[0], 16) for line in args.symbols.read_text().splitlines()
                if len(p := line.split()) == 3}
 
-    emu = Emulator(args, "second-habitat", save)
+    emu = Emulator(args, "second-habitat", save, test_writes=args.recovery_fixture)
     try:
         emu.send("run 0 300\nrun 8 20\nrun 0 100\n"
                  "run 1 30\nrun 0 1200\nrun 2 30\nrun 0 1200")
@@ -79,6 +81,11 @@ def check(args):
         assert initial == first_case["continued"], initial
         assert key_items(emu, symbols).get(361) == 1
         assert 362 not in key_items(emu, symbols)
+        fixture_before = None
+        if args.recovery_fixture:
+            fixture_before = apply_two_member_recovery_fixture(
+                emu, symbols, add_second_member=True
+            )
 
         # Village -> first habitat -> new north exit -> Campo Cerrado.
         emu.send("run 16 48\nrun 0 30\nrun 64 700\nrun 0 30\n"
@@ -109,6 +116,8 @@ def check(args):
         assert items.get(361) == items.get(362) == 1, items
         healed = party_health(emu, symbols)
         assert healed and all(hp == max_hp and hp > 0 for hp, max_hp in healed), healed
+        full_recovery = (assert_party_fully_recovered(emu, symbols)
+                         if args.recovery_fixture else None)
         assert emu.read(symbols["sLockFieldControls"]) == 0
         emu.send(f"shot {args.output / 'root-stone.ppm'}")
 
@@ -127,6 +136,8 @@ def check(args):
         assert continued == rewarded, (rewarded, continued)
         items_after = key_items(emu, symbols)
         assert items_after.get(361) == items_after.get(362) == 1
+        continued_recovery = (assert_party_fully_recovered(emu, symbols)
+                              if args.recovery_fixture else None)
         emu.send(f"shot {args.output / 'continued.ppm'}")
     finally:
         emu.close()
@@ -138,7 +149,10 @@ def check(args):
         source_save_sha256=source_hash,
         partner=partner,
         source_first_mission="fresh first mission with ordinary save/Continue",
-        test_writes=False,
+        test_writes=args.recovery_fixture,
+        recovery_fixture_before=fixture_before,
+        full_recovery=full_recovery,
+        continued_recovery=continued_recovery,
         initial=initial,
         entered=entered,
         battle_input_cycles=cycles,
@@ -149,7 +163,10 @@ def check(args):
         scope=("Native first-mission save; walk through the new forest connection; "
                "Cerrado battle, two unique key items, normal save and Continue. "
                "Does not validate the other two partners, full key-item pocket, "
-               "the northern Route 2 campaign, or final art."),
+               "the northern Route 2 campaign, or final art."
+               + (" The opt-in recovery fixture clones the valid partner into slot 2, "
+                  "then changes only party condition to verify full-team HP/status/PP recovery."
+                  if args.recovery_fixture else "")),
     )
     (args.output / "results.json").write_text(json.dumps(report, indent=2) + "\n")
     print("second habitat/battle/root stone/save/Continue: PASS", flush=True)
@@ -161,4 +178,5 @@ if __name__ == "__main__":
         parser.add_argument("--" + name, type=Path, required=True)
     parser.add_argument("--partner", required=True,
                         choices=["capivagua", "ararafogo", "tatupedra"])
+    parser.add_argument("--recovery-fixture", action="store_true")
     check(parser.parse_args())
