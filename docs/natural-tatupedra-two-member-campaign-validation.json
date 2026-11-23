@@ -1,0 +1,46 @@
+{
+  "rom_sha1": "1e73fe878d2c90cbcf5fe52f1cf1227301c3434b",
+  "result": "PASS",
+  "routine": 18,
+  "team": [
+    {"slot": 0, "nickname": "TATUPEDRA", "species": 1},
+    {"slot": 1, "nickname": "ARARAFOGO", "species": 4, "captured_level": 4}
+  ],
+  "capture": {
+    "natural_encounter": true,
+    "memory_writes": false,
+    "weakening_move": "Mud-Slap",
+    "wild_hp_before_throw": 8,
+    "normal_delay_frames": 90,
+    "throws": 1,
+    "capsules_before": 5,
+    "capsules_after": 4,
+    "ordinary_save_continue": true
+  },
+  "campaign": {
+    "first_mission_cycles": 77,
+    "first_mission_mandatory_switches": 1,
+    "cerrado_cycles": 30,
+    "caatinga_cycles": 48,
+    "mata_atlantica_cycles": 75,
+    "pantanal_cycles": 49,
+    "tio_sam_cycles": 40,
+    "five_stones_received": true,
+    "restored_sanctuary_visits": 2,
+    "save_continue_after_each_stage": true
+  },
+  "final_defeat_retry": {
+    "artificial_hp_one_for_both": true,
+    "battle_outcome_loss": 2,
+    "loss_input_cycles": 25,
+    "mandatory_switches": 1,
+    "full_recovery_both_members": true,
+    "five_stones_preserved": true,
+    "normal_save_continue": true,
+    "retry_win_input_cycles": 40,
+    "final_flag_bytes": [255, 0, 224, 7]
+  },
+  "identity": "personality, OT ID, species and nickname preserved throughout capture, rewards, Continue, ending and final defeat retry",
+  "source_saves_preserved": true,
+  "scope": "One deterministic Tatupedra plus level-4 Ararafogo capture and complete campaign. The 90-frame wait is ordinary emulation time and does not write RNG or outcomes. This does not measure catch rates, all team compositions or final balance. The final defeat uses only an artificial current-HP condition; battle outcomes and recovery are gameplay-driven."
+}

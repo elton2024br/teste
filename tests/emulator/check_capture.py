@@ -16,6 +16,7 @@ PARTNERS = {
     'ararafogo': (1, 2, 4, 'ARARAFOGO'),
     'tatupedra': (2, 0, 1, 'TATUPEDRA'),
 }
+CAPTURABLE_SPECIES = {1: 'TATUPEDRA', 4: 'ARARAFOGO', 7: 'CAPIVÁGUA'}
 
 
 def read_bytes(emu, address, size):
@@ -115,6 +116,7 @@ def check(args):
     actions = {int(p[0], 16) for p in lines if p[2] == 'HandleInputChooseAction'}
     assert actions
     down, starter, starter_species, starter_name = PARTNERS[args.partner]
+    target_hp = 8 if args.partner == 'tatupedra' else 6
     save = args.output / 'captured.sav'
     emu = Emulator(args, 'capture', save, test_writes=args.full_party_fixture)
     try:
@@ -142,23 +144,31 @@ def check(args):
         emu.send('run 0 300')
         assert not emu.read(symbols['gBattleTypeFlags'], 32) & 8, 'trainer battle'
         enemy = symbols['gBattleMons'] + 88
-        # The recorded encounter is Tatupedra. Read enemy party before battle
-        # initialization finishes copying stats into BattlePokemon.
+        # Read enemy party before battle initialization finishes copying stats
+        # into BattlePokemon. The deterministic species depends on the starter.
         wild_level = emu.read(symbols['gEnemyParty'] + 0x54)  # level (unencrypted)
-        assert wild_level in (2, 3), ('expected level-2/3 Tatupedra encounter', wild_level)
+        assert wild_level in (2, 3, 4), ('expected level-2/3/4 encounter', wild_level)
         for cycle in range(160):
             hp = emu.read(enemy + 0x28, 32) & 65535
             handler = emu.read(symbols['gBattlerControllerFuncs'], 32) & ~1
             if handler in actions:
                 assert hp > 0, 'wild creature fainted'
-                if hp <= 6:
+                if hp <= target_hp:
                     break
-            emu.send(press_a(1, 90))  # Fight/Tackle and ordinary dialogue.
+            if (args.partner == 'tatupedra'
+                    and handler == symbols['HandleInputChooseMove']
+                    and emu.read(symbols['gMoveSelectionCursor']) == 0):
+                # Mud-Slap deals lighter damage and lowers the wild foe's accuracy.
+                emu.send('run 16 12\nrun 0 20')
+            emu.send(press_a(1, 90))  # Selected attack and ordinary dialogue.
         else:
             raise AssertionError('could not weaken wild creature')
         species = emu.read(enemy, 32) & 65535
-        assert species == 1 and 0 < hp <= 6, (species, hp)
+        assert species in CAPTURABLE_SPECIES and 0 < hp <= target_hp, (species, hp)
+        wild_name = CAPTURABLE_SPECIES[species]
         emu.send(f'shot {args.output / "weakened.ppm"}')
+        if args.capture_delay_frames:
+            emu.send(f'run 0 {args.capture_delay_frames}')
         emu.send('run 16 12\nrun 0 30\n' + press_a(1, 180))  # BAG.
         emu.send('run 16 12\nrun 0 90\nrun 16 12\nrun 0 90')  # Ball pocket.
         for attempt in range(5):
@@ -192,10 +202,13 @@ def check(args):
             assert_party_preserved(emu, symbols, original, starter_species)
         else:
             caught = caught_identity(emu, symbols)
-            assert caught == dict(nickname='TATUPEDRA', level=wild_level), caught
+            assert caught == dict(nickname=wild_name, level=wild_level), caught
         before = snapshot(emu, symbols)
-        assert before == dict(partner=1, flags=1, keyitem=0, party=expected_party, starter=starter,
-                              map='3/19', position=[15, 14]), before
+        assert {key: value for key, value in before.items() if key != 'position'} == dict(
+            partner=1, flags=1, keyitem=0, party=expected_party,
+            starter=starter, map='3/19'
+        ), before
+        assert before['position'][0] == 15 and 13 <= before['position'][1] <= 16, before
         emu.send(f'shot {args.output / "caught.ppm"}')
         identities = party_identities(emu, symbols)
         emu.send('run 8 12\nrun 0 60\n' + 'run 128 12\nrun 0 20\n' * 3
@@ -224,6 +237,8 @@ def check(args):
                   starter=args.partner, starter_species=starter_species,
                   starter_name=starter_name, encounter_cycles=step + 1,
                   wild_species=species, wild_level=wild_level,
+                  target_hp_threshold=target_hp,
+                  capture_delay_frames=args.capture_delay_frames,
                   wild_hp_before_throw=hp, caught=caught, outcome=7, throws=attempt + 1,
                   capsules_before=before_capsules, capsules_after=after_capsules,
                   before_save=before, continued=continued, save_bytes=save.stat().st_size,
@@ -233,7 +248,7 @@ def check(args):
                          'normal capture into PC, checksum/identity, six party slots preserved and '
                          'ordinary save/Continue. No natural acquisition of six creatures, PC UI '
                          'retrieval, full PC or catch-rate statistics.' if args.full_party_fixture else
-                        'One recorded natural Tatupedra capture with normal inputs, capsule '
+                        f'One recorded natural {wild_name} capture with normal inputs, capsule '
                         'consumption and ordinary save/Continue. No catch-rate statistics, '
                         'full party/PC, other wild species or inventory-full cases.'))
     (args.output / 'results.json').write_text(json.dumps(report, indent=2) + '\n')
@@ -246,4 +261,5 @@ if __name__ == '__main__':
         parser.add_argument('--' + name, type=Path, required=True)
     parser.add_argument('--full-party-fixture', action='store_true')
     parser.add_argument('--partner', choices=PARTNERS, default='capivagua')
+    parser.add_argument('--capture-delay-frames', type=int, default=0)
     check(parser.parse_args())

@@ -233,3 +233,7 @@ const u16 gFieldEffectObjectPic_Bird[] = INCBIN_U16("graphics/field_effects/pics
 
 const u16 gObjectEventPic_AmazonStorageTerminal[] = INCBIN_U16("graphics/object_events/pics/misc/amazon_storage_terminal.4bpp");
 const u16 gObjectEventPic_AmazonRareSanctuary[] = INCBIN_U16("graphics/object_events/pics/misc/amazon_rare_sanctuary.4bpp");
+const u16 gObjectEventPic_AmazonStoneWater[] = INCBIN_U16("graphics/object_events/pics/misc/amazon_stone_water.4bpp");
+const u16 gObjectEventPic_AmazonStoneRoots[] = INCBIN_U16("graphics/object_events/pics/misc/amazon_stone_roots.4bpp");
+const u16 gObjectEventPic_AmazonStoneDrought[] = INCBIN_U16("graphics/object_events/pics/misc/amazon_stone_drought.4bpp");
+const u16 gObjectEventPic_AmazonStoneForest[] = INCBIN_U16("graphics/object_events/pics/misc/amazon_stone_forest.4bpp");

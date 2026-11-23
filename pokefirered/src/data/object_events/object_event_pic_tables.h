@@ -1760,3 +1760,19 @@ static const struct SpriteFrameImage sPicTable_AmazonStorageTerminal[] = {
 static const struct SpriteFrameImage sPicTable_AmazonRareSanctuary[] = {
     overworld_frame(gObjectEventPic_AmazonRareSanctuary, 2, 2, 0),
 };
+
+static const struct SpriteFrameImage sPicTable_AmazonStoneWater[] = {
+    overworld_frame(gObjectEventPic_AmazonStoneWater, 2, 2, 0),
+};
+
+static const struct SpriteFrameImage sPicTable_AmazonStoneRoots[] = {
+    overworld_frame(gObjectEventPic_AmazonStoneRoots, 2, 2, 0),
+};
+
+static const struct SpriteFrameImage sPicTable_AmazonStoneDrought[] = {
+    overworld_frame(gObjectEventPic_AmazonStoneDrought, 2, 2, 0),
+};
+
+static const struct SpriteFrameImage sPicTable_AmazonStoneForest[] = {
+    overworld_frame(gObjectEventPic_AmazonStoneForest, 2, 2, 0),
+};

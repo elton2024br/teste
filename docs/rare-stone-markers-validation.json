@@ -1,0 +1,30 @@
+{
+  "rom_sha1": "1e73fe878d2c90cbcf5fe52f1cf1227301c3434b",
+  "result": "PASS",
+  "routine": 18,
+  "objects": [
+    {"name": "Água", "graphics_id": 154, "position": [4, 7], "symbol": "drop"},
+    {"name": "Raízes", "graphics_id": 155, "position": [6, 7], "symbol": "branching roots"},
+    {"name": "Seca", "graphics_id": 156, "position": [4, 9], "symbol": "sun"},
+    {"name": "Mata", "graphics_id": 157, "position": [6, 9], "symbol": "leaf"}
+  ],
+  "asset": {
+    "size": [16, 16],
+    "palette": "npc_green.pal",
+    "transparent_index": 0,
+    "reproducible_converter": "tools/build_rare_stone_markers.py",
+    "positions_scripts_flags_preserved": true
+  },
+  "emulator": {
+    "fresh_capivagua_campaign": "PASS",
+    "fresh_tatupedra_plus_ararafogo_campaign": "PASS",
+    "markers_interacted": ["water", "roots", "drought", "forest"],
+    "tio_sam_battles_won": 2,
+    "restored_sanctuary_visits": 4,
+    "normal_save_continue": true,
+    "tatupedra_team_final_defeat_recovery_retry": "PASS"
+  },
+  "visual_preview_reviewed": true,
+  "preview": "docs/screenshots/rare-stone-markers/preview.png",
+  "scope": "Four original markers replace inherited breakable-rock graphics without moving the campaign axis. The Flood marker and restored sanctuary retain their existing transition. The surrounding Cerulean-derived map, building, cliffs and music remain provisional."
+}

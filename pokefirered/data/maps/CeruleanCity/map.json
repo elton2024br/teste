@@ -69,7 +69,7 @@
     {
       "local_id": "LOCALID_AMAZON_RARE_MARKER_WATER",
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
+      "graphics_id": "OBJ_EVENT_GFX_AMAZON_STONE_WATER",
       "x": 4,
       "y": 7,
       "elevation": 3,
@@ -84,7 +84,7 @@
     {
       "local_id": "LOCALID_AMAZON_RARE_MARKER_ROOTS",
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
+      "graphics_id": "OBJ_EVENT_GFX_AMAZON_STONE_ROOTS",
       "x": 6,
       "y": 7,
       "elevation": 3,
@@ -99,7 +99,7 @@
     {
       "local_id": "LOCALID_AMAZON_RARE_MARKER_DROUGHT",
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
+      "graphics_id": "OBJ_EVENT_GFX_AMAZON_STONE_DROUGHT",
       "x": 4,
       "y": 9,
       "elevation": 3,
@@ -114,7 +114,7 @@
     {
       "local_id": "LOCALID_AMAZON_RARE_MARKER_FOREST",
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
+      "graphics_id": "OBJ_EVENT_GFX_AMAZON_STONE_FOREST",
       "x": 6,
       "y": 9,
       "elevation": 3,

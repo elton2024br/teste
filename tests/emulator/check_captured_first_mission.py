@@ -59,8 +59,10 @@ def check(args):
     partner = capture["starter"]
     starter, starter_species, starter_name = PARTNERS[partner]
     expected_identities = capture["party_identities"]
-    assert [mon["species"] for mon in expected_identities] == [starter_species, 1]
-    assert [mon["nickname"] for mon in expected_identities] == [starter_name, "TATUPEDRA"]
+    assert expected_identities[0]["species"] == starter_species
+    assert expected_identities[0]["nickname"] == starter_name
+    assert expected_identities[1]["species"] == capture["wild_species"]
+    assert expected_identities[1]["nickname"] == capture["caught"]["nickname"]
 
     source = args.capture_results / "captured.sav"
     source_hash = hashlib.sha256(source.read_bytes()).hexdigest()
