@@ -1,5 +1,5 @@
 {
-  "rom_sha1": "d99fc62a68c07488568c23e5c560d4774762572f",
+  "rom_sha1": "d0955a510c864327d5c57ccc07eb9fdf2da4cd98",
   "result": "PASS",
   "starter": "capivagua",
   "encounter_cycles": 5,
@@ -39,5 +39,21 @@
   },
   "save_bytes": 131088,
   "synthetic_full_party": false,
+  "party_identities": [
+    {
+      "slot": 0,
+      "personality": 3544455769,
+      "ot_id": 1355066456,
+      "species": 7,
+      "nickname": "CAPIVÁGUA"
+    },
+    {
+      "slot": 1,
+      "personality": 2382274700,
+      "ot_id": 1355066456,
+      "species": 1,
+      "nickname": "TATUPEDRA"
+    }
+  ],
   "scope": "One recorded natural Tatupedra capture with normal inputs, capsule consumption and ordinary save/Continue. No catch-rate statistics, full party/PC, other wild species or inventory-full cases."
 }

@@ -1,6 +1,4 @@
-"""Opt-in two-member fixture and full HP/status/PP inspection helpers."""
-
-from check_capture import read_bytes
+"""Party identity and opt-in full HP/status/PP fixture helpers."""
 
 
 SUBSTRUCT_ORDERS = (
@@ -11,6 +9,12 @@ SUBSTRUCT_ORDERS = (
     (2, 3, 0, 1), (3, 2, 0, 1), (1, 2, 3, 0), (1, 3, 2, 0),
     (2, 1, 3, 0), (3, 1, 2, 0), (2, 3, 1, 0), (3, 2, 1, 0),
 )
+
+
+def read_bytes(emu, address, size):
+    assert address % 4 == size % 4 == 0
+    return b"".join(emu.read(address + i, 32).to_bytes(4, "little")
+                    for i in range(0, size, 4))
 
 
 def _write_bytes(emu, address, raw):
@@ -48,6 +52,33 @@ def _moves_offset(raw):
     personality = int.from_bytes(raw[0:4], "little")
     # Each tuple maps logical substruct type -> physical encrypted slot.
     return SUBSTRUCT_ORDERS[personality % 24][1] * 12
+
+
+def party_identities(emu, symbols):
+    count = emu.read(symbols["gPlayerPartyCount"])
+    base = symbols["gPlayerParty"]
+    result = []
+    for slot in range(count):
+        raw = bytearray(read_bytes(emu, base + slot * 100, 100))
+        personality = int.from_bytes(raw[0:4], "little")
+        secure = _decrypt_secure(raw)
+        growth_offset = SUBSTRUCT_ORDERS[personality % 24][0] * 12
+        glyphs = list(raw[8:18])
+        assert 0xFF in glyphs, glyphs
+        glyphs = glyphs[:glyphs.index(0xFF)]
+        assert all(0xBB <= glyph <= 0xD4 or glyph == 0x02 for glyph in glyphs), glyphs
+        nickname = "".join("Á" if glyph == 0x02
+                           else chr(glyph - 0xBB + ord("A")) for glyph in glyphs)
+        result.append({
+            "slot": slot,
+            "personality": personality,
+            "ot_id": int.from_bytes(raw[4:8], "little"),
+            "species": int.from_bytes(
+                secure[growth_offset:growth_offset + 2], "little"
+            ),
+            "nickname": nickname,
+        })
+    return result
 
 
 def _max_pp(emu, symbols, move, bonus):

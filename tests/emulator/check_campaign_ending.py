@@ -10,6 +10,7 @@ from check_intro import Emulator
 from check_starters import press_a
 from check_defeat_recovery import snapshot
 from check_second_habitat import key_items, party_health
+from party_recovery import party_identities
 
 
 def campaign_flag_bytes(emu, symbols):
@@ -85,6 +86,8 @@ def check(args):
                  "run 1 30\nrun 0 1200\nrun 2 30\nrun 0 1200")
         initial = snapshot(emu, symbols)
         assert initial == fifth["continued"], (initial, fifth["continued"])
+        identities = party_identities(emu, symbols)
+        assert identities == fifth.get("party_identities", identities)
         assert campaign_flag_bytes(emu, symbols) == (0xFF, 0x00, 0xE0, 0x01)
         items = key_items(emu, symbols)
         assert all(items.get(item) == 1 for item in (361, 362, 363, 364, 365))
@@ -115,6 +118,7 @@ def check(args):
                 break
             emu.send("run 2 12\nrun 0 180")
         ended = snapshot(emu, symbols)
+        assert party_identities(emu, symbols) == identities
         ended_flags = campaign_flag_bytes(emu, symbols)
         assert ended_flags == (0xFF, 0x00, 0xE0, 0x07), ended_flags
         items = key_items(emu, symbols)
@@ -145,6 +149,8 @@ def check(args):
         assert continued == ended, (ended, continued)
         continued_flags = campaign_flag_bytes(emu, symbols)
         assert continued_flags == ended_flags
+        continued_identities = party_identities(emu, symbols)
+        assert continued_identities == identities
         items_after = key_items(emu, symbols)
         assert all(items_after.get(item) == 1 for item in (361, 362, 363, 364, 365))
         emu.send("run 128 36\nrun 0 60\nrun 64 4\nrun 0 30")
@@ -171,6 +177,7 @@ def check(args):
         ended=ended,
         ended_flag_bytes=list(ended_flags),
         continued=continued,
+        party_identities=continued_identities,
         continued_flag_bytes=list(continued_flags),
         rare_stone_markers_checked=["water", "roots", "drought", "forest", "flood"],
         restored_sanctuary_visits=2,

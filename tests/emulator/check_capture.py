@@ -8,6 +8,7 @@ from check_intro import Emulator
 from check_starters import bootstrap, press_a
 from check_defeat_recovery import dismiss, snapshot
 from check_stone_revisit import walk_to
+from party_recovery import party_identities
 
 
 def read_bytes(emu, address, size):
@@ -185,6 +186,7 @@ def check(args):
         assert before == dict(partner=1, flags=1, keyitem=0, party=expected_party, starter=1,
                               map='3/19', position=[15, 14]), before
         emu.send(f'shot {args.output / "caught.ppm"}')
+        identities = party_identities(emu, symbols)
         emu.send('run 8 12\nrun 0 60\n' + 'run 128 12\nrun 0 20\n' * 3
                  + 'run 1 12\nrun 0 240\nrun 1 12\nrun 0 600\n')
     finally:
@@ -201,6 +203,8 @@ def check(args):
             assert_party_preserved(emu, symbols, original)
         else:
             assert caught_identity(emu, symbols) == caught
+        continued_identities = party_identities(emu, symbols)
+        assert continued_identities == identities, (identities, continued_identities)
         assert capsules(emu, symbols) == after_capsules
         emu.send(f'shot {args.output / "continued.ppm"}')
     finally:
@@ -210,6 +214,7 @@ def check(args):
                   wild_hp_before_throw=hp, caught=caught, outcome=7, throws=attempt + 1,
                   capsules_before=before_capsules, capsules_after=after_capsules,
                   before_save=before, continued=continued, save_bytes=save.stat().st_size,
+                  party_identities=identities,
                   synthetic_full_party=args.full_party_fixture,
                   scope=('Artificial full party cloned from the valid starter before a natural encounter; '
                          'normal capture into PC, checksum/identity, six party slots preserved and '

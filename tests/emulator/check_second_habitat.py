@@ -10,7 +10,7 @@ from check_intro import Emulator
 from check_starters import press_a
 from check_defeat_recovery import dismiss, snapshot
 from party_recovery import (apply_two_member_recovery_fixture,
-                            assert_party_fully_recovered)
+                            assert_party_fully_recovered, party_identities)
 
 
 def key_items(emu, symbols):
@@ -79,6 +79,8 @@ def check(args):
                  "run 1 30\nrun 0 1200\nrun 2 30\nrun 0 1200")
         initial = snapshot(emu, symbols)
         assert initial == first_case["continued"], initial
+        identities = party_identities(emu, symbols)
+        assert identities == first_case.get("party_identities", identities)
         assert key_items(emu, symbols).get(361) == 1
         assert 362 not in key_items(emu, symbols)
         fixture_before = None
@@ -119,6 +121,7 @@ def check(args):
         full_recovery = (assert_party_fully_recovered(emu, symbols)
                          if args.recovery_fixture else None)
         assert emu.read(symbols["sLockFieldControls"]) == 0
+        assert party_identities(emu, symbols) == identities
         emu.send(f"shot {args.output / 'root-stone.ppm'}")
 
         # Ordinary in-game save, then Continue in a new emulator process.
@@ -138,6 +141,8 @@ def check(args):
         assert items_after.get(361) == items_after.get(362) == 1
         continued_recovery = (assert_party_fully_recovered(emu, symbols)
                               if args.recovery_fixture else None)
+        continued_identities = party_identities(emu, symbols)
+        assert continued_identities == identities
         emu.send(f"shot {args.output / 'continued.ppm'}")
     finally:
         emu.close()
@@ -153,6 +158,7 @@ def check(args):
         recovery_fixture_before=fixture_before,
         full_recovery=full_recovery,
         continued_recovery=continued_recovery,
+        party_identities=continued_identities,
         initial=initial,
         entered=entered,
         battle_input_cycles=cycles,

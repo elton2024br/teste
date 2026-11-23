@@ -11,7 +11,7 @@ from check_starters import press_a
 from check_defeat_recovery import snapshot
 from check_second_habitat import key_items, party_health
 from party_recovery import (apply_two_member_recovery_fixture,
-                            assert_party_fully_recovered)
+                            assert_party_fully_recovered, party_identities)
 
 
 def fight_caatinga_agent(emu, symbols, battle_shot=None):
@@ -52,6 +52,8 @@ def check(args):
                  "run 1 30\nrun 0 1200\nrun 2 30\nrun 0 1200")
         initial = snapshot(emu, symbols)
         assert initial == second["continued"], (initial, second["continued"])
+        identities = party_identities(emu, symbols)
+        assert identities == second.get("party_identities", identities)
         assert key_items(emu, symbols).get(361) == key_items(emu, symbols).get(362) == 1
         assert 363 not in key_items(emu, symbols)
         fixture_before = None
@@ -89,6 +91,7 @@ def check(args):
         full_recovery = (assert_party_fully_recovered(emu, symbols)
                          if args.recovery_fixture else None)
         assert emu.read(symbols["sLockFieldControls"]) == 0
+        assert party_identities(emu, symbols) == identities
         emu.send(f"shot {args.output / 'drought-stone.ppm'}")
 
         emu.send("run 8 12\nrun 0 60\n" + "run 128 12\nrun 0 20\n" * 3
@@ -107,6 +110,8 @@ def check(args):
         assert items_after.get(361) == items_after.get(362) == items_after.get(363) == 1
         continued_recovery = (assert_party_fully_recovered(emu, symbols)
                               if args.recovery_fixture else None)
+        continued_identities = party_identities(emu, symbols)
+        assert continued_identities == identities
         emu.send(f"shot {args.output / 'continued.ppm'}")
     finally:
         emu.close()
@@ -122,6 +127,7 @@ def check(args):
         recovery_fixture_before=fixture_before,
         full_recovery=full_recovery,
         continued_recovery=continued_recovery,
+        party_identities=continued_identities,
         initial=initial,
         entered=entered,
         battle_input_cycles=cycles,

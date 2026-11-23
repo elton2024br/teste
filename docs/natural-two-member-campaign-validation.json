@@ -1,0 +1,63 @@
+{
+  "rom_sha1": "d0955a510c864327d5c57ccc07eb9fdf2da4cd98",
+  "result": "PASS",
+  "test_writes": false,
+  "savestates": false,
+  "natural_capture": {
+    "starter": "capivagua",
+    "captured": "tatupedra",
+    "wild_level": 3,
+    "wild_hp_before_throw": 4,
+    "throws": 1,
+    "capsules_before": 5,
+    "capsules_after": 4
+  },
+  "party_identities": [
+    {
+      "slot": 0,
+      "personality": 3544455769,
+      "ot_id": 1355066456,
+      "species": 7,
+      "nickname": "CAPIVÁGUA"
+    },
+    {
+      "slot": 1,
+      "personality": 2382274700,
+      "ot_id": 1355066456,
+      "species": 1,
+      "nickname": "TATUPEDRA"
+    }
+  ],
+  "first_mission": {
+    "caregiver_restored_both_members": true,
+    "battle_input_cycles": 107,
+    "mandatory_switches": 1,
+    "water_stone_received": true
+  },
+  "later_battles": [
+    {"habitat": "cerrado", "input_cycles": 42, "stone": "roots"},
+    {"habitat": "caatinga", "input_cycles": 38, "stone": "drought"},
+    {"habitat": "mata_atlantica", "input_cycles": 41, "stone": "forest"},
+    {"habitat": "pantanal", "input_cycles": 45, "stone": "flood"},
+    {"habitat": "terras_raras", "input_cycles": 45, "stone": null}
+  ],
+  "assertions": {
+    "campaign_battles_won": 6,
+    "five_unique_stones": true,
+    "normal_save_continue_checkpoints": 7,
+    "party_size_at_ending": 2,
+    "identity_checked_after_each_reward": true,
+    "identity_checked_after_each_continue": true,
+    "personality_preserved": true,
+    "ot_id_preserved": true,
+    "species_preserved": true,
+    "nickname_preserved": true,
+    "campaign_flags_after_ending": [255, 0, 224, 7],
+    "sanctuary_visited_before_and_after_continue": true,
+    "source_saves_preserved": true,
+    "single_member_campaign_regression": "PASS",
+    "full_party_pc_capture_regression": "PASS"
+  },
+  "preview": "docs/screenshots/natural-two-member-campaign/preview.png",
+  "scope": "A real Capivagua new game captures a level-3 Tatupedra with ordinary inputs, returns through Route 1, uses the village caregiver, completes all six campaign battles, collects five stones and reaches the persistent sanctuary. Stable identity and native save/Continue are checked throughout. This is one deterministic encounter and one partner pairing, not catch-rate statistics, every possible pair, optimized switching or final balance."
+}
