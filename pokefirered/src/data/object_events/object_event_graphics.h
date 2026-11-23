@@ -232,3 +232,4 @@ const u16 gFieldEffectPal_SmallSparkle[] = INCBIN_U16("graphics/field_effects/pa
 const u16 gFieldEffectObjectPic_Bird[] = INCBIN_U16("graphics/field_effects/pics/bird.4bpp");
 
 const u16 gObjectEventPic_AmazonStorageTerminal[] = INCBIN_U16("graphics/object_events/pics/misc/amazon_storage_terminal.4bpp");
+const u16 gObjectEventPic_AmazonRareSanctuary[] = INCBIN_U16("graphics/object_events/pics/misc/amazon_rare_sanctuary.4bpp");

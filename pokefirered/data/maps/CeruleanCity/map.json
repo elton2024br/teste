@@ -52,6 +52,21 @@
       "flag": "FLAG_AMAZON_CAMPAIGN_COMPLETE"
     },
     {
+      "local_id": "LOCALID_AMAZON_RARE_SANCTUARY",
+      "type": "object",
+      "graphics_id": "OBJ_EVENT_GFX_AMAZON_RARE_SANCTUARY",
+      "x": 5,
+      "y": 6,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Amazon_EventScript_RareMarkerFlood",
+      "flag": "FLAG_TEMP_1"
+    },
+    {
       "local_id": "LOCALID_AMAZON_RARE_MARKER_WATER",
       "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
@@ -124,7 +139,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Amazon_EventScript_RareMarkerFlood",
-      "flag": "0"
+      "flag": "FLAG_AMAZON_CAMPAIGN_COMPLETE"
     },
     {
       "local_id": "LOCALID_CERULEAN_POLICEMAN",

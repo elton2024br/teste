@@ -14,6 +14,9 @@ Amazon_EventScript_TioSamEnding::
 	setflag FLAG_AMAZON_CAMPAIGN_COMPLETE
 	msgbox Amazon_Text_CampaignEnding, MSGBOX_DEFAULT
 	removeobject LOCALID_AMAZON_TIO_SAM
+	removeobject LOCALID_AMAZON_RARE_MARKER_FLOOD
+	clearflag FLAG_TEMP_1
+	addobject LOCALID_AMAZON_RARE_SANCTUARY
 	release
 	end
 Amazon_EventScript_TioSamLocked::
@@ -94,8 +97,18 @@ Amazon_Text_RareMarkerFlood::
 
 CeruleanCity_OnTransition::
 	setworldmapflag FLAG_WORLD_MAP_CERULEAN_CITY
+	call_if_set FLAG_AMAZON_CAMPAIGN_COMPLETE, Amazon_EventScript_ShowRareSanctuary
+	call_if_unset FLAG_AMAZON_CAMPAIGN_COMPLETE, Amazon_EventScript_HideRareSanctuary
 	call_if_unset FLAG_GOT_SS_TICKET, CeruleanCity_EventScript_BlockExits
 	end
+
+Amazon_EventScript_ShowRareSanctuary::
+	clearflag FLAG_TEMP_1
+	return
+
+Amazon_EventScript_HideRareSanctuary::
+	setflag FLAG_TEMP_1
+	return
 
 CeruleanCity_EventScript_BlockExits::
 	setobjectxyperm LOCALID_CERULEAN_POLICEMAN, 30, 12

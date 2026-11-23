@@ -1,0 +1,50 @@
+{
+  "rom_sha1": "d0955a510c864327d5c57ccc07eb9fdf2da4cd98",
+  "result": "PASS",
+  "implementation": {
+    "object_graphics_id": 153,
+    "dimensions": [16, 16],
+    "position_after_campaign": [5, 6],
+    "central_interaction_position": [5, 8],
+    "source_sha256": "003b204e84d6cc41c7ef8fa5c9c7bdd79c1a1ea0bd87249f2b9e5d2c4825a744",
+    "indexed_sprite_sha256": "fd77e894191c62f0e61399cb4a5153f412a7f8ff426e51c7858f9e92afe50380",
+    "reproducible_converter": "tools/build_rare_sanctuary_asset.py"
+  },
+  "campaign_cases": [
+    {
+      "partner": "capivagua",
+      "battle_input_cycles": 51,
+      "sanctuary_visits": 2,
+      "normal_save_continue": true
+    },
+    {
+      "partner": "ararafogo",
+      "battle_input_cycles": 45,
+      "sanctuary_visits": 2,
+      "normal_save_continue": true
+    },
+    {
+      "partner": "tatupedra",
+      "battle_input_cycles": 46,
+      "sanctuary_visits": 2,
+      "normal_save_continue": true
+    }
+  ],
+  "assertions": {
+    "fresh_full_campaigns": 3,
+    "campaign_battles": 18,
+    "all_five_stones_preserved": true,
+    "campaign_flags_after_ending": [255, 0, 224, 7],
+    "sanctuary_visible_immediately_after_ending": true,
+    "sanctuary_visible_after_continue": true,
+    "central_axis_passable": true,
+    "final_defeat_recovery_retry_regressions": 3,
+    "visual_preview_reviewed": true
+  },
+  "rejected_candidate": {
+    "position": [5, 8],
+    "reason": "The object occupied the only central exit and trapped the player after the sanctuary interaction. It was not retained."
+  },
+  "preview": "docs/screenshots/rare-sanctuary-visual/preview.png",
+  "scope": "Original five-stone pedestal visible only after campaign completion, including ordinary save/Continue and final defeat/retry regressions. The rest of the Rare Lands map, four surrounding rock objects, building, music and credits remain inherited or provisional."
+}

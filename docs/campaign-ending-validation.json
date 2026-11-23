@@ -1,5 +1,5 @@
 {
-  "rom_sha1": "e43bb5b13aaaa3964c3ccda86f3c44cbf580580f",
+  "rom_sha1": "d0955a510c864327d5c57ccc07eb9fdf2da4cd98",
   "result": "PASS",
   "test_writes": false,
   "cases": [
@@ -37,5 +37,5 @@
   },
   "rare_stone_markers_checked": ["water", "roots", "drought", "forest", "flood"],
   "restored_sanctuary_visits_per_partner": 2,
-  "scope": "Fresh full campaign chain for all three partners; full HP entering Terras Raras, dry ground beneath the five interactive stone markers, original level-8 Onca-pinta Tio Sam battle, expanded sanctuary ending, five stones preserved, restored sanctuary visited before and after ordinary save/Continue. Most map art remains inherited and the ending is still provisional; does not validate optimized strategies, credits or a polished ending."
+  "scope": "Fresh full campaign chain for all three partners; full HP entering Terras Raras, dry ground beneath the five interactive stone markers, original level-8 Onca-pinta Tio Sam battle, expanded ending, five stones preserved, and the original sanctuary visual visited before and after ordinary save/Continue. Most map art remains inherited and the ending is still provisional; does not validate optimized strategies, credits or a polished ending."
 }

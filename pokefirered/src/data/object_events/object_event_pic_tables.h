@@ -1756,3 +1756,7 @@ static const struct SpriteFrameImage sPicTable_Mom[] = {
 static const struct SpriteFrameImage sPicTable_AmazonStorageTerminal[] = {
     overworld_frame(gObjectEventPic_AmazonStorageTerminal, 2, 2, 0),
 };
+
+static const struct SpriteFrameImage sPicTable_AmazonRareSanctuary[] = {
+    overworld_frame(gObjectEventPic_AmazonRareSanctuary, 2, 2, 0),
+};

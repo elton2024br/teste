@@ -153,6 +153,7 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_SSAnne;
 
 
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_AmazonStorageTerminal;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_AmazonRareSanctuary;
 
 const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM_OBJ_EVENT_GFX] = {
     [OBJ_EVENT_GFX_RED_NORMAL]               = &gObjectEventGraphicsInfo_RedNormal,
@@ -259,6 +260,7 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_OLD_AMBER]                = &gObjectEventGraphicsInfo_OldAmber,
     [OBJ_EVENT_GFX_GYM_SIGN]                 = &gObjectEventGraphicsInfo_GymSign,
     [OBJ_EVENT_GFX_AMAZON_STORAGE_TERMINAL] = &gObjectEventGraphicsInfo_AmazonStorageTerminal,
+    [OBJ_EVENT_GFX_AMAZON_RARE_SANCTUARY] = &gObjectEventGraphicsInfo_AmazonRareSanctuary,
     [OBJ_EVENT_GFX_SIGN]                     = &gObjectEventGraphicsInfo_Sign,
     [OBJ_EVENT_GFX_TRAINER_TIPS]             = &gObjectEventGraphicsInfo_TrainerTips,
     [OBJ_EVENT_GFX_CLIPBOARD]                = &gObjectEventGraphicsInfo_Clipboard,
