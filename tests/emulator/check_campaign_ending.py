@@ -66,6 +66,41 @@ def inspect_sanctuary(emu, symbols, output):
         raise AssertionError("rare sanctuary did not release controls")
 
 
+def return_to_village_via_sanctuary(emu, symbols, output):
+    before = snapshot(emu, symbols)
+    assert before["map"] == "3/3" and before["position"] == [5, 9], before
+    emu.send("run 128 12\nrun 0 20\nrun 64 12\nrun 0 20\n"
+             "run 1 12\nrun 0 300")
+    assert emu.read(symbols["sLockFieldControls"]) != 0
+    emu.send(f"shot {output}")
+    emu.send(press_a(2, 300))
+    assert emu.read(symbols["sLockFieldControls"]) != 0
+    choice_output = output.with_name(output.stem + "-choice" + output.suffix)
+    emu.send(f"shot {choice_output}")
+    emu.send(press_a(1, 600))
+    returned = snapshot(emu, symbols)
+    assert returned["map"] == "3/0" and returned["position"] == [8, 9], returned
+    assert emu.read(symbols["sLockFieldControls"]) == 0
+    return returned
+
+
+def revisit_rare_lands_from_village(emu, symbols):
+    emu.send("run 16 48\nrun 0 30\nrun 64 700\nrun 0 30\n"
+             "run 128 32\nrun 0 30\nrun 16 16\nrun 0 30\n"
+             "run 64 500\nrun 0 60\nrun 32 16\nrun 0 30\n"
+             "run 64 340\nrun 0 120")
+    state = snapshot(emu, symbols)
+    assert state["map"] == "3/20" and state["position"] == [11, 71], state
+    emu.send("run 32 20\nrun 0 60\nrun 64 600\nrun 0 600")
+    state = snapshot(emu, symbols)
+    assert state["map"] == "3/2" and state["position"] == [23, 9], state
+    for expected in ("3/21", "3/22", "3/3"):
+        emu.send("run 16 20\nrun 0 600")
+        state = snapshot(emu, symbols)
+        assert state["map"] == expected and state["position"] == [5, 9], state
+    return state
+
+
 def check(args):
     args.output.mkdir(parents=True, exist_ok=True)
     assert not any(args.output.iterdir()), "Use a fresh output directory."
@@ -161,6 +196,17 @@ def check(args):
         assert sanctuary_position["position"] == [5, 9], sanctuary_position
         inspect_sanctuary(emu, symbols,
                           args.output / "restored-sanctuary-continue.ppm")
+        village_return = return_to_village_via_sanctuary(
+            emu, symbols, args.output / "sanctuary-return-prompt.ppm"
+        )
+        assert campaign_flag_bytes(emu, symbols) == ended_flags
+        assert key_items(emu, symbols) == items_after
+        assert party_identities(emu, symbols) == identities
+        emu.send(f"shot {args.output / 'returned-to-village.ppm'}")
+        sanctuary_revisit = revisit_rare_lands_from_village(emu, symbols)
+        inspect_sanctuary(
+            emu, symbols, args.output / "sanctuary-after-village-return.ppm"
+        )
         emu.send(f"shot {args.output / 'continued.ppm'}")
     finally:
         emu.close()
@@ -183,13 +229,17 @@ def check(args):
         party_identities=continued_identities,
         continued_flag_bytes=list(continued_flags),
         rare_stone_markers_checked=["water", "roots", "drought", "forest", "flood"],
-        restored_sanctuary_visits=2,
+        restored_sanctuary_visits=3,
         staged_sanctuary_reveal=True,
+        optional_return_to_village=True,
+        village_return=village_return,
+        sanctuary_revisit_after_village=sanctuary_revisit,
         stones={"water": items_after[361], "roots": items_after[362],
                 "drought": items_after[363], "forest": items_after[364],
                 "flood": items_after[365]},
         scope=("Native five-stone save; Pantanal east transition; Tio Sam battle, "
-               "expanded ending, restored sanctuary before and after ordinary save/Continue. "
+               "expanded ending, restored sanctuary before and after ordinary save/Continue, "
+               "optional return to the village and a full-path sanctuary revisit. "
                "Uses provisional inherited map art and does not claim final balance, "
                "credits or a polished ending."),
     )

@@ -36,7 +36,13 @@ Amazon_EventScript_TioSamDone::
 
 Amazon_EventScript_RareSanctuary::
 	goto_if_unset FLAG_AMAZON_CAMPAIGN_COMPLETE, Amazon_EventScript_RareSanctuaryDormant
-	msgbox Amazon_Text_RareSanctuaryRestored, MSGBOX_SIGN
+	msgbox Amazon_Text_RareSanctuaryRestored, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, Amazon_EventScript_RareSanctuaryReturn
+	end
+Amazon_EventScript_RareSanctuaryReturn::
+	closemessage
+	warp MAP_PALLET_TOWN, 8, 9
+	waitstate
 	end
 Amazon_EventScript_RareSanctuaryDormant::
 	msgbox Amazon_Text_RareSanctuaryDormant, MSGBOX_SIGN
@@ -66,7 +72,8 @@ Amazon_Text_CampaignDone::
 Amazon_Text_RareSanctuaryRestored::
 	.string "SANTUÁRIO DAS CINCO PEDRAS\n"
 	.string "O equilíbrio dos habitats vive aqui.\p"
-	.string "Você é o guardiao desta aliança.$"
+	.string "Você é o guardiao desta aliança.\p"
+	.string "Voltar agora à Vila da Floresta?$"
 Amazon_Text_RareSanctuaryDormant::
 	.string "Um pedestal aguarda as cinco pedras.$"
 
