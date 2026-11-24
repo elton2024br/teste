@@ -1,9 +1,9 @@
 {
   "base_commit": "ce6406d8c2eaf46d543c8a2606de0c3cb1951982",
   "compiler_commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
-  "cloud_built_rom_sha1": "0cb624d466cc60685fc27813b40c492fa7e04803",
+  "cloud_built_rom_sha1": "390cd729cd95308773a08181033c6ca6062b9a51",
   "source_count": 9859,
   "rom_included": false,
   "windows_or_wsl_build_tested": false,
-  "stage": "campaign-five-original-stone-markers-validated"
+  "stage": "campaign-staged-sanctuary-ending-validated"
 }

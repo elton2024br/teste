@@ -13,10 +13,16 @@ Amazon_EventScript_TioSamFinal::
 Amazon_EventScript_TioSamEnding::
 	setflag FLAG_AMAZON_CAMPAIGN_COMPLETE
 	msgbox Amazon_Text_CampaignEnding, MSGBOX_DEFAULT
+	closemessage
+	fadescreen FADE_TO_BLACK
 	removeobject LOCALID_AMAZON_TIO_SAM
 	removeobject LOCALID_AMAZON_RARE_MARKER_FLOOD
 	clearflag FLAG_TEMP_1
 	addobject LOCALID_AMAZON_RARE_SANCTUARY
+	fadescreen FADE_FROM_BLACK
+	playfanfare MUS_LEVEL_UP
+	waitfanfare
+	msgbox Amazon_Text_CampaignFinal, MSGBOX_DEFAULT
 	release
 	end
 Amazon_EventScript_TioSamLocked::
@@ -43,12 +49,13 @@ Amazon_Text_TioSamIntro::
 Amazon_Text_TioSamLoss::
 	.string "Meu plano... derrotado por vocês?$"
 Amazon_Text_CampaignEnding::
-	.string "As cinco pedras formaram um\n"
-	.string "santuario vivo nas Terras Raras.\p"
 	.string "Águas, raízes, seca, mata e cheias\n"
 	.string "voltaram a sustentar seus habitats.\p"
 	.string "Tio Sam abandonou seu plano, e\n"
-	.string "os animais ficaram protegidos.\p"
+	.string "os animais ficaram protegidos.$"
+Amazon_Text_CampaignFinal::
+	.string "As cinco pedras brilham juntas e\n"
+	.string "formam um santuario vivo.\p"
 	.string "O santuario reconhece você como\n"
 	.string "guardiao deste equilíbrio.\p"
 	.string "FIM DA CAMPANHA ATUAL$"

@@ -1,0 +1,32 @@
+{
+  "rom_sha1": "390cd729cd95308773a08181033c6ca6062b9a51",
+  "result": "PASS",
+  "routine": 21,
+  "sequence": [
+    "campaign completion flag set",
+    "habitat restoration and Tio Sam resolution shown",
+    "screen fades to black",
+    "Tio Sam and Flood marker removed",
+    "restored sanctuary added at the same coordinate",
+    "screen fades back from black",
+    "level-up fanfare plays to completion",
+    "guardian and current-campaign ending message shown"
+  ],
+  "preserved": {
+    "tio_sam_position": [5, 8],
+    "flood_marker_and_sanctuary_position": [5, 6],
+    "entry": [5, 9],
+    "final_flag_bytes": [255, 0, 224, 7],
+    "five_stones": true
+  },
+  "emulator": {
+    "fresh_capivagua_campaign": "PASS",
+    "staged_reveal_captured": true,
+    "restored_sanctuary_visits": 2,
+    "normal_save_continue": true,
+    "capivagua_final_defeat_recovery_retry": "PASS",
+    "controls_released_after_scene": true
+  },
+  "preview": "docs/screenshots/rare-sanctuary-reveal/preview.png",
+  "scope": "A current-hash fresh Capivágua campaign and a separate final defeat/recovery/retry validate the staged reveal. Ararafogo and Tatupedra remain functionally covered before this presentation-only script change. The inherited building, cliffs, fences, map and music remain provisional; this is not a final cinematic or credits sequence."
+}
