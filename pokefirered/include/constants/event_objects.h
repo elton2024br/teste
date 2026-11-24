@@ -162,8 +162,9 @@
 #define OBJ_EVENT_GFX_AMAZON_STONE_ROOTS 155
 #define OBJ_EVENT_GFX_AMAZON_STONE_DROUGHT 156
 #define OBJ_EVENT_GFX_AMAZON_STONE_FOREST 157
+#define OBJ_EVENT_GFX_AMAZON_STONE_FLOOD 158
 
-#define NUM_OBJ_EVENT_GFX     158
+#define NUM_OBJ_EVENT_GFX     159
 
 // These are dynamic object gfx ids.
 // They correspond with the values of the VAR_OBJ_GFX_ID_X vars.

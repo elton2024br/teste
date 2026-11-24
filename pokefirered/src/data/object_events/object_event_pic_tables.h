@@ -1776,3 +1776,7 @@ static const struct SpriteFrameImage sPicTable_AmazonStoneDrought[] = {
 static const struct SpriteFrameImage sPicTable_AmazonStoneForest[] = {
     overworld_frame(gObjectEventPic_AmazonStoneForest, 2, 2, 0),
 };
+
+static const struct SpriteFrameImage sPicTable_AmazonStoneFlood[] = {
+    overworld_frame(gObjectEventPic_AmazonStoneFlood, 2, 2, 0),
+};

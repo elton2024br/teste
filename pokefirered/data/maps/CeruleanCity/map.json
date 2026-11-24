@@ -129,7 +129,7 @@
     {
       "local_id": "LOCALID_AMAZON_RARE_MARKER_FLOOD",
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
+      "graphics_id": "OBJ_EVENT_GFX_AMAZON_STONE_FLOOD",
       "x": 5,
       "y": 6,
       "elevation": 3,

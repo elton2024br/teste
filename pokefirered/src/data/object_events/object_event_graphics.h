@@ -237,3 +237,4 @@ const u16 gObjectEventPic_AmazonStoneWater[] = INCBIN_U16("graphics/object_event
 const u16 gObjectEventPic_AmazonStoneRoots[] = INCBIN_U16("graphics/object_events/pics/misc/amazon_stone_roots.4bpp");
 const u16 gObjectEventPic_AmazonStoneDrought[] = INCBIN_U16("graphics/object_events/pics/misc/amazon_stone_drought.4bpp");
 const u16 gObjectEventPic_AmazonStoneForest[] = INCBIN_U16("graphics/object_events/pics/misc/amazon_stone_forest.4bpp");
+const u16 gObjectEventPic_AmazonStoneFlood[] = INCBIN_U16("graphics/object_events/pics/misc/amazon_stone_flood.4bpp");

@@ -1,9 +1,10 @@
-# Marcos das quatro pedras
+# Marcos das cinco pedras
 
-Quatro objetos originais de 16×16 substituem os rochedos genéricos ao redor
+Cinco objetos originais de 16×16 substituem os rochedos genéricos ao redor
 do eixo final das Terras Raras. Água usa uma gota, Raízes uma ramificação,
-Seca um sol e Mata uma folha. O marco de Cheias continua ocupando o ponto do
-santuário e é substituído pelo Santuário das Cinco Pedras após o desfecho.
+Seca um sol, Mata uma folha e Cheias duas ondas. O marco de Cheias ocupa o
+ponto do santuário e é substituído pelo Santuário das Cinco Pedras após o
+desfecho.
 
 Todos reutilizam `npc_green.pal`, sem alterar paletas compartilhadas. Para
 recriar as fontes RGBA e os PNGs indexados usados pelo jogo:

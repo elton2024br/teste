@@ -1,30 +1,38 @@
 {
-  "rom_sha1": "1e73fe878d2c90cbcf5fe52f1cf1227301c3434b",
+  "rom_sha1": "0cb624d466cc60685fc27813b40c492fa7e04803",
   "result": "PASS",
-  "routine": 18,
+  "routine": 20,
   "objects": [
     {"name": "Água", "graphics_id": 154, "position": [4, 7], "symbol": "drop"},
     {"name": "Raízes", "graphics_id": 155, "position": [6, 7], "symbol": "branching roots"},
     {"name": "Seca", "graphics_id": 156, "position": [4, 9], "symbol": "sun"},
-    {"name": "Mata", "graphics_id": 157, "position": [6, 9], "symbol": "leaf"}
+    {"name": "Mata", "graphics_id": 157, "position": [6, 9], "symbol": "leaf"},
+    {"name": "Cheias", "graphics_id": 158, "position": [5, 6], "symbol": "two waves"}
   ],
   "asset": {
     "size": [16, 16],
     "palette": "npc_green.pal",
     "transparent_index": 0,
+    "flood_source_sha256": "547071edde35e12e7bfb7d8a91639d74c68e2298c7bce6249af80541230ded06",
+    "flood_indexed_sha256": "a0ec28da8fb62ba4c3738c547101907ad0b18d0fd27958469c4624cccca8ea74",
     "reproducible_converter": "tools/build_rare_stone_markers.py",
+    "deterministic_rebuild": true,
     "positions_scripts_flags_preserved": true
   },
   "emulator": {
-    "fresh_capivagua_campaign": "PASS",
-    "fresh_tatupedra_plus_ararafogo_campaign": "PASS",
-    "markers_interacted": ["water", "roots", "drought", "forest"],
-    "tio_sam_battles_won": 2,
-    "restored_sanctuary_visits": 4,
+    "fresh_campaigns": [
+      {"partner": "capivagua", "tio_sam_battle_input_cycles": 51, "result": "PASS"},
+      {"partner": "ararafogo", "tio_sam_battle_input_cycles": 45, "result": "PASS"},
+      {"partner": "tatupedra", "tio_sam_battle_input_cycles": 46, "result": "PASS"}
+    ],
+    "rare_stone_markers_checked": ["water", "roots", "drought", "forest", "flood"],
+    "tio_sam_battles_won": 3,
+    "restored_sanctuary_visits": 6,
     "normal_save_continue": true,
-    "tatupedra_team_final_defeat_recovery_retry": "PASS"
+    "capivagua_final_defeat_recovery_retry": "PASS",
+    "final_flag_bytes": [255, 0, 224, 7]
   },
   "visual_preview_reviewed": true,
-  "preview": "docs/screenshots/rare-stone-markers/preview.png",
-  "scope": "Four original markers replace inherited breakable-rock graphics without moving the campaign axis. The Flood marker and restored sanctuary retain their existing transition. The surrounding Cerulean-derived map, building, cliffs and music remain provisional."
+  "preview": "docs/screenshots/rare-flood-marker/preview.png",
+  "scope": "All five original markers now replace inherited breakable-rock graphics without moving the campaign axis. The Flood marker is replaced by the restored sanctuary after the ending. Fresh current-hash campaigns passed with all three partners, plus a separate Capivágua final defeat/recovery/retry. The surrounding Cerulean-derived map, building, cliffs and music remain provisional; this does not certify final visual polish or every defeat branch on this graphics-only hash."
 }

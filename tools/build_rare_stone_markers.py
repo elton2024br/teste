@@ -1,4 +1,4 @@
-"""Build four original 16x16 stone markers using the native green NPC palette."""
+"""Build five original 16x16 stone markers using the native green NPC palette."""
 
 from pathlib import Path
 from PIL import Image, ImageDraw
@@ -61,6 +61,10 @@ def draw_marker(kind, gem_index, colors):
         draw.polygon([(8, 3), (5, 7), (8, 10), (11, 6)], fill=gem)
         draw.line((8, 5, 8, 10), fill=(*colors[15], 255))
         draw.point((7, 5), fill=light)
+    elif kind == "flood":
+        draw.line((5, 5, 7, 4, 9, 5, 11, 4), fill=gem, width=2)
+        draw.line((5, 8, 7, 7, 9, 8, 11, 7), fill=gem, width=2)
+        draw.point((6, 4), fill=light)
     else:
         raise ValueError(kind)
     return art
@@ -75,6 +79,7 @@ def main():
         "roots": 8,
         "drought": 14,
         "forest": 11,
+        "flood": 5,
     }
     for kind, gem_index in definitions.items():
         art = draw_marker(kind, gem_index, colors)
