@@ -1,0 +1,49 @@
+{
+  "rom_sha1": "1e73fe878d2c90cbcf5fe52f1cf1227301c3434b",
+  "result": "PASS",
+  "routine": 19,
+  "fixture": "current HP set to 1 for both natural team members; no flags, items, identities or outcomes written",
+  "teams": [
+    {
+      "lead": "CAPIVÁGUA",
+      "captured": "TATUPEDRA",
+      "cases": [
+        {"encounter": "Cerrado", "loss_input_cycles": 46, "loss_mandatory_switches": 1, "retry_mandatory_switches": 0, "win_input_cycles": 34},
+        {"encounter": "Caatinga", "loss_input_cycles": 34, "loss_mandatory_switches": 1, "retry_mandatory_switches": 0, "win_input_cycles": 38},
+        {"encounter": "Mata Atlântica", "loss_input_cycles": 41, "loss_mandatory_switches": 1, "retry_mandatory_switches": 0, "win_input_cycles": 64},
+        {"encounter": "Pantanal", "loss_input_cycles": 34, "loss_mandatory_switches": 1, "retry_mandatory_switches": 0, "win_input_cycles": 51}
+      ]
+    },
+    {
+      "lead": "ARARAFOGO",
+      "captured": "TATUPEDRA",
+      "cases": [
+        {"encounter": "Cerrado", "loss_input_cycles": 46, "loss_mandatory_switches": 1, "retry_mandatory_switches": 0, "win_input_cycles": 41},
+        {"encounter": "Caatinga", "loss_input_cycles": 34, "loss_mandatory_switches": 1, "retry_mandatory_switches": 0, "win_input_cycles": 42},
+        {"encounter": "Mata Atlântica", "loss_input_cycles": 48, "loss_mandatory_switches": 1, "retry_mandatory_switches": 1, "win_input_cycles": 73},
+        {"encounter": "Pantanal", "loss_input_cycles": 34, "loss_mandatory_switches": 1, "retry_mandatory_switches": 1, "win_input_cycles": 57}
+      ]
+    },
+    {
+      "lead": "TATUPEDRA",
+      "captured": "ARARAFOGO",
+      "cases": [
+        {"encounter": "Cerrado", "loss_input_cycles": 39, "loss_mandatory_switches": 1, "retry_mandatory_switches": 0, "win_input_cycles": 31},
+        {"encounter": "Caatinga", "loss_input_cycles": 34, "loss_mandatory_switches": 1, "retry_mandatory_switches": 0, "win_input_cycles": 43},
+        {"encounter": "Mata Atlântica", "loss_input_cycles": 34, "loss_mandatory_switches": 1, "retry_mandatory_switches": 0, "win_input_cycles": 48},
+        {"encounter": "Pantanal", "loss_input_cycles": 34, "loss_mandatory_switches": 1, "retry_mandatory_switches": 0, "win_input_cycles": 43}
+      ]
+    }
+  ],
+  "checks_per_case": [
+    "B_OUTCOME_LOST reached normally after both members fainted",
+    "prior stones and pending reward preserved",
+    "HP, status and PP restored for both members",
+    "ordinary save and Continue with writes disabled",
+    "stable personality, OT ID, species and nickname",
+    "return through prior habitats, normal retry victory and correct stone reward",
+    "mandatory switch during the retry handled and counted when it occurred",
+    "source save hash preserved"
+  ],
+  "scope": "All three currently validated natural two-member compositions, across Cerrado, Caatinga, Mata Atlântica and Pantanal. HP=1 is an artificial condition fixture; battle outcomes, forced switches, recovery, Continue, traversal, retry and rewards are gameplay-driven. This does not prove naturally accumulated damage, statistical balance, other team compositions or the final boss, which has separate evidence."
+}

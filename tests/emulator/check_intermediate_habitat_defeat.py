@@ -178,7 +178,11 @@ def check(args):
         emu.send(HOUSE_TO_VILLAGE + "\n" + stage["return"])
         returned = assert_checkpoint(emu, symbols, stage)
         emu.send(press_a(2, 180))
-        win_cycles = stage["fight"](emu, symbols)
+        retry_stats = {}
+        win_cycles = stage["fight"](
+            emu, symbols, switch_handlers=switch_handlers,
+            battle_stats=retry_stats
+        )
         for _ in range(12):
             if campaign_flag_bytes(emu, symbols) == stage["flags_after"]:
                 break
@@ -220,6 +224,7 @@ def check(args):
         battle_outcome_loss=2,
         loss_input_cycles=loss_cycles,
         mandatory_switches=loss_switches,
+        retry_mandatory_switches=retry_stats["mandatory_switches"],
         party_identities=identities,
         entered=entered,
         recovered=recovered,

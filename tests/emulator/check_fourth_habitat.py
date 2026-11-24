@@ -19,10 +19,17 @@ def campaign_flag_bytes(emu, symbols):
     return tuple(emu.read(block1 + offset) for offset in (0xF75, 0xF76, 0xF77))
 
 
-def fight_atlantic_agent(emu, symbols, battle_shot=None):
+def fight_atlantic_agent(emu, symbols, battle_shot=None, switch_handlers=None,
+                         battle_stats=None):
     captured = False
+    switches = 0
     for cycle in range(260):
         handler = emu.read(symbols["gBattlerControllerFuncs"], 32) & ~1
+        if switch_handlers is not None and handler in switch_handlers:
+            assert switches == 0, switches
+            emu.send("run 128 12\nrun 0 30\n" + press_a(2, 180))
+            switches += 1
+            continue
         if handler == symbols["HandleInputChooseMove"]:
             assert emu.read(symbols["gMoveSelectionCursor"]) == 0
             if battle_shot is not None and not captured:
@@ -33,6 +40,8 @@ def fight_atlantic_agent(emu, symbols, battle_shot=None):
         assert state["map"] == "3/21", ("left fourth habitat", state)
         if campaign_flag_bytes(emu, symbols)[2] & 0x20:
             assert emu.read(symbols["gBattleOutcome"]) == 1, "expected B_OUTCOME_WON"
+            if battle_stats is not None:
+                battle_stats["mandatory_switches"] = switches
             return cycle + 1
     raise AssertionError("Mata Atlântica agent battle did not finish")
 

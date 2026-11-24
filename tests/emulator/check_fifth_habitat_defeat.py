@@ -157,7 +157,11 @@ def check(args):
         return_to_pantanal(emu, symbols)
         emu.send("run 64 12\nrun 0 60")
         emu.send(press_a(2, 180))
-        win_cycles = fight_pantanal_agent(emu, symbols)
+        retry_stats = {}
+        win_cycles = fight_pantanal_agent(
+            emu, symbols, switch_handlers=switch_handlers,
+            battle_stats=retry_stats
+        )
         for _ in range(10):
             if campaign_flag_bytes(emu, symbols)[3] & 0x01:
                 break
@@ -196,6 +200,7 @@ def check(args):
         battle_outcome_loss=2,
         loss_input_cycles=loss_cycles,
         mandatory_switches=loss_switches,
+        retry_mandatory_switches=retry_stats["mandatory_switches"],
         party_identities=identities,
         recovered=recovered,
         recovered_flag_bytes=list(recovered_flags),

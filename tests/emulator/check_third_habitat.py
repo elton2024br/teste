@@ -14,10 +14,17 @@ from party_recovery import (apply_two_member_recovery_fixture,
                             assert_party_fully_recovered, party_identities)
 
 
-def fight_caatinga_agent(emu, symbols, battle_shot=None):
+def fight_caatinga_agent(emu, symbols, battle_shot=None, switch_handlers=None,
+                         battle_stats=None):
     captured = False
+    switches = 0
     for cycle in range(260):
         handler = emu.read(symbols["gBattlerControllerFuncs"], 32) & ~1
+        if switch_handlers is not None and handler in switch_handlers:
+            assert switches == 0, switches
+            emu.send("run 128 12\nrun 0 30\n" + press_a(2, 180))
+            switches += 1
+            continue
         if handler == symbols["HandleInputChooseMove"]:
             assert emu.read(symbols["gMoveSelectionCursor"]) == 0
             if battle_shot is not None and not captured:
@@ -28,6 +35,8 @@ def fight_caatinga_agent(emu, symbols, battle_shot=None):
         assert state["map"] == "3/2", ("left third habitat", state)
         if state["flags"] & 0x40:
             assert emu.read(symbols["gBattleOutcome"]) == 1, "expected B_OUTCOME_WON"
+            if battle_stats is not None:
+                battle_stats["mandatory_switches"] = switches
             return cycle + 1
     raise AssertionError("Caatinga agent battle did not finish")
 
