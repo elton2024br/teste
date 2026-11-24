@@ -455,6 +455,7 @@ PalletTown_AmazonTransition::
 Amazon_EventScript_ChoosePartner::
     lock
     faceplayer
+    goto_if_set FLAG_AMAZON_CAMPAIGN_COMPLETE, Amazon_EventScript_CampaignWelcome
     goto_if_set FLAG_AMAZON_PARTNER_CHOSEN, Amazon_EventScript_Supplies
     msgbox Amazon_Text_Welcome, MSGBOX_DEFAULT
 Amazon_EventScript_Selection::
@@ -515,6 +516,10 @@ Amazon_EventScript_PartyNotEmpty::
     msgbox Amazon_Text_GrantFailed, MSGBOX_DEFAULT
     release
     end
+Amazon_EventScript_CampaignWelcome::
+    msgbox Amazon_Text_CampaignWelcome, MSGBOX_DEFAULT
+    release
+    end
 Amazon_Text_Welcome::
     .string "Nossa jornada começa aqui!\p"
     .string "Escolha um parceiro para\n"
@@ -545,6 +550,10 @@ Amazon_Text_NoRoom::
 Amazon_Text_GrantFailed::
     .string "Vamos conferir sua equipe\n"
     .string "antes de seguir.$"
+Amazon_Text_CampaignWelcome::
+    .string "Você voltou, guardiao!\p"
+    .string "A vila celebra os habitats vivos\n"
+    .string "e as cinco pedras reunidas.$"
 
 Amazon_EventScript_Returned::
     call EventScript_OutOfCenterPartyHeal

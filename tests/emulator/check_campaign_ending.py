@@ -101,6 +101,22 @@ def revisit_rare_lands_from_village(emu, symbols):
     return state
 
 
+def inspect_post_campaign_guide(emu, symbols, output):
+    before = snapshot(emu, symbols)
+    assert before["map"] == "3/0" and before["position"] == [8, 9], before
+    emu.send("run 64 12\nrun 0 20\nrun 1 12\nrun 0 300")
+    assert emu.read(symbols["sLockFieldControls"]) != 0
+    emu.send(f"shot {output}")
+    for _ in range(8):
+        if emu.read(symbols["sLockFieldControls"]) == 0:
+            break
+        emu.send("run 2 12\nrun 0 180")
+    else:
+        raise AssertionError("post-campaign guide did not release controls")
+    after = snapshot(emu, symbols)
+    assert after == before, (before, after)
+
+
 def check(args):
     args.output.mkdir(parents=True, exist_ok=True)
     assert not any(args.output.iterdir()), "Use a fresh output directory."
@@ -203,6 +219,9 @@ def check(args):
         assert key_items(emu, symbols) == items_after
         assert party_identities(emu, symbols) == identities
         emu.send(f"shot {args.output / 'returned-to-village.ppm'}")
+        inspect_post_campaign_guide(
+            emu, symbols, args.output / "post-campaign-guide.ppm"
+        )
         sanctuary_revisit = revisit_rare_lands_from_village(emu, symbols)
         inspect_sanctuary(
             emu, symbols, args.output / "sanctuary-after-village-return.ppm"
@@ -233,13 +252,15 @@ def check(args):
         staged_sanctuary_reveal=True,
         optional_return_to_village=True,
         village_return=village_return,
+        post_campaign_guide_reception=True,
         sanctuary_revisit_after_village=sanctuary_revisit,
         stones={"water": items_after[361], "roots": items_after[362],
                 "drought": items_after[363], "forest": items_after[364],
                 "flood": items_after[365]},
         scope=("Native five-stone save; Pantanal east transition; Tio Sam battle, "
                "expanded ending, restored sanctuary before and after ordinary save/Continue, "
-               "optional return to the village and a full-path sanctuary revisit. "
+               "optional return to the village, post-campaign guide reception and "
+               "a full-path sanctuary revisit. "
                "Uses provisional inherited map art and does not claim final balance, "
                "credits or a polished ending."),
     )
