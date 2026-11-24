@@ -1,0 +1,41 @@
+{
+  "rom_sha1": "7e066ae7ce46f5f2073959974eb076080493f66e",
+  "result": "PASS",
+  "routine": 22,
+  "map": "CeruleanCity / Terras Raras",
+  "map_sha256": "fe35f806de2a3def4ef315eed262c296ccd521032822d20bc86ed7fa7c3d3a57",
+  "lagoon": {
+    "cells": 91,
+    "x_range": [8, 20],
+    "y_range": [5, 11],
+    "water_metatile": 299,
+    "right_edge_metatile": 300,
+    "attributes_preserved": true,
+    "reproducible_converter": "tools/build_rare_lands_lagoon.py",
+    "deterministic_rebuild": true
+  },
+  "preserved": {
+    "campaign_axis_x_range": [4, 6],
+    "entry": [5, 9],
+    "tio_sam": [5, 8],
+    "flood_marker_and_sanctuary": [5, 6],
+    "object_events": true,
+    "scripts_and_flags": true
+  },
+  "emulator": {
+    "fresh_campaigns": [
+      {"partner": "capivagua", "tio_sam_battle_input_cycles": 51, "result": "PASS"},
+      {"partner": "ararafogo", "tio_sam_battle_input_cycles": 45, "result": "PASS"},
+      {"partner": "tatupedra", "tio_sam_battle_input_cycles": 46, "result": "PASS"}
+    ],
+    "battles_won": 18,
+    "normal_save_continue_after_each_stage": true,
+    "staged_sanctuary_reveal": true,
+    "restored_sanctuary_visits": 6,
+    "capivagua_final_defeat_recovery_retry": "PASS",
+    "final_flag_bytes": [255, 0, 224, 7]
+  },
+  "visual_preview_reviewed": true,
+  "preview": "docs/screenshots/rare-lands-lagoon/preview.png",
+  "scope": "The inherited gym and fence visible immediately east of the final circle were replaced by calm water while retaining every map cell's collision and elevation attribute bits. The narrow campaign strip and all objects are untouched. The wider Cerulean-derived map, western cliffs, southern path and music remain inherited; this is a focused final-frame cleanup, not a complete Terras Raras map replacement."
+}
