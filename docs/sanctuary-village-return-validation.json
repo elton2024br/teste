@@ -1,8 +1,8 @@
 {
-  "rom_sha1": "563cc6f13d9537378ba36fa6ddd3a12f75760b12",
+  "rom_sha1": "3764c7e9f41a25ea5f1eacf10ee74a060c04c009",
   "result": "PASS",
   "routine": 24,
-  "feature": "optional post-campaign return from the restored sanctuary to the village",
+  "feature": "optional bidirectional post-campaign travel between the restored sanctuary and village",
   "behavior": {
     "available_only_after_campaign_completion": true,
     "no_keeps_player_in_rare_lands": true,
@@ -10,6 +10,10 @@
     "village_map": "3/0",
     "village_position": [8, 9],
     "guide_post_campaign_reception": true,
+    "guide_no_keeps_player_in_village": true,
+    "guide_yes_returns_to_sanctuary": true,
+    "sanctuary_map": "3/3",
+    "sanctuary_position": [5, 9],
     "normal_path_back_to_rare_lands_remains_open": true
   },
   "emulator": {
@@ -18,10 +22,12 @@
     "battles_won": 18,
     "five_stones": true,
     "normal_save_continue_after_each_stage": true,
-    "restored_sanctuary_visits": 3,
+    "restored_sanctuary_visits": 4,
     "cancel_branch": "PASS",
     "return_to_village_branch": "PASS",
     "post_campaign_guide_reception": "PASS",
+    "guide_return_to_sanctuary_branch": "PASS",
+    "second_return_to_village_branch": "PASS",
     "full_path_sanctuary_revisit": "PASS",
     "party_identity_preserved": true,
     "final_flag_bytes": [255, 0, 224, 7],
@@ -49,5 +55,5 @@
   "test": "tests/emulator/check_campaign_ending.py",
   "preview": "docs/screenshots/sanctuary-village-return/preview.png",
   "visual_preview_reviewed": true,
-  "scope": "The restored sanctuary offers a simple optional warp to the village, where the guide recognizes campaign completion when spoken to. All three partners exercise both answers, preserve stones, flags and party identity, verify the guide reception, and walk the normal route back through every habitat. Separate final-defeat fixtures cover recovery, Continue and retry for all three. This does not add travel cinematics or credits, replace the remaining inherited maps, prove final balance, or represent naturally accumulated defeat damage."
+  "scope": "The restored sanctuary offers optional travel to the village, where the guide recognizes campaign completion and offers optional travel back to the sanctuary. All three partners exercise both answers in both directions, preserve stones, flags and party identity, return to the village a second time, and still walk the normal route back through every habitat. Separate final-defeat fixtures cover recovery, Continue and retry for all three. This does not add travel cinematics or credits, replace the remaining inherited maps, prove final balance, or represent naturally accumulated defeat damage."
 }

@@ -517,8 +517,14 @@ Amazon_EventScript_PartyNotEmpty::
     release
     end
 Amazon_EventScript_CampaignWelcome::
-    msgbox Amazon_Text_CampaignWelcome, MSGBOX_DEFAULT
+    msgbox Amazon_Text_CampaignWelcome, MSGBOX_YESNO
+    goto_if_eq VAR_RESULT, YES, Amazon_EventScript_ReturnToSanctuary
     release
+    end
+Amazon_EventScript_ReturnToSanctuary::
+    closemessage
+    warp MAP_CERULEAN_CITY, 5, 9
+    waitstate
     end
 Amazon_Text_Welcome::
     .string "Nossa jornada começa aqui!\p"
@@ -553,7 +559,8 @@ Amazon_Text_GrantFailed::
 Amazon_Text_CampaignWelcome::
     .string "Você voltou, guardiao!\p"
     .string "A vila celebra os habitats vivos\n"
-    .string "e as cinco pedras reunidas.$"
+    .string "e as cinco pedras reunidas.\p"
+    .string "Voltar agora ao Santuário?$"
 
 Amazon_EventScript_Returned::
     call EventScript_OutOfCenterPartyHeal

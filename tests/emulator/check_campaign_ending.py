@@ -117,6 +117,21 @@ def inspect_post_campaign_guide(emu, symbols, output):
     assert after == before, (before, after)
 
 
+def return_to_sanctuary_via_guide(emu, symbols, output):
+    before = snapshot(emu, symbols)
+    assert before["map"] == "3/0" and before["position"] == [8, 9], before
+    emu.send("run 64 12\nrun 0 20\nrun 1 12\nrun 0 300")
+    assert emu.read(symbols["sLockFieldControls"]) != 0
+    emu.send(press_a(2, 300))
+    assert emu.read(symbols["sLockFieldControls"]) != 0
+    emu.send(f"shot {output}")
+    emu.send(press_a(1, 600))
+    returned = snapshot(emu, symbols)
+    assert returned["map"] == "3/3" and returned["position"] == [5, 9], returned
+    assert emu.read(symbols["sLockFieldControls"]) == 0
+    return returned
+
+
 def check(args):
     args.output.mkdir(parents=True, exist_ok=True)
     assert not any(args.output.iterdir()), "Use a fresh output directory."
@@ -222,6 +237,15 @@ def check(args):
         inspect_post_campaign_guide(
             emu, symbols, args.output / "post-campaign-guide.ppm"
         )
+        guide_return = return_to_sanctuary_via_guide(
+            emu, symbols, args.output / "guide-return-choice.ppm"
+        )
+        assert campaign_flag_bytes(emu, symbols) == ended_flags
+        assert key_items(emu, symbols) == items_after
+        assert party_identities(emu, symbols) == identities
+        second_village_return = return_to_village_via_sanctuary(
+            emu, symbols, args.output / "second-sanctuary-return-prompt.ppm"
+        )
         sanctuary_revisit = revisit_rare_lands_from_village(emu, symbols)
         inspect_sanctuary(
             emu, symbols, args.output / "sanctuary-after-village-return.ppm"
@@ -248,19 +272,22 @@ def check(args):
         party_identities=continued_identities,
         continued_flag_bytes=list(continued_flags),
         rare_stone_markers_checked=["water", "roots", "drought", "forest", "flood"],
-        restored_sanctuary_visits=3,
+        restored_sanctuary_visits=4,
         staged_sanctuary_reveal=True,
         optional_return_to_village=True,
         village_return=village_return,
         post_campaign_guide_reception=True,
+        optional_guide_return_to_sanctuary=True,
+        guide_return_to_sanctuary=guide_return,
+        second_village_return=second_village_return,
         sanctuary_revisit_after_village=sanctuary_revisit,
         stones={"water": items_after[361], "roots": items_after[362],
                 "drought": items_after[363], "forest": items_after[364],
                 "flood": items_after[365]},
         scope=("Native five-stone save; Pantanal east transition; Tio Sam battle, "
                "expanded ending, restored sanctuary before and after ordinary save/Continue, "
-               "optional return to the village, post-campaign guide reception and "
-               "a full-path sanctuary revisit. "
+               "optional return to the village, post-campaign guide reception, optional "
+               "guide return to the sanctuary and a full-path sanctuary revisit. "
                "Uses provisional inherited map art and does not claim final balance, "
                "credits or a polished ending."),
     )
