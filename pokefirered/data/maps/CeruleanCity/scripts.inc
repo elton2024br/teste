@@ -23,6 +23,7 @@ Amazon_EventScript_TioSamEnding::
 	playfanfare MUS_LEVEL_UP
 	waitfanfare
 	msgbox Amazon_Text_CampaignFinal, MSGBOX_DEFAULT
+	msgbox Amazon_Text_CampaignEpilogue, MSGBOX_DEFAULT
 	release
 	end
 Amazon_EventScript_TioSamLocked::
@@ -65,6 +66,13 @@ Amazon_Text_CampaignFinal::
 	.string "O santuario reconhece você como\n"
 	.string "guardiao deste equilíbrio.\p"
 	.string "FIM DA CAMPANHA ATUAL$"
+Amazon_Text_CampaignEpilogue::
+	.string "Da Vila da Floresta às Terras\n"
+	.string "Raras, cada habitat respira.\p"
+	.string "As cinco pedras protegem a vida;\n"
+	.string "nao pertencem a uma só pessoa.\p"
+	.string "Sua jornada como guardiao\n"
+	.string "continua por todo o Brasil.$"
 Amazon_Text_TioSamLocked::
 	.string "Volte quando reunir as cinco pedras.$"
 Amazon_Text_CampaignDone::

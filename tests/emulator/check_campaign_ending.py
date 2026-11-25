@@ -182,6 +182,9 @@ def check(args):
         emu.send(press_a(2, 300))
         assert emu.read(symbols["sLockFieldControls"]) != 0
         emu.send(f"shot {args.output / 'sanctuary-reveal-message.ppm'}")
+        emu.send(press_a(4, 300))
+        assert emu.read(symbols["sLockFieldControls"]) != 0
+        emu.send(f"shot {args.output / 'campaign-epilogue.ppm'}")
         for _ in range(12):
             if emu.read(symbols["sLockFieldControls"]) == 0:
                 break
@@ -274,6 +277,7 @@ def check(args):
         rare_stone_markers_checked=["water", "roots", "drought", "forest", "flood"],
         restored_sanctuary_visits=4,
         staged_sanctuary_reveal=True,
+        campaign_epilogue=True,
         optional_return_to_village=True,
         village_return=village_return,
         post_campaign_guide_reception=True,
