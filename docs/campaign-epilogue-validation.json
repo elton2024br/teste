@@ -11,24 +11,40 @@
     "controls_released_after_message": true
   },
   "emulator": {
-    "partner": "capivagua",
-    "fresh_campaign_from_new_game": "PASS",
-    "battles_won": 6,
+    "partners": ["capivagua", "ararafogo", "tatupedra"],
+    "fresh_campaigns_from_new_game": 3,
+    "battles_won": 18,
     "five_stones": true,
     "normal_save_continue_after_each_stage": true,
-    "tio_sam_battle_input_cycles": 51,
+    "tio_sam_battle_input_cycles": {
+      "capivagua": 51,
+      "ararafogo": 45,
+      "tatupedra": 46
+    },
     "campaign_epilogue": "PASS",
     "restored_sanctuary_visits": 4,
     "bidirectional_postgame_travel": "PASS",
     "full_path_sanctuary_revisit": "PASS",
     "party_identity_preserved": true,
     "final_flag_bytes": [255, 0, 224, 7],
-    "final_defeat_recovery_continue_retry": "PASS",
-    "final_defeat_input_cycles": 18,
-    "final_retry_input_cycles": 51
+    "final_defeat_recovery_continue_retry": {
+      "capivagua": "PASS",
+      "ararafogo": "PASS",
+      "tatupedra": "PASS"
+    },
+    "final_defeat_input_cycles": {
+      "capivagua": 18,
+      "ararafogo": 18,
+      "tatupedra": 18
+    },
+    "final_retry_input_cycles": {
+      "capivagua": 51,
+      "ararafogo": 45,
+      "tatupedra": 51
+    }
   },
   "test": "tests/emulator/check_campaign_ending.py",
   "preview": "docs/screenshots/campaign-epilogue/preview.png",
   "visual_preview_reviewed": true,
-  "scope": "A fresh Capivagua campaign verifies the new text, control locking and release, persistence, postgame travel and normal habitat revisit. The epilogue is a concise message rather than credits or a cinematic. Ararafogo and Tatupedra retain full end-to-end evidence on the immediately preceding ROM hash because this change is partner-independent."
+  "scope": "Fresh campaigns for all three partners verify the new text, control locking and release, persistence, postgame travel and normal habitat revisit on the same ROM hash. Separate final-defeat fixtures cover recovery, Continue and retry for all three. The epilogue is a concise message rather than credits or a cinematic, and the HP=1 defeats do not represent naturally accumulated damage."
 }
