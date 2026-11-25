@@ -1,4 +1,4 @@
-"""Install a small dry Caatinga clearing around the third mission.
+"""Install a dry Caatinga clearing around the third mission.
 
 The campaign still reuses Pewter City's wider layout.  This localized patch
 replaces only the inherited plaza beneath the mission agent and its approach
@@ -16,15 +16,14 @@ WIDTH = 48
 HEIGHT = 40
 
 DRY_GROUND_METATILE = 0x0D4
-CLEARING_CELLS = {
-    (20, 8), (21, 8), (22, 8), (23, 8), (24, 8),
-    (20, 9), (21, 9), (22, 9), (23, 9), (24, 9),
-    (20, 10), (21, 10), (22, 10), (23, 10), (24, 10),
-    (20, 11), (21, 11), (22, 11), (23, 11), (24, 11),
-}
+# Four flowering cells remain as small islands of drought-resistant growth.
+BLOOM_CELLS = {(29, 8), (31, 8), (28, 9), (30, 9)}
+CLEARING_CELLS = ({(x, y) for x in range(20, 32) for y in range(8, 12)}
+                  - BLOOM_CELLS)
 CAMPAIGN_CELLS = {(23, 8), (23, 9), (24, 9)}
 EXPECTED_OLD = {
-    0x1B9, 0x1BA, 0x1C1, 0x1C2, 0x1C3, 0x1C9, DRY_GROUND_METATILE
+    0x001, 0x008, 0x009, 0x1B9, 0x1BA, 0x1C1, 0x1C2, 0x1C3, 0x1C9,
+    DRY_GROUND_METATILE,
 }
 
 
@@ -37,7 +36,7 @@ def main():
         assert old_metatile in EXPECTED_OLD, (x, y, hex(blocks[index]))
         blocks[index] = (blocks[index] & 0xFC00) | DRY_GROUND_METATILE
     MAP.write_bytes(struct.pack(f"<{WIDTH * HEIGHT}H", *blocks))
-    print("Installed 20 dry-ground Caatinga clearing cells; attributes preserved.")
+    print("Installed 44 dry-ground Caatinga clearing cells; four blooms preserved.")
 
 
 if __name__ == "__main__":
